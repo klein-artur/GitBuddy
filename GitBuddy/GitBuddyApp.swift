@@ -18,7 +18,7 @@ struct GitBuddyApp: App {
         .commands {
             CommandGroup(replacing: .newItem) {
                 Button {
-                    print("clicked")
+                    appDelegate.openFile()
                 } label: {
                     Text("Open")
                 }
