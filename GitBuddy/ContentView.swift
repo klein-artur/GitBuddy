@@ -6,14 +6,14 @@
 //
 
 import SwiftUI
+import GitCaller
 
 struct ContentView: View {
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+            Button("Test") {
+                print(Git().add.all().run())
+            }
         }
         .padding()
     }
