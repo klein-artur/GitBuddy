@@ -20,3 +20,13 @@ extension String: Localizable {
         return String(format: self, arguments: arguments)
     }
 }
+
+extension String {
+    var url: URL? {
+        URL(string: self.replacingOccurrences(of: " ", with: "%20"))
+    }
+    
+    var lastPathComponent: String? {
+        self.url?.lastPathComponent
+    }
+}

@@ -8,7 +8,7 @@
 import SwiftUI
 import GitCaller
 
-struct ContentView: View {
+struct RepoView: View {
     var body: some View {
         VStack {
             Button("Test") {
@@ -21,6 +21,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        RepoView()
     }
 }

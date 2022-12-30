@@ -6,8 +6,11 @@
 //
 
 import Cocoa
+import Combine
 
 class AppDelegate: NSObject, NSApplicationDelegate {
+    
+    @Published var currentRepoDir: String? = nil
     
     func openFile() {
         let dialog = NSOpenPanel();
@@ -32,6 +35,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     fileprivate func openRepo(path: String) {
         FileManager.default.changeCurrentDirectoryPath(path)
+        currentRepoDir = path
     }
     
 }
