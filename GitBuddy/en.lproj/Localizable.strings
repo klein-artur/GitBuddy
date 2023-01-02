@@ -10,3 +10,10 @@
 "Open" = "Open";
 
 "choose repository title" = "Open Repository";
+
+"path not selected info" = "Open a Repository by hitting ⌘O.";
+
+// No Repo View:
+"not a repo info" = "This is not a repository.";
+"create Repo" = "Create";
+"clone repo" = "Clone";

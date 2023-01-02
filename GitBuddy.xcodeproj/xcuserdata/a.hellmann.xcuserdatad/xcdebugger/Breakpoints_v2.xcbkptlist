@@ -7,22 +7,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "EC3C2EAB-F327-4362-8622-D7C1D67C9340"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "GitBuddy/Views/GitBuddyApp.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "27"
-            endingLineNumber = "27"
-            landmarkName = "body"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "681338D3-9168-4784-B5EF-F84FF49DFB20"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -34,6 +18,438 @@
             endingLineNumber = "19"
             landmarkName = "repoPathPublisher"
             landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "71928E2D-D25D-44F6-B1A5-BCD34C69A24E"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../GitCaller/Sources/GitCaller/GitCaller.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "106"
+            endingLineNumber = "106"
+            landmarkName = "run()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5BF94A92-5049-4CB8-9DEF-BA30DE1E29E2"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GitBuddy/AppDelegate.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "27"
+            endingLineNumber = "27"
+            landmarkName = "openFile()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6B3AC62F-6698-4C11-8400-168DFE70F24F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../GitCaller/Tests/GitCallerTests/Parser/ParserTestStatus.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "12"
+            endingLineNumber = "12"
+            landmarkName = "ParserTestStatus"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6C56EE74-37A4-4F7E-ABCF-10090628ACE7"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../GitCaller/Sources/GitCaller/Commands/Parser/StatusParser.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "33"
+            endingLineNumber = "33"
+            landmarkName = "parse(result:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "6C56EE74-37A4-4F7E-ABCF-10090628ACE7 - a014c831eee9b5d5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "GitCaller.StatusParser.parse(result: Swift.String) -&gt; Swift.Result&lt;GitCaller.GitStatus, GitCaller.ParseError&gt;"
+                  moduleName = "GitCallerTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/a.hellmann/DEV/private/GitCaller/Sources/GitCaller/Commands/Parser/StatusParser.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "26"
+                  endingLineNumber = "26"
+                  offsetFromSymbolStart = "404">
+               </Location>
+               <Location
+                  uuid = "6C56EE74-37A4-4F7E-ABCF-10090628ACE7 - a014c831eee9b5d5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "GitCaller.StatusParser.parse(result: Swift.String) -&gt; Swift.Result&lt;GitCaller.GitStatus, GitCaller.ParseError&gt;"
+                  moduleName = "GitCallerTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/a.hellmann/DEV/private/GitCaller/Sources/GitCaller/Commands/Parser/StatusParser.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "26"
+                  endingLineNumber = "26"
+                  offsetFromSymbolStart = "468">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "818A9297-9E67-4516-9935-461C5D4C7304"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../GitCaller/Tests/GitCallerTests/Parser/ParserTestStatus.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "24"
+            endingLineNumber = "24"
+            landmarkName = "testNoChangesUpToDateNothingToCommit()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "959CA3C8-8982-402C-8E0C-2C2EAF6D0AA2"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GitBuddy/Views/Repository/RepoView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "19"
+            endingLineNumber = "19"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "AF4F16A5-12BC-4D76-B14E-8BF58A8BC3E2"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../GitCaller/Sources/GitCaller/Commands/Parser.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "79"
+            endingLineNumber = "79"
+            landmarkName = "finalResult()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "AF4F16A5-12BC-4D76-B14E-8BF58A8BC3E2 - bb662eb2fdc78498"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for GitCaller.Parsable&lt; where &#x3c4;_0_0.Success == &#x3c4;_0_0.ParserType.Success&gt;.finalResult() async throws -&gt; &#x3c4;_0_0.Success"
+                  moduleName = "GitBuddy"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/a.hellmann/DEV/private/GitCaller/Sources/GitCaller/Commands/Parser.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "62"
+                  endingLineNumber = "62"
+                  offsetFromSymbolStart = "196">
+               </Location>
+               <Location
+                  uuid = "AF4F16A5-12BC-4D76-B14E-8BF58A8BC3E2 - 7850b93911cc09a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for GitCaller.Parsable&lt; where &#x3c4;_0_0.Success == &#x3c4;_0_0.ParserType.Success&gt;.finalResult() async throws -&gt; &#x3c4;_0_0.Success"
+                  moduleName = "GitBuddy"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/a.hellmann/DEV/private/GitCaller/Sources/GitCaller/Commands/Parser.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "62"
+                  endingLineNumber = "62"
+                  offsetFromSymbolStart = "88">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2D93BB0D-9823-4899-9DE3-DE4A1F97FED0"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../GitCaller/Sources/GitCaller/Extensions/Combine+async.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "22"
+            endingLineNumber = "22"
+            landmarkName = "async()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5B33B1D4-0E99-4593-BDA6-D2ADAAEBE882"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../GitCaller/Sources/GitCaller/GitCaller.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
+            landmarkName = "request(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "5B33B1D4-0E99-4593-BDA6-D2ADAAEBE882 - 791b242de32aba88"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "GitCaller.GitCall.GitCallSubscription.request(Combine.Subscribers.Demand) -&gt; ()"
+                  moduleName = "GitBuddy"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/a.hellmann/DEV/private/GitCaller/Sources/GitCaller/GitCaller.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "74"
+                  endingLineNumber = "74"
+                  offsetFromSymbolStart = "96">
+               </Location>
+               <Location
+                  uuid = "5B33B1D4-0E99-4593-BDA6-D2ADAAEBE882 - ec55f0084b6dcba3"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.String) -&gt; () in GitCaller.GitCall.GitCallSubscription.request(Combine.Subscribers.Demand) -&gt; ()"
+                  moduleName = "GitBuddy"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/a.hellmann/DEV/private/GitCaller/Sources/GitCaller/GitCaller.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "74"
+                  endingLineNumber = "74"
+                  offsetFromSymbolStart = "120">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "AE06A25C-17AA-438D-9417-7D7D983D25D8"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../GitCaller/Sources/GitCaller/GitCaller.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "5"
+            endingLineNumber = "5"
+            landmarkName = "runTask(command:onReceive:onCompletion:)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4FE0ED08-37FD-4345-9EDF-4778A5203861"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../GitCaller/Sources/GitCaller/GitCaller.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "19"
+            endingLineNumber = "19"
+            landmarkName = "runTask(command:onReceive:onCompletion:)"
+            landmarkType = "9">
+            <Locations>
+               <Location
+                  uuid = "4FE0ED08-37FD-4345-9EDF-4778A5203861 - ca3425489401e808"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "GitCaller.runTask(command: Swift.String, onReceive: Swift.Optional&lt;(Swift.String) -&gt; ()&gt;, onCompletion: Swift.Optional&lt;() -&gt; ()&gt;) -&gt; Swift.String"
+                  moduleName = "GitBuddy"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/a.hellmann/DEV/private/GitCaller/Sources/GitCaller/GitCaller.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "19"
+                  endingLineNumber = "19"
+                  offsetFromSymbolStart = "912">
+               </Location>
+               <Location
+                  uuid = "4FE0ED08-37FD-4345-9EDF-4778A5203861 - 3cf8cc53c2f07572"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Sendable (Foundation.Notification) -&gt; () in GitCaller.runTask(command: Swift.String, onReceive: Swift.Optional&lt;(Swift.String) -&gt; ()&gt;, onCompletion: Swift.Optional&lt;() -&gt; ()&gt;) -&gt; Swift.String"
+                  moduleName = "GitBuddy"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/a.hellmann/DEV/private/GitCaller/Sources/GitCaller/GitCaller.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "18"
+                  endingLineNumber = "18"
+                  offsetFromSymbolStart = "268">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A9240BED-1E11-4341-9D5C-5E1519C4FEC9"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../GitCaller/Sources/GitCaller/GitCaller.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "40"
+            endingLineNumber = "40"
+            landmarkName = "runTask(command:onReceive:onCompletion:)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "099F605F-9806-40DB-BF02-059DD54FC430"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../GitCaller/Sources/GitCaller/GitCaller.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "23"
+            endingLineNumber = "23"
+            landmarkName = "runTask(command:onReceive:onCompletion:)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2ACA3A83-2FFB-44F1-9DCC-5C12C3142233"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../GitCaller/Sources/GitCaller/GitCaller.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "16"
+            endingLineNumber = "16"
+            landmarkName = "runTask(command:onReceive:onCompletion:)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3DF60876-81F4-4D09-BFB0-DDE3C3425E14"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../GitCaller/Sources/GitCaller/GitCaller.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "20"
+            endingLineNumber = "20"
+            landmarkName = "runTask(command:onReceive:onCompletion:)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "446AE9CA-EBDF-453E-AAA0-3C5F6C3C0AA9"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../GitCaller/Sources/GitCaller/GitCaller.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "21"
+            endingLineNumber = "21"
+            landmarkName = "runTask(command:onReceive:onCompletion:)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "07F7CDBE-F616-49D3-9869-DED39CD5A346"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GitBuddy/Views/Repository/RepoView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "15"
+            endingLineNumber = "15"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "07F7CDBE-F616-49D3-9869-DED39CD5A346 - 943b954bef5feae6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "GitBuddy.RepoView.body.getter : some"
+                  moduleName = "GitBuddy"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/a.hellmann/DEV/private/GitBuddy/GitBuddy/Views/Repository/RepoView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
+                  offsetFromSymbolStart = "380">
+               </Location>
+               <Location
+                  uuid = "07F7CDBE-F616-49D3-9869-DED39CD5A346 - eaab0f02d253a267"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; Swift.Optional&lt;SwiftUI._ConditionalContent&lt;&lt;&lt;opaque return type of GitBuddy.RepoView.notARepoView : some&gt;&gt;.0, SwiftUI.TupleView&lt;(SwiftUI.Text, SwiftUI.Text)&gt;&gt;&gt; in GitBuddy.RepoView.body.getter : some"
+                  moduleName = "GitBuddy"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/a.hellmann/DEV/private/GitBuddy/GitBuddy/Views/Repository/RepoView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "16"
+                  endingLineNumber = "16"
+                  offsetFromSymbolStart = "952">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

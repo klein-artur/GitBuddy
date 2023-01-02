@@ -15,14 +15,15 @@ struct GitBuddyApp: App {
     
     var body: some Scene {
         WindowGroup {
-            VStack {
+            VStack {
                 if let repoPath = mainViewModel.repoPath {
-                    RepoView()
+                    RepoView(viewModel: RepoViewModel(repoPath: repoPath))
                 } else {
-                    EmptyView()
-                        .frame(width: 100, height: 100)
+                    NoPathSelectedView()
                 }
             }
+            .frame(width: 500, height: 400)
+            .navigationTitle(mainViewModel.repoName ?? "Git Buddy")
             .onAppear {
                 self.mainViewModel.repoPathPublisher = appDelegate.$currentRepoDir
             }
