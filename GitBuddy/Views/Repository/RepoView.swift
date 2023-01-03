@@ -8,6 +8,7 @@
 import SwiftUI
 import Combine
 import GitCaller
+import GitParser
 
 struct RepoView: View {
     @ObservedObject var viewModel: RepoViewModel

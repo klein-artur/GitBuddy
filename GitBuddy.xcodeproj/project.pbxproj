@@ -17,6 +17,8 @@
 		F4445AA8295E7BDB0053D9B0 /* RepoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4445AA7295E7BDB0053D9B0 /* RepoViewModel.swift */; };
 		F447A38A2963B8D60056FDEF /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = F447A3892963B8D60056FDEF /* Loading.swift */; };
 		F447A38E2963C2C00056FDEF /* ErrorAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = F447A38D2963C2C00056FDEF /* ErrorAlert.swift */; };
+		F447A3942964880A0056FDEF /* ParsingExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F447A3932964880A0056FDEF /* ParsingExtensions.swift */; };
+		F447A396296488BD0056FDEF /* GitParser in Frameworks */ = {isa = PBXBuildFile; productRef = F447A395296488BD0056FDEF /* GitParser */; };
 		F47CB917295DD7AD00A47BA8 /* GitBuddyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47CB916295DD7AD00A47BA8 /* GitBuddyApp.swift */; };
 		F47CB919295DD7AD00A47BA8 /* RepoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47CB918295DD7AD00A47BA8 /* RepoView.swift */; };
 		F47CB91B295DD7AF00A47BA8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F47CB91A295DD7AF00A47BA8 /* Assets.xcassets */; };
@@ -46,6 +48,8 @@
 		F4445AA7295E7BDB0053D9B0 /* RepoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RepoViewModel.swift; path = ../../../../../../Desktop/RepoViewModel.swift; sourceTree = "<group>"; };
 		F447A3892963B8D60056FDEF /* Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loading.swift; sourceTree = "<group>"; };
 		F447A38D2963C2C00056FDEF /* ErrorAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAlert.swift; sourceTree = "<group>"; };
+		F447A3912964877D0056FDEF /* GitParser */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = GitParser; path = ../GitParser; sourceTree = "<group>"; };
+		F447A3932964880A0056FDEF /* ParsingExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParsingExtensions.swift; sourceTree = "<group>"; };
 		F47CB913295DD7AD00A47BA8 /* GitBuddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GitBuddy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F47CB916295DD7AD00A47BA8 /* GitBuddyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitBuddyApp.swift; sourceTree = "<group>"; };
 		F47CB918295DD7AD00A47BA8 /* RepoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoView.swift; sourceTree = "<group>"; };
@@ -67,6 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F447A396296488BD0056FDEF /* GitParser in Frameworks */,
 				F47CB928295DD82300A47BA8 /* GitCaller in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -78,6 +83,7 @@
 			isa = PBXGroup;
 			children = (
 				F4445A8E295E52810053D9B0 /* String.swift */,
+				F447A3932964880A0056FDEF /* ParsingExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -132,6 +138,7 @@
 		F47CB90A295DD7AD00A47BA8 = {
 			isa = PBXGroup;
 			children = (
+				F447A3912964877D0056FDEF /* GitParser */,
 				F47CB925295DD80A00A47BA8 /* GitCaller */,
 				F47CB915295DD7AD00A47BA8 /* GitBuddy */,
 				F4445A97295E58790053D9B0 /* GitBuddyTests */,
@@ -214,6 +221,7 @@
 			name = GitBuddy;
 			packageProductDependencies = (
 				F47CB927295DD82300A47BA8 /* GitCaller */,
+				F447A395296488BD0056FDEF /* GitParser */,
 			);
 			productName = GitBuddy;
 			productReference = F47CB913295DD7AD00A47BA8 /* GitBuddy.app */;
@@ -298,6 +306,7 @@
 				F47CB919295DD7AD00A47BA8 /* RepoView.swift in Sources */,
 				F447A38E2963C2C00056FDEF /* ErrorAlert.swift in Sources */,
 				F4445AA5295E687D0053D9B0 /* NoPathSelectedView.swift in Sources */,
+				F447A3942964880A0056FDEF /* ParsingExtensions.swift in Sources */,
 				F4445A8F295E52810053D9B0 /* String.swift in Sources */,
 				F47CB917295DD7AD00A47BA8 /* GitBuddyApp.swift in Sources */,
 				F4445AA3295E5C7F0053D9B0 /* BaseViewModel.swift in Sources */,
@@ -581,6 +590,10 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		F447A395296488BD0056FDEF /* GitParser */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = GitParser;
+		};
 		F47CB927295DD82300A47BA8 /* GitCaller */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = GitCaller;
