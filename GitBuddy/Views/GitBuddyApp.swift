@@ -18,12 +18,11 @@ struct GitBuddyApp: App {
             VStack {
                 if let repoPath = mainViewModel.repoPath {
                     RepoView(viewModel: RepoViewModel(repoPath: repoPath, appDelegate: appDelegate))
-                        .frame(width: 500, height: 400)
                 } else {
                     NoPathSelectedView()
+                        .frame(width: 500, height: 400)
                 }
             }
-            .frame(width: 500, height: 400)
             .navigationTitle(mainViewModel.repoName ?? "Git Buddy")
             .onAppear {
                 self.mainViewModel.repoPathPublisher = appDelegate.$currentRepoDir

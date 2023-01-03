@@ -22,3 +22,6 @@
 
 "ok" = "Ok";
 "cancel" = "Cancel";
+
+// Repo Current Branch:
+"local changes" = "%d local changes";
