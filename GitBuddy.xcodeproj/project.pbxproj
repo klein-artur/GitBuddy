@@ -15,6 +15,8 @@
 		F4445AA3295E5C7F0053D9B0 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4445AA2295E5C7F0053D9B0 /* BaseViewModel.swift */; };
 		F4445AA5295E687D0053D9B0 /* NoPathSelectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4445AA4295E687D0053D9B0 /* NoPathSelectedView.swift */; };
 		F4445AA8295E7BDB0053D9B0 /* RepoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4445AA7295E7BDB0053D9B0 /* RepoViewModel.swift */; };
+		F447A38A2963B8D60056FDEF /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = F447A3892963B8D60056FDEF /* Loading.swift */; };
+		F447A38E2963C2C00056FDEF /* ErrorAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = F447A38D2963C2C00056FDEF /* ErrorAlert.swift */; };
 		F47CB917295DD7AD00A47BA8 /* GitBuddyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47CB916295DD7AD00A47BA8 /* GitBuddyApp.swift */; };
 		F47CB919295DD7AD00A47BA8 /* RepoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47CB918295DD7AD00A47BA8 /* RepoView.swift */; };
 		F47CB91B295DD7AF00A47BA8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F47CB91A295DD7AF00A47BA8 /* Assets.xcassets */; };
@@ -42,6 +44,8 @@
 		F4445AA2295E5C7F0053D9B0 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		F4445AA4295E687D0053D9B0 /* NoPathSelectedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoPathSelectedView.swift; sourceTree = "<group>"; };
 		F4445AA7295E7BDB0053D9B0 /* RepoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RepoViewModel.swift; path = ../../../../../../Desktop/RepoViewModel.swift; sourceTree = "<group>"; };
+		F447A3892963B8D60056FDEF /* Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loading.swift; sourceTree = "<group>"; };
+		F447A38D2963C2C00056FDEF /* ErrorAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAlert.swift; sourceTree = "<group>"; };
 		F47CB913295DD7AD00A47BA8 /* GitBuddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GitBuddy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F47CB916295DD7AD00A47BA8 /* GitBuddyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitBuddyApp.swift; sourceTree = "<group>"; };
 		F47CB918295DD7AD00A47BA8 /* RepoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoView.swift; sourceTree = "<group>"; };
@@ -89,6 +93,8 @@
 		F4445AA1295E5C400053D9B0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F447A38C2963C29D0056FDEF /* General */,
+				F447A3882963B8C60056FDEF /* Helper */,
 				F4445AA6295E6A880053D9B0 /* Repository */,
 				F47CB916295DD7AD00A47BA8 /* GitBuddyApp.swift */,
 				F4445A90295E58310053D9B0 /* GitBuddyAppMainViewModel.swift */,
@@ -105,6 +111,22 @@
 				F4445AA7295E7BDB0053D9B0 /* RepoViewModel.swift */,
 			);
 			path = Repository;
+			sourceTree = "<group>";
+		};
+		F447A3882963B8C60056FDEF /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				F447A3892963B8D60056FDEF /* Loading.swift */,
+				F447A38D2963C2C00056FDEF /* ErrorAlert.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		F447A38C2963C29D0056FDEF /* General */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = General;
 			sourceTree = "<group>";
 		};
 		F47CB90A295DD7AD00A47BA8 = {
@@ -270,9 +292,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				F4445AA8295E7BDB0053D9B0 /* RepoViewModel.swift in Sources */,
+				F447A38A2963B8D60056FDEF /* Loading.swift in Sources */,
 				F4445A91295E58310053D9B0 /* GitBuddyAppMainViewModel.swift in Sources */,
 				F4445A68295DE5A90053D9B0 /* AppDelegate.swift in Sources */,
 				F47CB919295DD7AD00A47BA8 /* RepoView.swift in Sources */,
+				F447A38E2963C2C00056FDEF /* ErrorAlert.swift in Sources */,
 				F4445AA5295E687D0053D9B0 /* NoPathSelectedView.swift in Sources */,
 				F4445A8F295E52810053D9B0 /* String.swift in Sources */,
 				F47CB917295DD7AD00A47BA8 /* GitBuddyApp.swift in Sources */,
@@ -486,6 +510,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hellmann.GitBuddy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -514,6 +539,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.hellmann.GitBuddy;
 				PRODUCT_NAME = "$(TARGET_NAME)";

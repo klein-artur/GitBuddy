@@ -17,7 +17,8 @@ struct GitBuddyApp: App {
         WindowGroup {
             VStack {
                 if let repoPath = mainViewModel.repoPath {
-                    RepoView(viewModel: RepoViewModel(repoPath: repoPath))
+                    RepoView(viewModel: RepoViewModel(repoPath: repoPath, appDelegate: appDelegate))
+                        .frame(width: 500, height: 400)
                 } else {
                     NoPathSelectedView()
                 }
@@ -39,7 +40,6 @@ struct GitBuddyApp: App {
             }
             CommandGroup(replacing: .saveItem) {}
             CommandGroup(replacing: .undoRedo) {}
-            CommandGroup(replacing: .pasteboard) {}
             CommandGroup(replacing: .textFormatting) {}
         }
     }

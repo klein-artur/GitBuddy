@@ -17,3 +17,8 @@
 "not a repo info" = "This is not a repository.";
 "create Repo" = "Create";
 "clone repo" = "Clone";
+"clone repo alert title" = "Clone Repository";
+"clone url placeholder" = "URL";
+
+"ok" = "Ok";
+"cancel" = "Cancel";

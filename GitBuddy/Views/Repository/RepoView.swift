@@ -11,6 +11,8 @@ import Combine
 struct RepoView: View {
     @ObservedObject var viewModel: RepoViewModel
     
+    @State var showCloneAlert = false
+    
     var body: some View {
         VStack {
             if viewModel.notAGitRepo {
@@ -20,6 +22,19 @@ struct RepoView: View {
                 Text("upstream is: \(status.branch.upstream?.name ?? "NO")")
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .loading(loadingCount: $viewModel.loadingCount)
+        .alert("clone repo alert title", isPresented: $showCloneAlert, actions: {
+            TextField("clone url placeholder", text: $viewModel.cloneRepoUrl)
+                .frame(width: 800)
+            Button("ok") {
+                viewModel.cloneRepository()
+            }
+            Button("cancel") {
+                showCloneAlert = false
+            }
+        })
+        .gitErrorAlert(gitError: $viewModel.gitError)
         .padding()
     }
     
@@ -30,13 +45,13 @@ struct RepoView: View {
             viewModel.createRepo()
         }
         Button("clone repo") {
-            // viewModel.cloneRepo()
+            showCloneAlert = true
         }
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        RepoView(viewModel: RepoViewModel(repoPath: ""))
+        RepoView(viewModel: RepoViewModel(repoPath: "", appDelegate: AppDelegate()))
     }
 }
