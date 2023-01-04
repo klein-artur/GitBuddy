@@ -26,3 +26,12 @@ extension CommandClone: Parsable {
         return CloneResultParser()
     }
 }
+
+extension CommandLog: Parsable {
+    
+    public typealias Success = LogResult
+    
+    public var parser: LogResultParser {
+        return LogResultParser()
+    }
+}
