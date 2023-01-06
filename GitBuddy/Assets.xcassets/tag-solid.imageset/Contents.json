@@ -1,0 +1,18 @@
+{
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "images" : [
+    {
+      "filename" : "tag-solid~mac@1x.png",
+      "idiom" : "mac",
+      "scale" : "1x"
+    },
+    {
+      "scale" : "2x",
+      "filename" : "tag-solid~mac@2x.png",
+      "idiom" : "mac"
+    }
+  ]
+}

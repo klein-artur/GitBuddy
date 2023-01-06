@@ -24,6 +24,14 @@
 		F47CB91B295DD7AF00A47BA8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F47CB91A295DD7AF00A47BA8 /* Assets.xcassets */; };
 		F47CB91E295DD7AF00A47BA8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F47CB91D295DD7AF00A47BA8 /* Preview Assets.xcassets */; };
 		F47CB928295DD82300A47BA8 /* GitCaller in Frameworks */ = {isa = PBXBuildFile; productRef = F47CB927295DD82300A47BA8 /* GitCaller */; };
+		F4B0409429664485007AD99C /* CommitListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B0409329664485007AD99C /* CommitListView.swift */; };
+		F4B04096296653CD007AD99C /* CommitItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B04095296653CD007AD99C /* CommitItemView.swift */; };
+		F4B04098296653F0007AD99C /* CommitTreeElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B04097296653F0007AD99C /* CommitTreeElementView.swift */; };
+		F4B0409A29665452007AD99C /* CommitListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B0409929665452007AD99C /* CommitListViewModel.swift */; };
+		F4B0409C29665561007AD99C /* CommitTreeItem+drawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B0409B29665561007AD99C /* CommitTreeItem+drawing.swift */; };
+		F4B0409E29665B0F007AD99C /* TagCloudView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B0409D29665B0F007AD99C /* TagCloudView.swift */; };
+		F4B040A029665B3D007AD99C /* BadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B0409F29665B3D007AD99C /* BadgeView.swift */; };
+		F4B040A229665BF4007AD99C /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B040A129665BF4007AD99C /* Date.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +65,14 @@
 		F47CB91D295DD7AF00A47BA8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		F47CB91F295DD7AF00A47BA8 /* GitBuddy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GitBuddy.entitlements; sourceTree = "<group>"; };
 		F47CB925295DD80A00A47BA8 /* GitCaller */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = GitCaller; path = ../GitCaller; sourceTree = "<group>"; };
+		F4B0409329664485007AD99C /* CommitListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommitListView.swift; sourceTree = "<group>"; };
+		F4B04095296653CD007AD99C /* CommitItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommitItemView.swift; sourceTree = "<group>"; };
+		F4B04097296653F0007AD99C /* CommitTreeElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommitTreeElementView.swift; sourceTree = "<group>"; };
+		F4B0409929665452007AD99C /* CommitListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommitListViewModel.swift; sourceTree = "<group>"; };
+		F4B0409B29665561007AD99C /* CommitTreeItem+drawing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CommitTreeItem+drawing.swift"; sourceTree = "<group>"; };
+		F4B0409D29665B0F007AD99C /* TagCloudView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCloudView.swift; sourceTree = "<group>"; };
+		F4B0409F29665B3D007AD99C /* BadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeView.swift; sourceTree = "<group>"; };
+		F4B040A129665BF4007AD99C /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +100,7 @@
 			children = (
 				F4445A8E295E52810053D9B0 /* String.swift */,
 				F447A3932964880A0056FDEF /* ParsingExtensions.swift */,
+				F4B040A129665BF4007AD99C /* Date.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -113,6 +130,7 @@
 		F4445AA6295E6A880053D9B0 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
+				F4B0409229664459007AD99C /* CommitList */,
 				F47CB918295DD7AD00A47BA8 /* RepoView.swift */,
 				F4445AA7295E7BDB0053D9B0 /* RepoViewModel.swift */,
 			);
@@ -131,6 +149,7 @@
 		F447A38C2963C29D0056FDEF /* General */ = {
 			isa = PBXGroup;
 			children = (
+				F4B0409F29665B3D007AD99C /* BadgeView.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -159,6 +178,7 @@
 		F47CB915295DD7AD00A47BA8 /* GitBuddy */ = {
 			isa = PBXGroup;
 			children = (
+				F4B040A329666D22007AD99C /* Model */,
 				F4445AA1295E5C400053D9B0 /* Views */,
 				F4445A8D295E526E0053D9B0 /* Extensions */,
 				F47CB91A295DD7AF00A47BA8 /* Assets.xcassets */,
@@ -183,6 +203,26 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F4B0409229664459007AD99C /* CommitList */ = {
+			isa = PBXGroup;
+			children = (
+				F4B0409329664485007AD99C /* CommitListView.swift */,
+				F4B04095296653CD007AD99C /* CommitItemView.swift */,
+				F4B04097296653F0007AD99C /* CommitTreeElementView.swift */,
+				F4B0409929665452007AD99C /* CommitListViewModel.swift */,
+				F4B0409B29665561007AD99C /* CommitTreeItem+drawing.swift */,
+				F4B0409D29665B0F007AD99C /* TagCloudView.swift */,
+			);
+			path = CommitList;
+			sourceTree = "<group>";
+		};
+		F4B040A329666D22007AD99C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -305,11 +345,19 @@
 				F4445A68295DE5A90053D9B0 /* AppDelegate.swift in Sources */,
 				F47CB919295DD7AD00A47BA8 /* RepoView.swift in Sources */,
 				F447A38E2963C2C00056FDEF /* ErrorAlert.swift in Sources */,
+				F4B040A029665B3D007AD99C /* BadgeView.swift in Sources */,
+				F4B0409E29665B0F007AD99C /* TagCloudView.swift in Sources */,
+				F4B0409C29665561007AD99C /* CommitTreeItem+drawing.swift in Sources */,
+				F4B04098296653F0007AD99C /* CommitTreeElementView.swift in Sources */,
 				F4445AA5295E687D0053D9B0 /* NoPathSelectedView.swift in Sources */,
 				F447A3942964880A0056FDEF /* ParsingExtensions.swift in Sources */,
 				F4445A8F295E52810053D9B0 /* String.swift in Sources */,
+				F4B04096296653CD007AD99C /* CommitItemView.swift in Sources */,
 				F47CB917295DD7AD00A47BA8 /* GitBuddyApp.swift in Sources */,
+				F4B0409A29665452007AD99C /* CommitListViewModel.swift in Sources */,
+				F4B040A229665BF4007AD99C /* Date.swift in Sources */,
 				F4445AA3295E5C7F0053D9B0 /* BaseViewModel.swift in Sources */,
+				F4B0409429664485007AD99C /* CommitListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
