@@ -14,7 +14,6 @@ struct CommitItemView: View {
     var body: some View {
         HStack {
             CommitTreeElementView(commitTreeItem: commitInfo.treeItem)
-                .frame(width: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/)
             VStack(alignment: .leading) {
                 Text(commitInfo.commit.message)
                     .fontWeight(.semibold)
@@ -29,10 +28,9 @@ struct CommitItemView: View {
                 }, backgroundColor: Color(red: 0.60, green: 0.86, blue: 0.60), foregroundColor: .black)
                 HStack {
                     Text(commitInfo.commit.shortHash)
-                        .frame(width: 65, alignment: .leading)
                         .font(Font.system(Font.TextStyle.body, design: Font.Design.monospaced))
+                    Spacer()
                     Text(commitInfo.commit.author.name)
-                        .frame(maxWidth: .infinity, alignment: .leading)
                         .font(Font.system(Font.TextStyle.body, design: Font.Design.monospaced))
                         .lineLimit(1)
                     Text(commitInfo.commit.authorDate
@@ -41,6 +39,7 @@ struct CommitItemView: View {
                 }
                 Divider()
             }
+            .frame(maxWidth: .infinity)
         }
         .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
     }

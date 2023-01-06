@@ -8,6 +8,8 @@
 import Foundation
 import SwiftUI
 
+
+
 extension CommitTreeItem {
     static let colorSet = [
         Color(red: 0.19, green: 0.36, blue: 0.62),
@@ -28,6 +30,10 @@ extension CommitTreeItem {
             realIndex += 1
         }
         return CommitTreeItem.colorSet[realIndex]
+    }
+    
+    var calculatedWidth: CGFloat {
+        Self.leftPadding + Self.branchShift * CGFloat(self.branches.count)
     }
 }
 

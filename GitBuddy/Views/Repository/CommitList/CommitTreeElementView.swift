@@ -18,6 +18,7 @@ struct CommitTreeElementView: View {
                     .fill(CommitTreeItem.color(for: commitTreeItem.branches[branchIndex].trace))
             }
         }
+        .frame(width: commitTreeItem.calculatedWidth)
     }
 }
 

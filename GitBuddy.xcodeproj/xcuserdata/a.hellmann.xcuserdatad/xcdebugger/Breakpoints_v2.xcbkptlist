@@ -668,8 +668,8 @@
             filePath = "GitBuddy/Views/Repository/CommitList/CommitItemView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "28"
-            endingLineNumber = "28"
+            startingLineNumber = "27"
+            endingLineNumber = "27"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -877,6 +877,23 @@
             startingLineNumber = "201"
             endingLineNumber = "201"
             landmarkName = "getCommitTreeItem(for:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "87A5419A-736A-4BC4-8569-53A69D8E253B"
+            shouldBeEnabled = "Yes"
+            condition = "commit.shortHash == &quot;11e95f910&quot;"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GitBuddy/Views/Repository/CommitList/CommitListViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "407"
+            endingLineNumber = "407"
+            landmarkName = "calculateNext(of:currentCommit:nextCommit:index:position:standingOpenings:shiftWaiters:shifts:into:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

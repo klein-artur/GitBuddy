@@ -331,9 +331,14 @@ class CommitList: BidirectionalCollection {
     
     private func findMergePathIndex(for commit: Commit, in pathList: [GitPath]) -> Int? {
         return pathList.firstIndex { (other) -> Bool in
-            
             switch other.currentStep {
             case let .commit(otherCommit):
+                return otherCommit == commit
+            default: break
+            }
+            
+            switch other.nextStep {
+            case .commit(let otherCommit):
                 return otherCommit == commit
             default: break
             }
