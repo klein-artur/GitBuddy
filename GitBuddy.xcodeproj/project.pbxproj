@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F4357CE52968FD2800067E03 /* GitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4357CE42968FD2800067E03 /* GitService.swift */; };
 		F4445A68295DE5A90053D9B0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4445A67295DE5A90053D9B0 /* AppDelegate.swift */; };
 		F4445A6B295DEB580053D9B0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F4445A6D295DEB580053D9B0 /* Localizable.strings */; };
 		F4445A8F295E52810053D9B0 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4445A8E295E52810053D9B0 /* String.swift */; };
@@ -45,6 +46,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F4357CE42968FD2800067E03 /* GitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitService.swift; sourceTree = "<group>"; };
 		F4445A67295DE5A90053D9B0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F4445A6C295DEB580053D9B0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F4445A8E295E52810053D9B0 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
@@ -95,6 +97,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F4357CE32968FD1200067E03 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				F4357CE42968FD2800067E03 /* GitService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		F4445A8D295E526E0053D9B0 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -178,6 +188,7 @@
 		F47CB915295DD7AD00A47BA8 /* GitBuddy */ = {
 			isa = PBXGroup;
 			children = (
+				F4357CE32968FD1200067E03 /* Services */,
 				F4B040A329666D22007AD99C /* Model */,
 				F4445AA1295E5C400053D9B0 /* Views */,
 				F4445A8D295E526E0053D9B0 /* Extensions */,
@@ -355,6 +366,7 @@
 				F4B04096296653CD007AD99C /* CommitItemView.swift in Sources */,
 				F47CB917295DD7AD00A47BA8 /* GitBuddyApp.swift in Sources */,
 				F4B0409A29665452007AD99C /* CommitListViewModel.swift in Sources */,
+				F4357CE52968FD2800067E03 /* GitService.swift in Sources */,
 				F4B040A229665BF4007AD99C /* Date.swift in Sources */,
 				F4445AA3295E5C7F0053D9B0 /* BaseViewModel.swift in Sources */,
 				F4B0409429664485007AD99C /* CommitListView.swift in Sources */,

@@ -59,6 +59,7 @@ struct TagCloudView: View {
                             .frame(width: 14, height: 14)
                             .padding(.trailing, -4)
                         Text(tag.text)
+                            .lineLimit(1)
                             .foregroundColor(foregroundColor)
                     }
                 }

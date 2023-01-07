@@ -105,6 +105,7 @@ struct CommitTreeElementView_Previews: PreviewProvider {
                 commit: Commit(
                     objectHash: "SomeHash",
                     shortHash: "ShortH",
+                    subject: "Some Message",
                     message: "Some Message",
                     author: Person(name: "John Doe", email: "john@doe.com"),
                     authorDate: .now,

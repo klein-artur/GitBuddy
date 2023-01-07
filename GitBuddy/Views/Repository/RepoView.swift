@@ -56,10 +56,13 @@ struct RepoView: View {
         VStack(alignment: .leading) {
             currentBranchView(status: status)
             Divider()
-            if let log = viewModel.gitLog {
-                CommitListView(commitListViewModel: CommitListViewModel(gitLog: log))
-            } else {
-                Spacer()
+            TabView {
+                if let log = viewModel.gitLog {
+                    CommitListView(commitListViewModel: CommitListViewModel(gitLog: log))
+                        .tabItem {
+                            Text("Commits")
+                        }
+                }
             }
         }
     }

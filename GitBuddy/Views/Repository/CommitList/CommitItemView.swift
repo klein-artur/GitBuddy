@@ -15,7 +15,7 @@ struct CommitItemView: View {
         HStack {
             CommitTreeElementView(commitTreeItem: commitInfo.treeItem)
             VStack(alignment: .leading) {
-                Text(commitInfo.commit.message)
+                Text(commitInfo.commit.subject)
                     .fontWeight(.semibold)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .font(Font.system(Font.TextStyle.body, design: Font.Design.monospaced))
@@ -52,6 +52,7 @@ struct CommitItemView_Previews: PreviewProvider {
                 commit: Commit(
                     objectHash: "SomeHash",
                     shortHash: "Some",
+                    subject: "Some Message",
                     message: "Some Message",
                     author: Person(name: "John Doe", email: "john@doe.com"),
                     authorDate: .now,
@@ -96,6 +97,7 @@ struct CommitItemView_Previews: PreviewProvider {
                         commit: Commit(
                             objectHash: "SomeHash",
                             shortHash: "ShortH",
+                            subject: "Some Message",
                             message: "Some Message",
                             author: Person(name: "John Doe", email: "john@doe.com"),
                             authorDate: .now,

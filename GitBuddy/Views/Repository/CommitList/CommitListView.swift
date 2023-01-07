@@ -20,6 +20,7 @@ struct CommitListView: View {
                         .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
                 }
             }
+            .padding(.trailing, 16)
         }
     }
 }
@@ -34,6 +35,7 @@ struct CommitListView_Previews: PreviewProvider {
                         Commit(
                             objectHash: "OneSomeHash",
                             shortHash: "OneSome",
+                            subject: "Some Message",
                             message: "Some Message",
                             author: Person(name: "John Doe", email: "john@doe.com"),
                             authorDate: .now,
@@ -46,6 +48,7 @@ struct CommitListView_Previews: PreviewProvider {
                         Commit(
                             objectHash: "TwoSomeHashTwo",
                             shortHash: "OneSome",
+                            subject: "Some Message",
                             message: "Some Message",
                             author: Person(name: "John Doe", email: "john@doe.com"),
                             authorDate: .now,
@@ -58,6 +61,7 @@ struct CommitListView_Previews: PreviewProvider {
                         Commit(
                             objectHash: "ThreeSomeHashThree",
                             shortHash: "OneSome",
+                            subject: "Some Message",
                             message: "Some Message",
                             author: Person(name: "John Doe", email: "john@doe.com"),
                             authorDate: .now,
@@ -70,6 +74,7 @@ struct CommitListView_Previews: PreviewProvider {
                         Commit(
                             objectHash: "FourSomeHashFour",
                             shortHash: "OneSome",
+                            subject: "Some Message",
                             message: "Some Message",
                             author: Person(name: "John Doe", email: "john@doe.com"),
                             authorDate: .now,
@@ -82,6 +87,7 @@ struct CommitListView_Previews: PreviewProvider {
                         Commit(
                             objectHash: "FiveSomeHashFive",
                             shortHash: "OneSome",
+                            subject: "Some Message",
                             message: "Some Message",
                             author: Person(name: "John Doe", email: "john@doe.com"),
                             authorDate: .now,
