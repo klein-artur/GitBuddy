@@ -214,19 +214,11 @@ class CommitList: BidirectionalCollection {
                 treeBranches.append(
                     CommitTreeBranch(incoming: incoming, outgoing: [Line(begins: index, ends: index, isShift: false)], hasBubble: true, trace: path.trace)
                 )
-            case .fallThrough(_, let closes, let opens, let shiftBy):
-                var outgo = [Line(begins: index - shiftBy, ends: index - shiftBy, isShift: false)]
-                
-                if let closes = closes {
-                    outgo.append(Line(begins: closes, ends: index - shiftBy, isShift: false))
-                }
-                
-                if let opens = opens {
-                    outgo.append(Line(begins: opens, ends: index - shiftBy, isShift: false))
-                }
+            case .fallThrough(_, _, _, let shiftBy):
+                var income = [Line(begins: index, ends: index, isShift: false)]
                 
                 treeBranches.append(
-                    CommitTreeBranch(incoming: [Line(begins: index, ends: index - shiftBy, isShift: shiftBy != 0)], outgoing: outgo, hasBubble: false, trace: path.trace)
+                    CommitTreeBranch(incoming: income, outgoing: [Line(begins: index, ends: index - shiftBy, isShift: shiftBy != 0)], hasBubble: false, trace: path.trace)
                 )
             default: break
             }

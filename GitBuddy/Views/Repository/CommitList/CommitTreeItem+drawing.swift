@@ -18,11 +18,12 @@ extension CommitTreeItem {
         Color(red: 0.51, green: 0.41, blue: 0.57),
         Color(red: 0.65, green: 0.60, blue: 0.41)
     ]
-    static let paddingOverdraw = CGFloat(3)
+    static let paddingOverdraw = CGFloat(5)
     static let leftPadding = CGFloat(8)
     static let branchShift = CGFloat(15)
-    static let bubbleRadius = CGFloat(3)
+    static let bubbleRadius = CGFloat(5)
     static let lineWidth = CGFloat(3)
+    static let lineShiftCurveFlattnes = CGFloat(0.5)
     
     static func color(for index: Int) -> Color {
         var realIndex = index % 4
@@ -45,59 +46,73 @@ extension CommitTreeBranch {
         var path = Path()
         
         incoming.forEach {
+            
+            let isChange = $0.begins != $0.ends
+            
             let startPosition = CommitTreeItem.leftPadding + CGFloat($0.begins) * CommitTreeItem.branchShift
             let endPosition = CGFloat($0.ends) * CommitTreeItem.branchShift + CommitTreeItem.leftPadding
             let startPoint = CGPoint(x: startPosition, y: 0 - CommitTreeItem.paddingOverdraw)
-            let endPoint = calculateNewEndPoint(between: startPoint, and: CGPoint(x: endPosition, y: centerY), withBubble: hasBubble, isShift: $0.isShift)
+            let endPoint = CGPoint(x: endPosition, y: centerY)
+            
             path.move(to: startPoint)
-            path.addLine(to: endPoint.point)
+            
+            if !isChange {
+                path.addLine(to: endPoint)
+            } else {
+                if $0.isShift {
+                    path.addCurve(
+                        to: endPoint,
+                        control1: CGPoint(x: CommitTreeItem.leftPadding + CGFloat($0.begins) * CommitTreeItem.branchShift, y: centerY - CommitTreeItem.lineShiftCurveFlattnes * centerY),
+                        control2: CGPoint(x: CommitTreeItem.leftPadding + CGFloat($0.ends) * CommitTreeItem.branchShift, y: CommitTreeItem.lineShiftCurveFlattnes * centerY)
+                    )
+                } else {
+                    path.addQuadCurve(to: endPoint, control: CGPoint(x: CommitTreeItem.leftPadding + CGFloat($0.begins) * CommitTreeItem.branchShift, y: centerY))
+                }
+            }
         }
         
         outgoing.forEach {
+            let isChange = $0.begins != $0.ends
+            
             let startPosition = CGFloat($0.begins) * CommitTreeItem.branchShift + CommitTreeItem.leftPadding
             let endPosition = CommitTreeItem.leftPadding + CGFloat($0.ends) * CommitTreeItem.branchShift
             let endPoint = CGPoint(x: endPosition, y: rect.maxY + CommitTreeItem.paddingOverdraw)
-            let startPoint = calculateNewStartPoint(between: CGPoint(x: startPosition, y: centerY), and: endPoint, withBubble: hasBubble, isShift: $0.isShift)
-            path.move(to: startPoint.point)
-            path.addLine(to: endPoint)
+            let startPoint = CGPoint(x: startPosition, y: centerY)
+            
+            path.move(to: startPoint)
+//
+            if !isChange {
+                path.addLine(to: endPoint)
+            } else {
+                if $0.isShift {
+                    path.addCurve(
+                        to: endPoint,
+                        control1: CGPoint(x: CommitTreeItem.leftPadding + CGFloat($0.begins) * CommitTreeItem.branchShift, y: rect.maxY - CommitTreeItem.lineShiftCurveFlattnes * centerY),
+                        control2: CGPoint(x: CommitTreeItem.leftPadding + CGFloat($0.ends) * CommitTreeItem.branchShift, y: centerY + CommitTreeItem.lineShiftCurveFlattnes * centerY)
+                    )
+                } else {
+                    path.addQuadCurve(to: endPoint, control: CGPoint(x: CommitTreeItem.leftPadding + CGFloat($0.ends) * CommitTreeItem.branchShift, y: centerY))
+                }
+            }
         }
         
-        if hasBubble {
-            path.move(to: CGPoint(x: leftPadding + CGFloat(3), y: centerY))
-            path.addArc(center: CGPoint(x: leftPadding, y: centerY), radius: CommitTreeItem.bubbleRadius, startAngle: Angle(degrees: 0), endAngle: Angle(degrees: 360), clockwise: false)
+        return path.strokedPath(StrokeStyle(lineWidth: CommitTreeItem.lineWidth))
+        
+    }
+    
+    public func drawBubble(for position: Int, in rect: CGRect) -> Path {
+        
+        var circlePath = Path()
+        
+        guard hasBubble else {
+            return circlePath
         }
         
-        return path.strokedPath(StrokeStyle(lineWidth: CommitTreeItem.lineWidth, lineCap: .round, lineJoin: .round, miterLimit: 1, dash: [], dashPhase: 1))
-    }
-    
-    private func calculateSubstractions(between startPoint: CGPoint, and endPoint: CGPoint) -> (x: CGFloat, y: CGFloat) {
-        let deltaX = endPoint.x - startPoint.x
-        let deltaY = endPoint.y - startPoint.y
+        let centerY = rect.maxY / 2
+        let leftPadding = CGFloat(position) * CommitTreeItem.branchShift + CommitTreeItem.leftPadding
         
-        let tan = CGFloat(deltaX) / CGFloat(deltaY)
-        let angle = atan(tan)
+        circlePath.addEllipse(in: CGRect(x: leftPadding - CommitTreeItem.bubbleRadius, y: centerY - CommitTreeItem.bubbleRadius, width: CommitTreeItem.bubbleRadius * 2, height: CommitTreeItem.bubbleRadius * 2))
         
-        let xFit = (CommitTreeItem.bubbleRadius + CommitTreeItem.lineWidth * 2) * sin(angle)
-        let yFit = (CommitTreeItem.bubbleRadius + CommitTreeItem.lineWidth * 2) * cos(angle)
-        
-        return (xFit, yFit)
-    }
-    
-    private func calculateNewStartPoint(between startPoint: CGPoint, and endPoint: CGPoint, withBubble: Bool, isShift: Bool) -> (point: CGPoint, changed: Bool) {
-        let isChange = endPoint.x != startPoint.x
-        
-        guard (withBubble || isChange) && !isShift else { return (startPoint, false) }
-        
-        let deltas = calculateSubstractions(between: startPoint, and: endPoint)
-        return (CGPoint(x: startPoint.x + deltas.x, y: startPoint.y + deltas.y), true)
-    }
-    
-    private func calculateNewEndPoint(between startPoint: CGPoint, and endPoint: CGPoint, withBubble: Bool, isShift: Bool) -> (point: CGPoint, changed: Bool) {
-        let isChange = endPoint.x != startPoint.x
-        
-        guard (withBubble || isChange) && !isShift else { return (endPoint, false) }
-        
-        let deltas = calculateSubstractions(between: startPoint, and: endPoint)
-        return (CGPoint(x: endPoint.x - deltas.x, y: endPoint.y - deltas.y), true)
+        return circlePath
     }
 }

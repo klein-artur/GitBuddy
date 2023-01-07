@@ -17,6 +17,10 @@ struct CommitTreeElementView: View {
                 PathShape(item: commitTreeItem.branches[branchIndex], position: branchIndex)
                     .fill(CommitTreeItem.color(for: commitTreeItem.branches[branchIndex].trace))
             }
+            ForEach(commitTreeItem.branches.indices, id: \.self) { branchIndex in
+                BubbleShape(item: commitTreeItem.branches[branchIndex], position: branchIndex)
+                    .fill(CommitTreeItem.color(for: commitTreeItem.branches[branchIndex].trace))
+            }
         }
         .frame(width: commitTreeItem.calculatedWidth)
     }
@@ -29,7 +33,15 @@ struct PathShape: Shape {
     func path(in rect: CGRect) -> Path {
         item.drawPath(for: position, in: rect)
     }
+}
+
+struct BubbleShape: Shape {
+    let item: CommitTreeBranch
+    let position: Int
     
+    func path(in rect: CGRect) -> Path {
+        item.drawBubble(for: position, in: rect)
+    }
 }
 
 struct CommitTreeElementView_Previews: PreviewProvider {
@@ -52,14 +64,38 @@ struct CommitTreeElementView_Previews: PreviewProvider {
                         trace: 0
                     ),
                     CommitTreeBranch(
+                        incoming: [],
+                        outgoing: [
+                            Line(
+                                begins: 0, ends: 1, isShift: false
+                            )
+                        ],
+                        hasBubble: false,
+                        trace: 0
+                    ),
+                    CommitTreeBranch(
                         incoming: [
                             Line(
-                                begins: 0, ends: 1, isShift: true
+                                begins: 1, ends: 2, isShift: true
                             )
                         ],
                         outgoing: [
                             Line(
-                                begins: 1, ends: 1, isShift: false
+                                begins: 2, ends: 2, isShift: false
+                            )
+                        ],
+                        hasBubble: false,
+                        trace: 0
+                    ),
+                    CommitTreeBranch(
+                        incoming: [
+                            Line(
+                                begins: 3, ends: 3, isShift: false
+                            )
+                        ],
+                        outgoing: [
+                            Line(
+                                begins: 3, ends: 4, isShift: true
                             )
                         ],
                         hasBubble: false,
@@ -80,6 +116,6 @@ struct CommitTreeElementView_Previews: PreviewProvider {
                 )
             )
         )
-        .frame(height: 50)
+        .frame(height: 80)
     }
 }
