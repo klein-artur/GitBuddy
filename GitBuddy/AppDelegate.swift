@@ -38,6 +38,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         currentRepoDir = path
     }
     
+    func reload() {
+        let old = currentRepoDir
+        currentRepoDir = ""
+        currentRepoDir = old
+    }
+    
     func changePath(into: String) {
         let newpath = "\(currentRepoDir!)/\(into)"
         FileManager.default.changeCurrentDirectoryPath(newpath)

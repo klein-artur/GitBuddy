@@ -36,6 +36,12 @@ struct GitBuddyApp: App {
                     Text("Open")
                 }
                 .keyboardShortcut("o", modifiers: .command)
+                Button {
+                    appDelegate.reload()
+                } label: {
+                    Text("Reload")
+                }
+                .keyboardShortcut("r", modifiers: .command)
             }
             CommandGroup(replacing: .saveItem) {}
             CommandGroup(replacing: .undoRedo) {}

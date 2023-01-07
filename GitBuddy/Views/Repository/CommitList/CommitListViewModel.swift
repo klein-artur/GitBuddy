@@ -255,6 +255,10 @@ class CommitList: BidirectionalCollection {
         
         let parents = getParents(for: currentCommit)
         
+        guard !parents.isEmpty else {
+            return newPaths
+        }
+        
         if position == 0 {
             newPaths.append(
                 GitPath(

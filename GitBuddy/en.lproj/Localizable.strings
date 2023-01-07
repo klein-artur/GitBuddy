@@ -8,6 +8,7 @@
 
 "File" = "File";
 "Open" = "Open";
+"Reload" = "Reload";
 
 "choose repository title" = "Open Repository";
 

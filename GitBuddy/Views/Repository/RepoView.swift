@@ -57,13 +57,22 @@ struct RepoView: View {
             currentBranchView(status: status)
             Divider()
             TabView {
-                if let log = viewModel.gitLog {
-                    CommitListView(commitListViewModel: CommitListViewModel(gitLog: log))
-                        .tabItem {
-                            Text("Commits")
-                        }
-                }
+                commitListViewCurrentRepo
+                    .tabItem {
+                        Text("Commits")
+                    }
             }
+        }
+    }
+    
+    @ViewBuilder
+    private var commitListViewCurrentRepo: some View {
+        if let log = viewModel.gitLog {
+            CommitListView(commitListViewModel: CommitListViewModel(gitLog: log))
+        } else {
+            ProgressView()
+                .progressViewStyle(.circular)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }
     
