@@ -7,8 +7,7 @@
 
 import Foundation
 import SwiftUI
-
-
+import GitCaller
 
 extension CommitTreeItem {
     static let colorSet = [

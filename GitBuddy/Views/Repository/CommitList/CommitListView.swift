@@ -12,15 +12,17 @@ struct CommitListView: View {
     @ObservedObject var commitListViewModel: CommitListViewModel
     
     var body: some View {
-        ScrollView {
-            LazyVStack {
-                ForEach(commitListViewModel.commitList.indices, id: \.self) { index in
-                    CommitItemView(commitInfo: commitListViewModel.commitList[index])
-                        .padding(0)
-                        .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
+        if let commitList = commitListViewModel.commitList {
+            ScrollView {
+                LazyVStack {
+                    ForEach(commitList.indices, id: \.self) { index in
+                        CommitItemView(commitInfo: commitList[index])
+                            .padding(0)
+                            .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
+                    }
                 }
+                .padding(.trailing, 16)
             }
-            .padding(.trailing, 16)
         }
     }
 }
