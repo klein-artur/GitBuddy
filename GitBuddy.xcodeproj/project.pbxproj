@@ -30,6 +30,12 @@
 		F4B0409E29665B0F007AD99C /* TagCloudView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B0409D29665B0F007AD99C /* TagCloudView.swift */; };
 		F4B040A029665B3D007AD99C /* BadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B0409F29665B3D007AD99C /* BadgeView.swift */; };
 		F4B040A229665BF4007AD99C /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B040A129665BF4007AD99C /* Date.swift */; };
+		F4D6E501296B30C900C302C1 /* BranchListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D6E500296B30C900C302C1 /* BranchListView.swift */; };
+		F4D6E503296B30D700C302C1 /* BranchListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D6E502296B30D700C302C1 /* BranchListViewModel.swift */; };
+		F4D6E506296B59C600C302C1 /* KeyValueRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D6E505296B59C600C302C1 /* KeyValueRepository.swift */; };
+		F4D6E508296B5B4100C302C1 /* LocalKeyValueRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D6E507296B5B4100C302C1 /* LocalKeyValueRepository.swift */; };
+		F4D6E50A296B6A4B00C302C1 /* OutdatedPillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D6E509296B6A4B00C302C1 /* OutdatedPillView.swift */; };
+		F4D6E50C296B739900C302C1 /* ClearButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D6E50B296B739900C302C1 /* ClearButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +75,12 @@
 		F4B0409D29665B0F007AD99C /* TagCloudView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCloudView.swift; sourceTree = "<group>"; };
 		F4B0409F29665B3D007AD99C /* BadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeView.swift; sourceTree = "<group>"; };
 		F4B040A129665BF4007AD99C /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		F4D6E500296B30C900C302C1 /* BranchListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BranchListView.swift; sourceTree = "<group>"; };
+		F4D6E502296B30D700C302C1 /* BranchListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BranchListViewModel.swift; sourceTree = "<group>"; };
+		F4D6E505296B59C600C302C1 /* KeyValueRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyValueRepository.swift; sourceTree = "<group>"; };
+		F4D6E507296B5B4100C302C1 /* LocalKeyValueRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalKeyValueRepository.swift; sourceTree = "<group>"; };
+		F4D6E509296B6A4B00C302C1 /* OutdatedPillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutdatedPillView.swift; sourceTree = "<group>"; };
+		F4D6E50B296B739900C302C1 /* ClearButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +136,7 @@
 		F4445AA6295E6A880053D9B0 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
+				F4D6E4FF296B30B800C302C1 /* BranchList */,
 				F4B0409229664459007AD99C /* CommitList */,
 				F47CB918295DD7AD00A47BA8 /* RepoView.swift */,
 				F4445AA7295E7BDB0053D9B0 /* RepoViewModel.swift */,
@@ -136,6 +149,7 @@
 			children = (
 				F447A3892963B8D60056FDEF /* Loading.swift */,
 				F447A38D2963C2C00056FDEF /* ErrorAlert.swift */,
+				F4D6E50B296B739900C302C1 /* ClearButton.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -144,6 +158,7 @@
 			isa = PBXGroup;
 			children = (
 				F4B0409F29665B3D007AD99C /* BadgeView.swift */,
+				F4D6E509296B6A4B00C302C1 /* OutdatedPillView.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -171,6 +186,7 @@
 		F47CB915295DD7AD00A47BA8 /* GitBuddy */ = {
 			isa = PBXGroup;
 			children = (
+				F4D6E504296B59AF00C302C1 /* Repositories */,
 				F4B040A329666D22007AD99C /* Model */,
 				F4445AA1295E5C400053D9B0 /* Views */,
 				F4445A8D295E526E0053D9B0 /* Extensions */,
@@ -216,6 +232,24 @@
 			children = (
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		F4D6E4FF296B30B800C302C1 /* BranchList */ = {
+			isa = PBXGroup;
+			children = (
+				F4D6E500296B30C900C302C1 /* BranchListView.swift */,
+				F4D6E502296B30D700C302C1 /* BranchListViewModel.swift */,
+			);
+			path = BranchList;
+			sourceTree = "<group>";
+		};
+		F4D6E504296B59AF00C302C1 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				F4D6E505296B59C600C302C1 /* KeyValueRepository.swift */,
+				F4D6E507296B5B4100C302C1 /* LocalKeyValueRepository.swift */,
+			);
+			path = Repositories;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -338,13 +372,19 @@
 				F47CB919295DD7AD00A47BA8 /* RepoView.swift in Sources */,
 				F447A38E2963C2C00056FDEF /* ErrorAlert.swift in Sources */,
 				F4B040A029665B3D007AD99C /* BadgeView.swift in Sources */,
+				F4D6E50C296B739900C302C1 /* ClearButton.swift in Sources */,
 				F4B0409E29665B0F007AD99C /* TagCloudView.swift in Sources */,
 				F4B0409C29665561007AD99C /* CommitTreeItem+drawing.swift in Sources */,
+				F4D6E508296B5B4100C302C1 /* LocalKeyValueRepository.swift in Sources */,
+				F4D6E501296B30C900C302C1 /* BranchListView.swift in Sources */,
+				F4D6E503296B30D700C302C1 /* BranchListViewModel.swift in Sources */,
 				F4B04098296653F0007AD99C /* CommitTreeElementView.swift in Sources */,
 				F4445AA5295E687D0053D9B0 /* NoPathSelectedView.swift in Sources */,
 				F4445A8F295E52810053D9B0 /* String.swift in Sources */,
 				F4B04096296653CD007AD99C /* CommitItemView.swift in Sources */,
 				F47CB917295DD7AD00A47BA8 /* GitBuddyApp.swift in Sources */,
+				F4D6E50A296B6A4B00C302C1 /* OutdatedPillView.swift in Sources */,
+				F4D6E506296B59C600C302C1 /* KeyValueRepository.swift in Sources */,
 				F4B0409A29665452007AD99C /* CommitListViewModel.swift in Sources */,
 				F4B040A229665BF4007AD99C /* Date.swift in Sources */,
 				F4445AA3295E5C7F0053D9B0 /* BaseViewModel.swift in Sources */,

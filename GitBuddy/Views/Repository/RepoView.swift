@@ -56,6 +56,10 @@ struct RepoView: View {
             currentBranchView(status: status)
             Divider()
             TabView {
+                branchListView
+                    .tabItem {
+                        Text("Branches")
+                    }
                 commitListViewCurrentRepo
                     .tabItem {
                         Text("Commits")
@@ -68,6 +72,22 @@ struct RepoView: View {
     private var commitListViewCurrentRepo: some View {
         if let log = viewModel.gitLog {
             CommitListView(commitListViewModel: CommitListViewModel(gitLog: log))
+        } else {
+            ProgressView()
+                .progressViewStyle(.circular)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
+    }
+    
+    @ViewBuilder
+    private var branchListView: some View {
+        if let branchResult = viewModel.branchResult {
+            BranchListView(
+                viewModel: BranchListViewModel(
+                    branchResult: branchResult,
+                    keyValueRepo: LocalKeyValueRepository()
+                )
+            )
         } else {
             ProgressView()
                 .progressViewStyle(.circular)
@@ -93,23 +113,10 @@ struct RepoView: View {
                         .font(.caption)
                 }
             }
-            outdatedPill(branch: status.branch)
+            OutdatedPillView(branch: status.branch)
                 .padding(.top, 5)
             localChangesPill(status: status)
                 .padding(.top, 5)
-        }
-    }
-    
-    @ViewBuilder
-    private func outdatedPill(branch: Branch) -> some View {
-        if !branch.outDatedPillText.isEmpty {
-            VStack {
-                Text(branch.outDatedPillText)
-                    .font(.caption)
-                    .padding(.vertical, 4)
-                    .padding(.horizontal, 6)
-            }
-            .background(Color.gray, in: RoundedRectangle(cornerRadius: 15))
         }
     }
     
@@ -124,22 +131,6 @@ struct RepoView: View {
             }
             .background(Color(NSColor.systemOrange), in: RoundedRectangle(cornerRadius: 15))
         }
-    }
-}
-
-extension Branch {
-    var outDatedPillText: String {
-        var strings = [String]()
-        
-        if ahead > 0 {
-            strings.append("\(ahead) ↑")
-        }
-        
-        if behind > 0 {
-            strings.append("\(behind) ↓")
-        }
-        
-        return strings.joined(separator: " | ")
     }
 }
 
