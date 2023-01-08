@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import GitParser
+import GitCaller
 
 struct CommitItemView: View {
     let commitInfo: CommitListInformation

@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import GitParser
+import GitCaller
 
 class CommitListViewModel: BaseViewModel {
     

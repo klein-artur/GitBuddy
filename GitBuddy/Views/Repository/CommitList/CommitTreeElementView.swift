@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import GitParser
+import GitCaller
 
 struct CommitTreeElementView: View {
     var commitTreeItem: CommitTreeItem

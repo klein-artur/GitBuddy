@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import GitParser
+import GitCaller
 
 struct CommitListView: View {
     @ObservedObject var commitListViewModel: CommitListViewModel

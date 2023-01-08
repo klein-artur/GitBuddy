@@ -8,7 +8,6 @@
 import SwiftUI
 import Combine
 import GitCaller
-import GitParser
 
 struct RepoView: View {
     @ObservedObject var viewModel: RepoViewModel
@@ -52,7 +51,7 @@ struct RepoView: View {
     }
     
     @ViewBuilder
-    private func isARepoView(status: GitStatus) -> some View {
+    private func isARepoView(status: StatusResult) -> some View {
         VStack(alignment: .leading) {
             currentBranchView(status: status)
             Divider()
@@ -77,7 +76,7 @@ struct RepoView: View {
     }
     
     @ViewBuilder
-    private func currentBranchView(status: GitStatus) -> some View {
+    private func currentBranchView(status: StatusResult) -> some View {
         HStack(alignment: .top) {
             Image("code-branch-solid")
                 .renderingMode(.template)
@@ -115,7 +114,7 @@ struct RepoView: View {
     }
     
     @ViewBuilder
-    private func localChangesPill(status: GitStatus) -> some View {
+    private func localChangesPill(status: StatusResult) -> some View {
         if status.numberOfChanges > 0 {
             VStack {
                 Text("local changes".localized.formatted(status.numberOfChanges))
@@ -144,7 +143,7 @@ extension Branch {
     }
 }
 
-extension GitStatus {
+extension StatusResult {
     var numberOfChanges: Int {
         stagedChanges.count + unstagedChanges.count + untrackedChanges.count + unmergedChanges.count
     }
@@ -165,7 +164,7 @@ struct ContentView_Previews: PreviewProvider {
                 viewModel: RepoViewModel(
                     repoPath: "",
                     appDelegate: AppDelegate(),
-                    gitStatus: GitStatus.getTestStatus()
+                    gitStatus: StatusResult.getTestStatus()
                 )
             )
             .previewDisplayName("Default State")

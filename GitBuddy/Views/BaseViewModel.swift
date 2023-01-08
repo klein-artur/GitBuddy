@@ -9,7 +9,6 @@ import Foundation
 import SwiftUI
 import Combine
 import GitCaller
-import GitParser
 
 class BaseViewModel: ObservableObject {
     @Published var notARepo: Bool = false
