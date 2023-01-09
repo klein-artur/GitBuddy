@@ -11,37 +11,53 @@ import GitCaller
 struct BranchListView: View {
     @ObservedObject var viewModel: BranchListViewModel
     
+    @State var selected: String = ""
+    
     var body: some View {
         VStack(alignment: .leading) {
             TextField("Search", text: $viewModel.searchString)
                 .showClearButton($viewModel.searchString)
                 .padding(.horizontal, 16)
             ScrollView {
-                LazyVStack(alignment: .leading) {
+                LazyVStack(alignment: .leading, spacing: 0) {
                     ForEach(viewModel.branchTree) { item in
-                        if viewModel.isVisible(for: item ) {
+                        VStack {
                             listItem(item: item)
-                                .padding(.leading, 30 * CGFloat(item.depth))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.leading, 30 * CGFloat(item.depth) + 16)
+                                .padding(.trailing, 16)
                                 .padding(.top, 8)
-                                .padding(.bottom, 8)
+                            Divider()
+                        }
+                        .if(selected == item.fullPath) { view in
+                            view.background(Color(nsColor: NSColor.black.withAlphaComponent(0.2)))
+                        }
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            switch item.type {
+                            case let .branch(branch):
+                                selected = branch.name
+                            case .directory(_):
+                                viewModel.changeOpenState(for: item)
+                            }
                         }
                     }
                 }
-                .padding(.horizontal, 16)
             }
         }
     }
     
     @ViewBuilder
     func listItem(item: BranchTreeItem) -> some View {
-        switch item.type {
-        case let .directory(name):
-            folderItem(name: name)
-                .onTapGesture(count: 2) {
-                    viewModel.changeOpenState(for: item)
-                }
-        case let .branch(branch):
-            branchItem(branch: branch)
+        VStack(alignment: .leading) {
+            switch item.type {
+            case let .directory(name):
+                folderItem(name: name)
+                    .padding(.trailing, 16)
+            case let .branch(branch):
+                branchItem(branch: branch)
+                    .padding(.trailing, 16)
+            }
         }
     }
     

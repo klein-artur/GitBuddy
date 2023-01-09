@@ -15,9 +15,11 @@ class BranchListViewModel: BaseViewModel {
     
     @Published var searchString = ""
     
-    lazy var branchTree: [BranchTreeItem] = {
-        return branchResult.tree?.flatten ?? []
-    }()
+    var branchTree: [BranchTreeItem] {
+        return branchResult.tree?.flatten.filter({ item in
+            isVisible(for: item)
+        }) ?? []
+    }
     
     init(branchResult: BranchResult, keyValueRepo: KeyValueRepository) {
         self.branchResult = branchResult

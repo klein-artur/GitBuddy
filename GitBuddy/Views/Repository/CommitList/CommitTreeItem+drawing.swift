@@ -19,7 +19,7 @@ extension CommitTreeItem {
     ]
     static let paddingOverdraw = CGFloat(5)
     static let leftPadding = CGFloat(8)
-    static let branchShift = CGFloat(15)
+    static let branchShift = CGFloat(11)
     static let bubbleRadius = CGFloat(5)
     static let lineWidth = CGFloat(3)
     static let lineShiftCurveFlattnes = CGFloat(0.5)

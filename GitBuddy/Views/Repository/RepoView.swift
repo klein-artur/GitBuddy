@@ -13,6 +13,7 @@ struct RepoView: View {
     @ObservedObject var viewModel: RepoViewModel
     
     @State var showCloneAlert = false
+    @State var tabSelection = "branches"
     
     var body: some View {
         VStack {
@@ -60,10 +61,12 @@ struct RepoView: View {
                     .tabItem {
                         Text("Branches")
                     }
+                    .tag("branches")
                 commitListViewCurrentRepo
                     .tabItem {
                         Text("Commits")
                     }
+                    .tag("commits")
             }
         }
     }
