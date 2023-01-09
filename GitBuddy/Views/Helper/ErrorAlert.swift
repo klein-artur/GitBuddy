@@ -13,7 +13,7 @@ struct GitErrorAlert: ViewModifier {
     func body(content: Content) -> some View {
         content
             .alert(
-                "Failed",
+                "",
                 isPresented: Binding(get: {
                     !gitError.isEmpty
                 }, set: { value in
@@ -21,7 +21,13 @@ struct GitErrorAlert: ViewModifier {
                         gitError = ""
                     }
                 }),
-                actions: {}, message: {
+                actions: {
+                    Button {
+                        AppDelegate.shared?.reload()
+                    } label: {
+                        Text("OK")
+                    }
+                }, message: {
                     Text(gitError)
                 })
     }

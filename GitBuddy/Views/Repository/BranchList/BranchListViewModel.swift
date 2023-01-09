@@ -8,6 +8,7 @@
 import Foundation
 import GitCaller
 
+@MainActor
 class BranchListViewModel: BaseViewModel {
     
     let branchResult: BranchResult
@@ -57,6 +58,24 @@ class BranchListViewModel: BaseViewModel {
     func changeOpenState(for item: BranchTreeItem) {
         keyValueRepo.set(key: .branchPathOpen(item.fullPath, !openState(for: item)))
         objectWillChange.send()
+    }
+    
+    func checkoutBranch(for item: Branch) {
+        defaultErrorHandling {
+            let result = try await GitRepo.standard.checkout(branch: item)
+            if result.didChange {
+                AppDelegate.shared?.reload()
+            }
+        }
+    }
+    
+    func deleteBranch(for item: Branch) {
+        defaultErrorHandling {
+            let result = try await GitRepo.standard.delete(branch: item)
+            if result.deletionSuccessfull {
+                AppDelegate.shared?.reload()
+            }
+        }
     }
     
 }

@@ -31,13 +31,13 @@ struct GitBuddyApp: App {
         .commands {
             CommandGroup(replacing: .newItem) {
                 Button {
-                    appDelegate.openFile()
+                    AppDelegate.shared?.openFile()
                 } label: {
                     Text("Open")
                 }
                 .keyboardShortcut("o", modifiers: .command)
                 Button {
-                    appDelegate.reload()
+                    AppDelegate.shared?.reload()
                 } label: {
                     Text("Reload")
                 }

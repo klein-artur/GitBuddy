@@ -10,7 +10,17 @@ import Combine
 
 class AppDelegate: NSObject, NSApplicationDelegate {
     
-    @Published var currentRepoDir: String? = nil
+    static private(set) var shared: AppDelegate? = nil
+    
+    @Published var currentRepoDir: String? = nil {
+        didSet {
+            print("this was set to \(currentRepoDir).")
+        }
+    }
+    
+    func applicationDidFinishLaunching(_ notification: Notification) {
+        Self.shared = self
+    }
     
     func openFile() {
         let dialog = NSOpenPanel();

@@ -28,3 +28,7 @@
 "local changes" = "%d local changes";
 "Commits" = "Commits";
 "Branches" = "Branches";
+
+"Checkout Local Branch" = "Checkout Local Branch";
+"Checkout Remote Branch" = "Checkout Remote Branch";
+"Delete Branch" = "Delete Branch";

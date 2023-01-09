@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 import Combine
 
+@MainActor
 class GitBuddyAppMainViewModel: BaseViewModel {
     
     var repoPathPublisher: (any Publisher<String?, Never>)? {

@@ -36,10 +36,24 @@ class BaseViewModel: ObservableObject {
     
     func handleError(_ error: Error) {
         if let parseError = error as? ParseError {
-            switch parseError {
+            switch parseError.type {
             case .notARepository:
                 notARepo = true
             default: break
+            }
+        }
+    }
+    
+    func defaultErrorHandling(_ code: @escaping (() async throws -> Void)) {
+        Task {
+            do {
+                try await code()
+            } catch {
+                if let parseError = error as? ParseError {
+                    self.gitError = parseError.rawOutput
+                } else {
+                    print(error)
+                }
             }
         }
     }

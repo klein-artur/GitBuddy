@@ -9,6 +9,7 @@ import SwiftUI
 import GitCaller
 
 struct BranchListView: View {
+    @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @ObservedObject var viewModel: BranchListViewModel
     
     @State var selected: String = ""
@@ -23,16 +24,11 @@ struct BranchListView: View {
                     ForEach(viewModel.branchTree) { item in
                         VStack {
                             listItem(item: item)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .padding(.leading, 30 * CGFloat(item.depth) + 16)
-                                .padding(.trailing, 16)
-                                .padding(.top, 8)
                             Divider()
                         }
                         .if(selected == item.fullPath) { view in
                             view.background(Color(nsColor: NSColor.black.withAlphaComponent(0.2)))
                         }
-                        .contentShape(Rectangle())
                         .onTapGesture {
                             switch item.type {
                             case let .branch(branch):
@@ -45,6 +41,7 @@ struct BranchListView: View {
                 }
             }
         }
+        .gitErrorAlert(gitError: $viewModel.gitError)
     }
     
     @ViewBuilder
@@ -53,10 +50,34 @@ struct BranchListView: View {
             switch item.type {
             case let .directory(name):
                 folderItem(name: name)
-                    .padding(.trailing, 16)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.leading, 30 * CGFloat(item.depth) + 16)
+                    .padding(.trailing, 32)
+                    .contentShape(Rectangle())
+                    .padding(.top, 8)
             case let .branch(branch):
                 branchItem(branch: branch)
-                    .padding(.trailing, 16)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.leading, 30 * CGFloat(item.depth) + 16)
+                    .padding(.trailing, 32)
+                    .padding(.top, 8)
+                    .contentShape(Rectangle())
+                    .if(!branch.isCurrent) { v in
+                        v.contextMenu {
+                            Button {
+                                viewModel.checkoutBranch(for: branch)
+                            } label: {
+                                Text(branch.isLocal ? "Checkout Local Branch" : "Checkout Remote Branch")
+                            }
+                            if branch.isLocal {
+                                Button {
+                                    viewModel.deleteBranch(for: branch)
+                                } label: {
+                                    Text("Delete Branch")
+                                }
+                            }
+                        }
+                    }
             }
         }
     }
@@ -76,8 +97,17 @@ struct BranchListView: View {
         HStack {
             Image(branch.detached ? "code-branch-head-solid" : "code-branch-solid")
                 .renderingMode(.template)
+                .if(branch.isCurrent) { v in
+                    v.foregroundColor(Color(nsColor: NSColor.systemGreen))
+                }
             Text(branch.cleanName)
                 .lineLimit(1)
+                .if(branch.isCurrent) { text in
+                    text.fontWeight(.heavy)
+                }
+                .if(branch.isCurrent) { v in
+                    v.foregroundColor(Color(nsColor: NSColor.systemGreen))
+                }
             OutdatedPillView(branch: branch)
         }
     }
