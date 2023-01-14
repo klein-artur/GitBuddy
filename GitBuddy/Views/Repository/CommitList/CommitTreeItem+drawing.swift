@@ -17,11 +17,11 @@ extension CommitTreeItem {
         Color(red: 0.51, green: 0.41, blue: 0.57),
         Color(red: 0.65, green: 0.60, blue: 0.41)
     ]
-    static let paddingOverdraw = CGFloat(5)
+    static let paddingOverdraw = CGFloat(4)
     static let leftPadding = CGFloat(8)
-    static let branchShift = CGFloat(11)
-    static let bubbleRadius = CGFloat(5)
-    static let lineWidth = CGFloat(3)
+    static let branchShift = CGFloat(8)
+    static let bubbleRadius = CGFloat(4)
+    static let lineWidth = CGFloat(2)
     static let lineShiftCurveFlattnes = CGFloat(0.5)
     
     static func color(for index: Int) -> Color {

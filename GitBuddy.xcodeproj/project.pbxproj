@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F407535A296E15B700C35F3C /* GeneralAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4075359296E15B700C35F3C /* GeneralAlert.swift */; };
 		F4445A68295DE5A90053D9B0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4445A67295DE5A90053D9B0 /* AppDelegate.swift */; };
 		F4445A6B295DEB580053D9B0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F4445A6D295DEB580053D9B0 /* Localizable.strings */; };
 		F4445A8F295E52810053D9B0 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4445A8E295E52810053D9B0 /* String.swift */; };
@@ -50,6 +51,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F4075359296E15B700C35F3C /* GeneralAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralAlert.swift; sourceTree = "<group>"; };
 		F4445A67295DE5A90053D9B0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F4445A6C295DEB580053D9B0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F4445A8E295E52810053D9B0 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 				F447A38D2963C2C00056FDEF /* ErrorAlert.swift */,
 				F4D6E50B296B739900C302C1 /* ClearButton.swift */,
 				F4D6E50D296B89EE00C302C1 /* ConditionalModifier.swift */,
+				F4075359296E15B700C35F3C /* GeneralAlert.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -375,6 +378,7 @@
 				F47CB919295DD7AD00A47BA8 /* RepoView.swift in Sources */,
 				F447A38E2963C2C00056FDEF /* ErrorAlert.swift in Sources */,
 				F4B040A029665B3D007AD99C /* BadgeView.swift in Sources */,
+				F407535A296E15B700C35F3C /* GeneralAlert.swift in Sources */,
 				F4D6E50C296B739900C302C1 /* ClearButton.swift in Sources */,
 				F4B0409E29665B0F007AD99C /* TagCloudView.swift in Sources */,
 				F4B0409C29665561007AD99C /* CommitTreeItem+drawing.swift in Sources */,

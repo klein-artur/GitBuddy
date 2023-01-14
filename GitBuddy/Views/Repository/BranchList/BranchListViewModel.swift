@@ -70,12 +70,24 @@ class BranchListViewModel: BaseViewModel {
     }
     
     func deleteBranch(for item: Branch) {
-        defaultErrorHandling {
-            let result = try await GitRepo.standard.delete(branch: item)
-            if result.deletionSuccessfull {
-                AppDelegate.shared?.reload()
-            }
-        }
+        self.alertItem = AlertItem(
+            title: "Delete Branch",
+            message: "delete local branch message",
+            actions: [
+                AlertAction(
+                    title: "Delete Branch",
+                    role: .destructive,
+                    action: { [weak self] in
+                        self?.defaultErrorHandling {
+                            let result = try await GitRepo.standard.delete(branch: item)
+                            if result.deletionSuccessfull {
+                                AppDelegate.shared?.reload()
+                            }
+                        }
+                    }
+                )
+            ]
+        )
     }
     
 }

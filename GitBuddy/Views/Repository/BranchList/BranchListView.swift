@@ -29,10 +29,11 @@ struct BranchListView: View {
                         .if(selected == item.fullPath) { view in
                             view.background(Color(nsColor: NSColor.black.withAlphaComponent(0.2)))
                         }
-                        .onTapGesture {
+                        .onTapGesture(count: 2) {
                             switch item.type {
                             case let .branch(branch):
-                                selected = branch.name
+                                // selected = branch.name
+                                viewModel.checkoutBranch(for: branch)
                             case .directory(_):
                                 viewModel.changeOpenState(for: item)
                             }
@@ -41,6 +42,7 @@ struct BranchListView: View {
                 }
             }
         }
+        .generalAlert(item: $viewModel.alertItem)
         .gitErrorAlert(gitError: $viewModel.gitError)
     }
     
@@ -54,7 +56,11 @@ struct BranchListView: View {
                     .padding(.leading, 30 * CGFloat(item.depth) + 16)
                     .padding(.trailing, 32)
                     .contentShape(Rectangle())
-                    .padding(.top, 8)
+                    .ifElse(item.type.isRemoteDir) {
+                        $0.padding(.top, 36)
+                    } else: {
+                        $0.padding(.top, 8)
+                    }
             case let .branch(branch):
                 branchItem(branch: branch)
                     .frame(maxWidth: .infinity, alignment: .leading)

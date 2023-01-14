@@ -13,6 +13,8 @@ import GitCaller
 class BaseViewModel: ObservableObject {
     @Published var notARepo: Bool = false
     
+    @Published var alertItem: AlertItem? = nil
+    
     @Published var gitError: String = ""
     
     @Published var loadingCount: Int = 0
