@@ -56,12 +56,21 @@ struct RepoView: View {
         VStack(alignment: .leading) {
             currentBranchView(status: status)
             Divider()
-            TabView {
+            TabView(selection: $tabSelection) {
                 branchListView
                     .tabItem {
                         Text("Branches")
                     }
                     .tag("branches")
+                if let status = viewModel.gitStatus, status.status == .unclean {
+                    LocalChangesView(
+                        viewModel: LocalChangesViewModel(status: status)
+                    )
+                        .tabItem {
+                            Text("Local Changes")
+                        }
+                        .tag("loalChanges")
+                }
                 commitListViewCurrentRepo
                     .tabItem {
                         Text("Commits")

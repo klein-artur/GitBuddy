@@ -31,6 +31,8 @@
 		F4B0409E29665B0F007AD99C /* TagCloudView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B0409D29665B0F007AD99C /* TagCloudView.swift */; };
 		F4B040A029665B3D007AD99C /* BadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B0409F29665B3D007AD99C /* BadgeView.swift */; };
 		F4B040A229665BF4007AD99C /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B040A129665BF4007AD99C /* Date.swift */; };
+		F4C2C72429733AD300A8F745 /* LocalChangesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C2C72329733AD300A8F745 /* LocalChangesView.swift */; };
+		F4C2C72629733B0800A8F745 /* LocalChangesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C2C72529733B0800A8F745 /* LocalChangesViewModel.swift */; };
 		F4D6E501296B30C900C302C1 /* BranchListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D6E500296B30C900C302C1 /* BranchListView.swift */; };
 		F4D6E503296B30D700C302C1 /* BranchListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D6E502296B30D700C302C1 /* BranchListViewModel.swift */; };
 		F4D6E506296B59C600C302C1 /* KeyValueRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D6E505296B59C600C302C1 /* KeyValueRepository.swift */; };
@@ -78,6 +80,8 @@
 		F4B0409D29665B0F007AD99C /* TagCloudView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCloudView.swift; sourceTree = "<group>"; };
 		F4B0409F29665B3D007AD99C /* BadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeView.swift; sourceTree = "<group>"; };
 		F4B040A129665BF4007AD99C /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		F4C2C72329733AD300A8F745 /* LocalChangesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalChangesView.swift; sourceTree = "<group>"; };
+		F4C2C72529733B0800A8F745 /* LocalChangesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalChangesViewModel.swift; sourceTree = "<group>"; };
 		F4D6E500296B30C900C302C1 /* BranchListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BranchListView.swift; sourceTree = "<group>"; };
 		F4D6E502296B30D700C302C1 /* BranchListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BranchListViewModel.swift; sourceTree = "<group>"; };
 		F4D6E505296B59C600C302C1 /* KeyValueRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyValueRepository.swift; sourceTree = "<group>"; };
@@ -140,6 +144,7 @@
 		F4445AA6295E6A880053D9B0 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
+				F4C2C722297339E400A8F745 /* LocalChanges */,
 				F4D6E4FF296B30B800C302C1 /* BranchList */,
 				F4B0409229664459007AD99C /* CommitList */,
 				F47CB918295DD7AD00A47BA8 /* RepoView.swift */,
@@ -238,6 +243,15 @@
 			children = (
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		F4C2C722297339E400A8F745 /* LocalChanges */ = {
+			isa = PBXGroup;
+			children = (
+				F4C2C72329733AD300A8F745 /* LocalChangesView.swift */,
+				F4C2C72529733B0800A8F745 /* LocalChangesViewModel.swift */,
+			);
+			path = LocalChanges;
 			sourceTree = "<group>";
 		};
 		F4D6E4FF296B30B800C302C1 /* BranchList */ = {
@@ -388,10 +402,12 @@
 				F4B04098296653F0007AD99C /* CommitTreeElementView.swift in Sources */,
 				F4445AA5295E687D0053D9B0 /* NoPathSelectedView.swift in Sources */,
 				F4445A8F295E52810053D9B0 /* String.swift in Sources */,
+				F4C2C72429733AD300A8F745 /* LocalChangesView.swift in Sources */,
 				F4B04096296653CD007AD99C /* CommitItemView.swift in Sources */,
 				F47CB917295DD7AD00A47BA8 /* GitBuddyApp.swift in Sources */,
 				F4D6E50A296B6A4B00C302C1 /* OutdatedPillView.swift in Sources */,
 				F4D6E506296B59C600C302C1 /* KeyValueRepository.swift in Sources */,
+				F4C2C72629733B0800A8F745 /* LocalChangesViewModel.swift in Sources */,
 				F4B0409A29665452007AD99C /* CommitListViewModel.swift in Sources */,
 				F4D6E50E296B89EE00C302C1 /* ConditionalModifier.swift in Sources */,
 				F4B040A229665BF4007AD99C /* Date.swift in Sources */,

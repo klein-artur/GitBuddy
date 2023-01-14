@@ -50,7 +50,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func reload() {
         let old = currentRepoDir
-        currentRepoDir = ""
         currentRepoDir = old
     }
     
