@@ -54,7 +54,11 @@ struct RepoView: View {
     @ViewBuilder
     private func isARepoView(status: StatusResult) -> some View {
         VStack(alignment: .leading) {
-            currentBranchView(status: status)
+            BranchElementView(
+                branch: status.branch,
+                showLogButton: true,
+                status: status
+            )
             Divider()
             TabView(selection: $tabSelection) {
                 branchListView
@@ -92,49 +96,6 @@ struct RepoView: View {
         }
     }
     
-    @ViewBuilder
-    private func currentBranchView(status: StatusResult) -> some View {
-        HStack(alignment: .center) {
-            HStack(alignment: .top) {
-                Image("code-branch-solid")
-                    .renderingMode(.template)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height: 20)
-                    .padding(.top, 7)
-                VStack(alignment: .leading) {
-                    Text(status.branch.name)
-                        .font(.title)
-                        .lineLimit(1)
-                    if let upstream = status.branch.upstream {
-                        Text(upstream.name)
-                            .font(.caption)
-                    }
-                }
-                OutdatedPillView(branch: status.branch)
-                    .padding(.top, 5)
-                localChangesPill(status: status)
-                    .padding(.top, 5)
-            }
-            Spacer()
-            Button("Commits".localized) {
-                viewModel.showLog(for: status.branch)
-            }
-        }
-    }
-    
-    @ViewBuilder
-    private func localChangesPill(status: StatusResult) -> some View {
-        if status.numberOfChanges > 0 {
-            VStack {
-                Text("local changes".localized.formatted(status.numberOfChanges))
-                    .font(.caption)
-                    .padding(.vertical, 4)
-                    .padding(.horizontal, 6)
-            }
-            .background(Color(NSColor.systemOrange), in: RoundedRectangle(cornerRadius: 15))
-        }
-    }
 }
 
 extension StatusResult {

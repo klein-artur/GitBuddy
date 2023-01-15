@@ -27,6 +27,7 @@
 // Repo Current Branch:
 "local changes" = "%d local changes";
 "Commits" = "Log";
+"Details" = "Details";
 "Branches" = "Branches";
 "Local Changes" = "Local Changes";
 
@@ -34,3 +35,5 @@
 "Checkout Remote Branch" = "Checkout Remote Branch";
 "Delete Branch" = "Delete Branch";
 "delete local branch message" = "Do you really want to delete this branch?";
+
+"Checkout" = "Checkout";

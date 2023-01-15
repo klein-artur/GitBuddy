@@ -25,11 +25,19 @@ class CommitListViewModel: BaseViewModel {
         
         super.init()
     
-        Task {
-            do {
-                commitList = try await repository.getLog(branchName: branch.name).commitPathTree
-            } catch {
-                commitList = nil
+        defaultErrorHandling { [weak self] in
+            self?.commitList = try await repository.getLog(branchName: branch.name).commitPathTree
+        }
+    }
+    
+    func checkoutBranch() {
+        defaultErrorHandling { [weak self] in
+            guard let self = self else {
+                return
+            }
+            let result = try await self.repository.checkout(branch: self.branch)
+            if result.didChange {
+                AppDelegate.shared?.reload()
             }
         }
     }
