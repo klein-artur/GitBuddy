@@ -22,10 +22,14 @@ class BranchListViewModel: BaseViewModel {
         }) ?? []
     }
     
-    init(branchResult: BranchResult, keyValueRepo: KeyValueRepository) {
+    init(
+        repository: Repository,
+        branchResult: BranchResult,
+        keyValueRepo: KeyValueRepository
+    ) {
         self.branchResult = branchResult
         self.keyValueRepo = keyValueRepo
-        super.init()
+        super.init(repository: repository)
     }
     
     func isVisible(for item: BranchTreeItem) -> Bool {
@@ -61,9 +65,8 @@ class BranchListViewModel: BaseViewModel {
     }
     
     func checkoutBranch(for item: Branch) {
-        defaultErrorHandling {
-            let result = try await GitRepo.standard.checkout(branch: item)
-            if result.didChange {
+        defaultErrorHandling { [weak self] in
+            if let result = try await self?.repository.checkout(branch: item), result.didChange {
                 AppDelegate.shared?.reload()
             }
         }
@@ -79,8 +82,7 @@ class BranchListViewModel: BaseViewModel {
                     role: .destructive,
                     action: { [weak self] in
                         self?.defaultErrorHandling {
-                            let result = try await GitRepo.standard.delete(branch: item)
-                            if result.deletionSuccessfull {
+                            if let result = try await self?.repository.checkout(branch: item), result.didChange {
                                 AppDelegate.shared?.reload()
                             }
                         }

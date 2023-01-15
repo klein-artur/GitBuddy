@@ -11,8 +11,6 @@ import GitCaller
 @MainActor
 class CommitListViewModel: BaseViewModel {
     
-    let repository: Repository
-    
     let branch: Branch
     @Published var commitList: CommitList?
     
@@ -21,9 +19,8 @@ class CommitListViewModel: BaseViewModel {
         branch: Branch
     ) {
         self.branch = branch
-        self.repository = repository
         
-        super.init()
+        super.init(repository: repository)
     
         defaultErrorHandling { [weak self] in
             self?.commitList = try await repository.getLog(branchName: branch.name).commitPathTree

@@ -139,6 +139,7 @@ struct BranchListView_Previews: PreviewProvider {
     static var previews: some View {
         BranchListView(
             viewModel: BranchListViewModel(
+                repository: PreviewRepo(),
                 branchResult: try! BranchResultParser().parse(result: """
                     * (HEAD detached at fadce24)
                       Savebranch                             8667982e1 fixed issue

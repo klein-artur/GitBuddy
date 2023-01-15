@@ -13,6 +13,8 @@ import GitCaller
 @MainActor
 class BaseViewModel: ObservableObject {
     
+    let repository: Repository
+    
     @Published var notARepo: Bool = false
     
     @Published var alertItem: AlertItem? = nil
@@ -28,6 +30,10 @@ class BaseViewModel: ObservableObject {
     }
     
     var lifetimeCancellables: [AnyCancellable] = []
+    
+    init(repository: Repository) {
+        self.repository = repository
+    }
     
     func setLoading() {
         loadingCount += 1

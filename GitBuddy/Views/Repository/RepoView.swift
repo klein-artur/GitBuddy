@@ -68,7 +68,10 @@ struct RepoView: View {
                     .tag("branches")
                 if let status = viewModel.gitStatus, status.status == .unclean {
                     LocalChangesView(
-                        viewModel: LocalChangesViewModel(status: status)
+                        viewModel: LocalChangesViewModel(
+                            repository: GitRepo.standard,
+                            status: status
+                        )
                     )
                         .tabItem {
                             Text("Local Changes")
@@ -85,6 +88,7 @@ struct RepoView: View {
         if let branchResult = viewModel.branchResult {
             BranchListView(
                 viewModel: BranchListViewModel(
+                    repository: GitRepo.standard,
                     branchResult: branchResult,
                     keyValueRepo: LocalKeyValueRepository()
                 )
@@ -109,6 +113,7 @@ struct ContentView_Previews: PreviewProvider {
         Group {
             RepoView(
                 viewModel: RepoViewModel(
+                    repository: GitRepo.standard,
                     repoPath: "",
                     appDelegate: AppDelegate()
                 )
@@ -117,6 +122,7 @@ struct ContentView_Previews: PreviewProvider {
             
             RepoView(
                 viewModel: RepoViewModel(
+                    repository: GitRepo.standard,
                     repoPath: "",
                     appDelegate: AppDelegate(),
                     gitStatus: StatusResult.getTestStatus()

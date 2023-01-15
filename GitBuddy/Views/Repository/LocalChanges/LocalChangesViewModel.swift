@@ -11,8 +11,9 @@ import GitCaller
 class LocalChangesViewModel: BaseViewModel {
     let status: StatusResult
     
-    init(status: StatusResult) {
+    init(repository: Repository, status: StatusResult) {
         self.status = status
+        super.init(repository: repository)
     }
     
     

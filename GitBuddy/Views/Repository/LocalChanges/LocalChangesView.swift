@@ -20,6 +20,7 @@ struct LocalChangesView_Previews: PreviewProvider {
     static var previews: some View {
         LocalChangesView(
             viewModel: LocalChangesViewModel(
+                repository: PreviewRepo(),
                 status: StatusResult.getTestStatus()
             )
         )

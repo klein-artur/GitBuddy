@@ -35,6 +35,7 @@
 		F4C2C72629733B0800A8F745 /* LocalChangesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C2C72529733B0800A8F745 /* LocalChangesViewModel.swift */; };
 		F4C2C72829740A0D00A8F745 /* CommitListViewSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C2C72729740A0D00A8F745 /* CommitListViewSheet.swift */; };
 		F4C2C72B29742F0500A8F745 /* BranchElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C2C72A29742F0500A8F745 /* BranchElementView.swift */; };
+		F4C2C72E297480E700A8F745 /* PreviewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C2C72D297480E700A8F745 /* PreviewHelper.swift */; };
 		F4D6E501296B30C900C302C1 /* BranchListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D6E500296B30C900C302C1 /* BranchListView.swift */; };
 		F4D6E503296B30D700C302C1 /* BranchListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D6E502296B30D700C302C1 /* BranchListViewModel.swift */; };
 		F4D6E506296B59C600C302C1 /* KeyValueRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D6E505296B59C600C302C1 /* KeyValueRepository.swift */; };
@@ -86,6 +87,7 @@
 		F4C2C72529733B0800A8F745 /* LocalChangesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalChangesViewModel.swift; sourceTree = "<group>"; };
 		F4C2C72729740A0D00A8F745 /* CommitListViewSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommitListViewSheet.swift; sourceTree = "<group>"; };
 		F4C2C72A29742F0500A8F745 /* BranchElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BranchElementView.swift; sourceTree = "<group>"; };
+		F4C2C72D297480E700A8F745 /* PreviewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewHelper.swift; sourceTree = "<group>"; };
 		F4D6E500296B30C900C302C1 /* BranchListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BranchListView.swift; sourceTree = "<group>"; };
 		F4D6E502296B30D700C302C1 /* BranchListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BranchListViewModel.swift; sourceTree = "<group>"; };
 		F4D6E505296B59C600C302C1 /* KeyValueRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyValueRepository.swift; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 				F4D6E50D296B89EE00C302C1 /* ConditionalModifier.swift */,
 				F4075359296E15B700C35F3C /* GeneralAlert.swift */,
 				F4C2C72729740A0D00A8F745 /* CommitListViewSheet.swift */,
+				F4C2C72D297480E700A8F745 /* PreviewHelper.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -414,6 +417,7 @@
 				F4B0409C29665561007AD99C /* CommitTreeItem+drawing.swift in Sources */,
 				F4D6E508296B5B4100C302C1 /* LocalKeyValueRepository.swift in Sources */,
 				F4D6E501296B30C900C302C1 /* BranchListView.swift in Sources */,
+				F4C2C72E297480E700A8F745 /* PreviewHelper.swift in Sources */,
 				F4D6E503296B30D700C302C1 /* BranchListViewModel.swift in Sources */,
 				F4B04098296653F0007AD99C /* CommitTreeElementView.swift in Sources */,
 				F4445AA5295E687D0053D9B0 /* NoPathSelectedView.swift in Sources */,

@@ -6,18 +6,19 @@
 //
 
 import SwiftUI
+import GitCaller
 
 @main
 struct GitBuddyApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
-    @StateObject var mainViewModel: GitBuddyAppMainViewModel = GitBuddyAppMainViewModel()
+    @StateObject var mainViewModel: GitBuddyAppMainViewModel = GitBuddyAppMainViewModel(repository: GitRepo.standard)
     
     var body: some Scene {
         WindowGroup {
             VStack {
                 if let repoPath = mainViewModel.repoPath {
-                    RepoView(viewModel: RepoViewModel(repoPath: repoPath, appDelegate: appDelegate))
+                    RepoView(viewModel: RepoViewModel(repository: GitRepo.standard, repoPath: repoPath, appDelegate: appDelegate))
                 } else {
                     NoPathSelectedView()
                         .frame(width: 500, height: 400)
