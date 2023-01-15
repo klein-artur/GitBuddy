@@ -10,6 +10,7 @@ import SwiftUI
 import Combine
 import GitCaller
 
+@MainActor
 class BaseViewModel: ObservableObject {
     @Published var notARepo: Bool = false
     
@@ -18,6 +19,8 @@ class BaseViewModel: ObservableObject {
     @Published var gitError: String = ""
     
     @Published var loadingCount: Int = 0
+    
+    @Published var gitLogBranch: Branch?
     
     var isLoading: Bool {
         loadingCount > 0
@@ -58,5 +61,9 @@ class BaseViewModel: ObservableObject {
                 }
             }
         }
+    }
+    
+    func showLog(for branch: Branch) {
+        gitLogBranch = branch
     }
 }

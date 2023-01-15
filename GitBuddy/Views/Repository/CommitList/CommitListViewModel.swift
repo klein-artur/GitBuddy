@@ -8,17 +8,30 @@
 import Foundation
 import GitCaller
 
+@MainActor
 class CommitListViewModel: BaseViewModel {
     
-    let gitLog: LogResult
+    let repository: Repository
     
-    lazy var commitList: CommitList? = {
-        gitLog.commitPathTree
-    }()
+    let branch: Branch
+    @Published var commitList: CommitList?
     
-    init(gitLog: LogResult) {
-        self.gitLog = gitLog
+    init(
+        repository: Repository,
+        branch: Branch
+    ) {
+        self.branch = branch
+        self.repository = repository
+        
         super.init()
+    
+        Task {
+            do {
+                commitList = try await repository.getLog(branchName: branch.name).commitPathTree
+            } catch {
+                commitList = nil
+            }
+        }
     }
     
 }

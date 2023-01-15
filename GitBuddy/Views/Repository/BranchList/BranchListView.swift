@@ -44,6 +44,7 @@ struct BranchListView: View {
         }
         .generalAlert(item: $viewModel.alertItem)
         .gitErrorAlert(gitError: $viewModel.gitError)
+        .commitSheet(for: $viewModel.gitLogBranch)
     }
     
     @ViewBuilder
@@ -115,6 +116,10 @@ struct BranchListView: View {
                     v.foregroundColor(Color(nsColor: NSColor.systemGreen))
                 }
             OutdatedPillView(branch: branch)
+            Spacer()
+            Button("Commits") {
+                viewModel.showLog(for: branch)
+            }
         }
     }
 }

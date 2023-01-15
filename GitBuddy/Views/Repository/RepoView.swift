@@ -13,7 +13,7 @@ struct RepoView: View {
     @ObservedObject var viewModel: RepoViewModel
     
     @State var showCloneAlert = false
-    @State var tabSelection = "branches"
+    @State var tabSelection = "loalChanges"
     
     var body: some View {
         VStack {
@@ -71,24 +71,9 @@ struct RepoView: View {
                         }
                         .tag("loalChanges")
                 }
-                commitListViewCurrentRepo
-                    .tabItem {
-                        Text("Commits")
-                    }
-                    .tag("commits")
             }
         }
-    }
-    
-    @ViewBuilder
-    private var commitListViewCurrentRepo: some View {
-        if let log = viewModel.gitLog {
-            CommitListView(commitListViewModel: CommitListViewModel(gitLog: log))
-        } else {
-            ProgressView()
-                .progressViewStyle(.circular)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-        }
+        .commitSheet(for: $viewModel.gitLogBranch)
     }
     
     @ViewBuilder
@@ -109,26 +94,32 @@ struct RepoView: View {
     
     @ViewBuilder
     private func currentBranchView(status: StatusResult) -> some View {
-        HStack(alignment: .top) {
-            Image("code-branch-solid")
-                .renderingMode(.template)
-                .resizable()
-                .scaledToFit()
-                .frame(height: 20)
-                .padding(.top, 7)
-            VStack(alignment: .leading) {
-                Text(status.branch.name)
-                    .font(.title)
-                    .lineLimit(1)
-                if let upstream = status.branch.upstream {
-                    Text(upstream.name)
-                        .font(.caption)
+        HStack(alignment: .center) {
+            HStack(alignment: .top) {
+                Image("code-branch-solid")
+                    .renderingMode(.template)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 20)
+                    .padding(.top, 7)
+                VStack(alignment: .leading) {
+                    Text(status.branch.name)
+                        .font(.title)
+                        .lineLimit(1)
+                    if let upstream = status.branch.upstream {
+                        Text(upstream.name)
+                            .font(.caption)
+                    }
                 }
+                OutdatedPillView(branch: status.branch)
+                    .padding(.top, 5)
+                localChangesPill(status: status)
+                    .padding(.top, 5)
             }
-            OutdatedPillView(branch: status.branch)
-                .padding(.top, 5)
-            localChangesPill(status: status)
-                .padding(.top, 5)
+            Spacer()
+            Button("Commits".localized) {
+                viewModel.showLog(for: status.branch)
+            }
         }
     }
     
