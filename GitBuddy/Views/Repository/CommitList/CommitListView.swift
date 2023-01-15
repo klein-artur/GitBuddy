@@ -20,15 +20,16 @@ struct CommitListView: View {
                         showLogButton: false,
                         status: nil
                     )
-                    .frame(maxWidth: .infinity)
+                    Spacer()
                     if !commitListViewModel.branch.isCurrent {
                         Button("Checkout") {
                             commitListViewModel.checkoutBranch()
                         }
                     }
                 }
-                .padding([.trailing, .vertical], 16)
+                .padding([.horizontal, .top], 16)
                 Divider()
+                    .padding(.horizontal, 16)
                 ScrollView {
                     LazyVStack {
                         ForEach(commitList.indices, id: \.self) { index in
@@ -37,13 +38,15 @@ struct CommitListView: View {
                                 .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
                         }
                     }
-                    .padding([.trailing, .vertical], 16)
+                    .padding(16)
                 }
             }
+            .gitErrorAlert(gitError: $commitListViewModel.gitError)
         } else {
             ProgressView()
                 .progressViewStyle(.circular)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .gitErrorAlert(gitError: $commitListViewModel.gitError)
         }
     }
 }
