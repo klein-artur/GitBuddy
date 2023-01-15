@@ -19,7 +19,7 @@ class BaseViewModel: ObservableObject {
     
     @Published var alertItem: AlertItem? = nil
     
-    @Published var gitError: String = ""
+    @Published var gitError: String?
     
     @Published var loadingCount: Int = 0
     

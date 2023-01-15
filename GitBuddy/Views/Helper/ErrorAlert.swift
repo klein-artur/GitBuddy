@@ -8,22 +8,18 @@
 import SwiftUI
 
 struct GitErrorAlert: ViewModifier {
-    @Binding var gitError: String
+    @Binding var gitError: String?
     
     func body(content: Content) -> some View {
         content
-            .sheet(
-                item: Binding(get: {
-                    gitError.isEmpty ? nil : gitError
-                }, set: { value in
-                    gitError = value ?? ""
-                })) { error in
+            .popover(
+                item: $gitError) { error in
                 VStack(alignment: .trailing) {
-                    Text(gitError)
+                    Text(error)
                         .lineLimit(nil)
                         .frame(width: 500, height: 400, alignment: .topLeading)
                     Button("Ok") {
-                        gitError = ""
+                        gitError = nil
                     }.keyboardShortcut(.defaultAction)
                 }
                 .padding()
@@ -50,7 +46,7 @@ struct GitErrorAlert: ViewModifier {
 }
 
 extension View {
-    func gitErrorAlert(gitError: Binding<String>) -> some View {
+    func gitErrorAlert(gitError: Binding<String?>) -> some View {
         modifier(GitErrorAlert(gitError: gitError))
     }
 }
