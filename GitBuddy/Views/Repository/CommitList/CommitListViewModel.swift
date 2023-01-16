@@ -15,7 +15,7 @@ class CommitListViewModel: BaseViewModel {
     @Published var commitList: CommitList?
     
     init(
-        repository: Repository,
+        repository: some Repository,
         branch: Branch
     ) {
         self.branch = branch

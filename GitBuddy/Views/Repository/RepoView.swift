@@ -10,7 +10,7 @@ import Combine
 import GitCaller
 
 struct RepoView: View {
-    @ObservedObject var viewModel: RepoViewModel
+    @StateObject var viewModel: RepoViewModel
     
     @State var showCloneAlert = false
     @State var tabSelection = "loalChanges"

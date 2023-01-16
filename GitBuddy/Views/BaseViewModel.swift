@@ -13,7 +13,7 @@ import GitCaller
 @MainActor
 class BaseViewModel: ObservableObject {
     
-    let repository: Repository
+    let repository: any Repository
     
     @Published var notARepo: Bool = false
     
@@ -31,8 +31,18 @@ class BaseViewModel: ObservableObject {
     
     var lifetimeCancellables: [AnyCancellable] = []
     
-    init(repository: Repository) {
+    init(repository: some Repository) {
         self.repository = repository
+        
+        repository.objectWillChange
+            .sink(
+                receiveCompletion: { _ in },
+                receiveValue: { [weak self] _ in
+                    self?.objectWillChange.send()
+                    self?.updateSent()
+                })
+            .store(in: &lifetimeCancellables)
+
     }
     
     func setLoading() {
@@ -72,5 +82,9 @@ class BaseViewModel: ObservableObject {
     
     func showLog(for branch: Branch) {
         gitLogBranch = branch
+    }
+    
+    open func updateSent() {
+        // do updates here.
     }
 }

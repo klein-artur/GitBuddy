@@ -11,7 +11,8 @@ import GitCaller
 @MainActor
 class BranchListViewModel: BaseViewModel {
     
-    let branchResult: BranchResult
+    @Published var branchResult: BranchResult
+    
     let keyValueRepo: KeyValueRepository
     
     @Published var searchString = ""
@@ -23,7 +24,7 @@ class BranchListViewModel: BaseViewModel {
     }
     
     init(
-        repository: Repository,
+        repository: some Repository,
         branchResult: BranchResult,
         keyValueRepo: KeyValueRepository
     ) {
@@ -66,9 +67,7 @@ class BranchListViewModel: BaseViewModel {
     
     func checkoutBranch(for item: Branch) {
         defaultErrorHandling { [weak self] in
-            if let result = try await self?.repository.checkout(branch: item), result.didChange {
-                AppDelegate.shared?.reload()
-            }
+            _ = try await self?.repository.checkout(branch: item)
         }
     }
     

@@ -14,7 +14,7 @@ class LocalChangesViewModel: BaseViewModel {
     @Published var status: StatusResult?
     @Published var commitMessage: String = ""
     
-    init(repository: Repository, status: StatusResult) {
+    init(repository: some Repository, status: StatusResult) {
         self.status = status
         super.init(repository: repository)
     }

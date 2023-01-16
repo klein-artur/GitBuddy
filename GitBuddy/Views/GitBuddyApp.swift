@@ -38,7 +38,7 @@ struct GitBuddyApp: App {
                 }
                 .keyboardShortcut("o", modifiers: .command)
                 Button {
-                    AppDelegate.shared?.reload()
+                    GitRepo.standard.objectWillChange.send()
                 } label: {
                     Text("Reload")
                 }
