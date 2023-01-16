@@ -79,6 +79,11 @@ struct LocalChangeItem: View {
                         viewModel.stage(change: change)
                     }
                 }
+                if change.state != .staged && change.kind != .newFile && change.kind != .bothAdded {
+                    Button("revert") {
+                        viewModel.revert(change: change)
+                    }
+                }
             }
         }
             .frame(maxWidth: .infinity, alignment: .leading)

@@ -43,3 +43,4 @@
 "stage" = "Stage";
 "unstage" = "Unstage";
 "commit" = "Commit";
+"revert" = "Revert";

@@ -21,10 +21,10 @@ struct RepoView: View {
                 notARepoView
             } else if let status = viewModel.gitStatus {
                 isARepoView(status: status)
-                    .frame(minWidth: 500, maxWidth: .infinity, minHeight: 400, maxHeight: .infinity)
+                    .frame(minWidth: 600, maxWidth: .infinity, minHeight: 450, maxHeight: .infinity)
             }
         }
-        .frame(minWidth: 500, maxWidth: .infinity, minHeight: 400, maxHeight: .infinity)
+        .frame(minWidth: 600, maxWidth: .infinity, minHeight: 450, maxHeight: .infinity)
         .loading(loadingCount: $viewModel.loadingCount)
         .alert("clone repo alert title", isPresented: $showCloneAlert, actions: {
             TextField("clone url placeholder", text: $viewModel.cloneRepoUrl)

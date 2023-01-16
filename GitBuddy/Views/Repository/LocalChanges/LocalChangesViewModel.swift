@@ -46,4 +46,11 @@ class LocalChangesViewModel: BaseViewModel {
             AppDelegate.shared?.reload()
         }
     }
+    
+    func revert(change: Change) {
+        defaultErrorHandling { [weak self] in
+            _ = try await self?.repository.revert(unstagedFile: change.path)
+            self?.load()
+        }
+    }
 }
