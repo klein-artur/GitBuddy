@@ -35,6 +35,7 @@ struct LocalChangesView: View {
             viewModel.load()
         }
         .gitErrorAlert(gitError: $viewModel.gitError)
+        .generalAlert(item: $viewModel.alertItem)
     }
     
     @ViewBuilder

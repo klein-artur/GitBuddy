@@ -44,3 +44,5 @@
 "unstage" = "Unstage";
 "commit" = "Commit";
 "revert" = "Revert";
+"revert alert title" = "Revert File";
+"revert alert message" = "Do you really want to revert this changes? This cannot be undone";

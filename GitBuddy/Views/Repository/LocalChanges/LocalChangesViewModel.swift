@@ -48,9 +48,21 @@ class LocalChangesViewModel: BaseViewModel {
     }
     
     func revert(change: Change) {
-        defaultErrorHandling { [weak self] in
-            _ = try await self?.repository.revert(unstagedFile: change.path)
-            self?.load()
-        }
+        alertItem = AlertItem(
+            title: "revert alert title",
+            message: "revert alert message",
+            actions: [
+                AlertAction(
+                    title: "revert",
+                    role: .destructive,
+                    action: { [weak self] in
+                        self?.defaultErrorHandling {
+                            _ = try await self?.repository.revert(unstagedFile: change.path)
+                            self?.load()
+                        }
+                    }
+                )
+            ]
+        )
     }
 }
