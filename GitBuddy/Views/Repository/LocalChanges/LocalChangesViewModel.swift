@@ -43,7 +43,7 @@ class LocalChangesViewModel: BaseViewModel {
         defaultErrorHandling { [weak self] in
             _ = try await self?.repository.commit(message: self?.commitMessage ?? "")
             self?.commitMessage = ""
-            self?.load()
+            AppDelegate.shared?.reload()
         }
     }
 }
