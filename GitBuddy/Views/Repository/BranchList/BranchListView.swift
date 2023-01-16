@@ -63,28 +63,11 @@ struct BranchListView: View {
                         $0.padding(.top, 8)
                     }
             case let .branch(branch):
-                branchItem(branch: branch)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading, 30 * CGFloat(item.depth) + 16)
-                    .padding(.trailing, 32)
-                    .padding(.top, 8)
-                    .contentShape(Rectangle())
-                    .if(!branch.isCurrent) { v in
-                        v.contextMenu {
-                            Button {
-                                viewModel.checkoutBranch(for: branch)
-                            } label: {
-                                Text(branch.isLocal ? "Checkout Local Branch" : "Checkout Remote Branch")
-                            }
-                            if branch.isLocal {
-                                Button {
-                                    viewModel.deleteBranch(for: branch)
-                                } label: {
-                                    Text("Delete Branch")
-                                }
-                            }
-                        }
-                    }
+                BranchItemView(
+                    branch: branch,
+                    item: item,
+                    viewModel: viewModel
+                )
             }
         }
     }
@@ -97,6 +80,42 @@ struct BranchListView: View {
             Text(name)
                 .lineLimit(1)
         }
+    }
+}
+
+struct BranchItemView: View {
+    let branch: Branch
+    let item: BranchTreeItem
+    @ObservedObject var viewModel: BranchListViewModel
+    
+    @State var buttonsVisible: Bool = false
+    
+    var body: some View {
+        branchItem(branch: branch)
+            .frame(maxWidth: .infinity, idealHeight: 20, alignment: .leading)
+            .padding(.leading, 30 * CGFloat(item.depth) + 16)
+            .padding(.trailing, 32)
+            .padding(.top, 8)
+            .contentShape(Rectangle())
+            .if(!branch.isCurrent) { v in
+                v.contextMenu {
+                    Button {
+                        viewModel.checkoutBranch(for: branch)
+                    } label: {
+                        Text(branch.isLocal ? "Checkout Local Branch" : "Checkout Remote Branch")
+                    }
+                    if branch.isLocal {
+                        Button {
+                            viewModel.deleteBranch(for: branch)
+                        } label: {
+                            Text("Delete Branch")
+                        }
+                    }
+                }
+            }
+            .onHover { isHover in
+                buttonsVisible = isHover
+            }
     }
     
     @ViewBuilder
@@ -116,9 +135,11 @@ struct BranchListView: View {
                     v.foregroundColor(Color(nsColor: NSColor.systemGreen))
                 }
             OutdatedPillView(branch: branch)
-            Spacer()
-            Button("Commits") {
-                viewModel.showLog(for: branch)
+            if buttonsVisible {
+                Spacer()
+                Button("Commits") {
+                    viewModel.showLog(for: branch)
+                }
             }
         }
     }
@@ -129,7 +150,7 @@ extension BranchTreeItem: Identifiable {
         switch self.type {
         case let .branch(branch):
             return branch.name
-        case let .directory(_):
+        case .directory(_):
             return self.fullPath
         }
     }
