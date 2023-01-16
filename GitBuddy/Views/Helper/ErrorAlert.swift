@@ -12,8 +12,7 @@ struct GitErrorAlert: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .popover(
-                item: $gitError) { error in
+            .sheet(item: $gitError) { error in
                 VStack(alignment: .trailing) {
                     Text(error)
                         .lineLimit(nil)
@@ -27,10 +26,10 @@ struct GitErrorAlert: ViewModifier {
 //            .alert(
 //                "",
 //                isPresented: Binding(get: {
-//                    !gitError.isEmpty
+//                    gitError != nil
 //                }, set: { value in
 //                    if !value {
-//                        gitError = ""
+//                        gitError = nil
 //                    }
 //                }),
 //                actions: {

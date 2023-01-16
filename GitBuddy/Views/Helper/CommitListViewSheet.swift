@@ -13,7 +13,7 @@ struct CommitListViewSheet: ViewModifier {
     @Binding var branch: Branch?
     
     func body(content: Content) -> some View {
-        content.popover(item: $branch) { branch in
+        content.sheet(item: $branch) { branch in
             CommitListView(
                 commitListViewModel: CommitListViewModel(
                     repository: GitRepo.standard,
