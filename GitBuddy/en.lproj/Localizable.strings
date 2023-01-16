@@ -37,3 +37,9 @@
 "delete local branch message" = "Do you really want to delete this branch?";
 
 "Checkout" = "Checkout";
+
+"staged changes" = "Staged Changes";
+"unstaged changes" = "Unstaged Changes";
+"stage" = "Stage";
+"unstage" = "Unstage";
+"commit" = "Commit";

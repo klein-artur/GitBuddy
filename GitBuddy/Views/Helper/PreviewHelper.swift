@@ -95,7 +95,7 @@ class PreviewRepo: Repository {
     }
     
     func getStatus() async throws -> GitCaller.StatusResult {
-        fatalError("not implemented")
+        return StatusResult.getTestStatus()
     }
     
     func getBranches() async throws -> GitCaller.BranchResult {
@@ -107,6 +107,18 @@ class PreviewRepo: Repository {
     }
     
     func delete(branch: GitCaller.Branch, force: Bool) async throws -> GitCaller.BranchResult {
+        fatalError("not implemented")
+    }
+    
+    func stage(file path: String?) async throws -> AddResult {
+        fatalError("not implemented")
+    }
+    
+    func unstage(file path: String) async throws -> RestoreResult {
+        fatalError("not implemented")
+    }
+    
+    func commit(message: String) async throws -> CommitResult {
         fatalError("not implemented")
     }
 }
