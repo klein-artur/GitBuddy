@@ -94,6 +94,13 @@ class GitBuddyAppMainViewModel: BaseViewModel {
     }
     
     @MainActor
+    func pushNew(branch: Branch) {
+        defaultTask { [weak self] in
+            _ = try await self?.repository.push(force: false, createUpstream: true, remoteName: "origin", newName: branch.name)
+        }
+    }
+    
+    @MainActor
     func checkoutNewBranch() {
         alertItem = AlertItem(
             title: "New Branch",
@@ -107,6 +114,7 @@ class GitBuddyAppMainViewModel: BaseViewModel {
                 AlertButton(title: "New Branch", action: { [weak self] in
                     self?.defaultTask({
                         _ = try await self?.repository.newBranchAndCheckout(name: self!.newBranchName)
+                        self?.newBranchName = ""
                     })
                 }),
                 AlertButton(title: "cancel", action: { })

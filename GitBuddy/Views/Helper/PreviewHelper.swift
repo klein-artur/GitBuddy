@@ -134,7 +134,7 @@ class PreviewRepo: Repository {
         fatalError("not implemented")
     }
     
-    func push(force: Bool) async throws -> PushResult {
+    public func push(force: Bool, createUpstream: Bool = false, remoteName: String? = nil, newName: String? = nil) async throws -> PushResult {
         fatalError("not implemented")
     }
     

@@ -61,6 +61,12 @@ struct GitBuddyApp: App {
                     .keyboardShortcut("u", modifiers: .command)
                     .disabled(true)
                 }
+                if let branch = mainViewModel.status?.branch, branch.upstream == nil {
+                    Button("Push New Branch") {
+                        mainViewModel.pushNew(branch: branch)
+                    }
+                    .keyboardShortcut("u", modifiers: [.command, .option])
+                }
                 Button("New Branch") {
                     mainViewModel.checkoutNewBranch()
                 }
