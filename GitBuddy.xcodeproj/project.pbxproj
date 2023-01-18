@@ -45,6 +45,7 @@
 		F4D6E50A296B6A4B00C302C1 /* OutdatedPillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D6E509296B6A4B00C302C1 /* OutdatedPillView.swift */; };
 		F4D6E50C296B739900C302C1 /* ClearButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D6E50B296B739900C302C1 /* ClearButton.swift */; };
 		F4D6E50E296B89EE00C302C1 /* ConditionalModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D6E50D296B89EE00C302C1 /* ConditionalModifier.swift */; };
+		F4E664152978A989009E3898 /* Change+UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E664142978A989009E3898 /* Change+UI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +100,7 @@
 		F4D6E509296B6A4B00C302C1 /* OutdatedPillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutdatedPillView.swift; sourceTree = "<group>"; };
 		F4D6E50B296B739900C302C1 /* ClearButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearButton.swift; sourceTree = "<group>"; };
 		F4D6E50D296B89EE00C302C1 /* ConditionalModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionalModifier.swift; sourceTree = "<group>"; };
+		F4E664142978A989009E3898 /* Change+UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Change+UI.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +128,7 @@
 				F4445A8E295E52810053D9B0 /* String.swift */,
 				F4B040A129665BF4007AD99C /* Date.swift */,
 				F468ECEB297768A7005AA4E9 /* Status+Presentation.swift */,
+				F4E664142978A989009E3898 /* Change+UI.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -411,6 +414,7 @@
 				F4445AA8295E7BDB0053D9B0 /* RepoViewModel.swift in Sources */,
 				F447A38A2963B8D60056FDEF /* Loading.swift in Sources */,
 				F4445A91295E58310053D9B0 /* GitBuddyAppMainViewModel.swift in Sources */,
+				F4E664152978A989009E3898 /* Change+UI.swift in Sources */,
 				F4C2C72B29742F0500A8F745 /* BranchElementView.swift in Sources */,
 				F4445A68295DE5A90053D9B0 /* AppDelegate.swift in Sources */,
 				F47CB919295DD7AD00A47BA8 /* RepoView.swift in Sources */,

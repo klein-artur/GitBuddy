@@ -63,6 +63,8 @@ struct LocalChangeItem: View {
     
     var body: some View {
         HStack {
+            Text(change.kind.infoString)
+                .foregroundColor(change.kind.infoColor)
             VStack(alignment: .leading) {
                 Text(change.path.lastPathComponent ?? "")
                     .lineLimit(1)
