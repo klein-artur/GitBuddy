@@ -110,7 +110,7 @@ class PreviewRepo: Repository {
         fatalError("not implemented")
     }
     
-    func stage(file path: String?) async throws -> AddResult {
+    func stage(file path: String?) async throws {
         fatalError("not implemented")
     }
     
@@ -122,7 +122,19 @@ class PreviewRepo: Repository {
         fatalError("not implemented")
     }
     
-    func commit(message: String) async throws -> CommitResult {
+    func commit(message: String) async throws {
+        fatalError("not implemented")
+    }
+    
+    func fetch() async throws {
+        fatalError("not implemented")
+    }
+    
+    func pull(force: Bool) async throws -> PullResult {
+        fatalError("not implemented")
+    }
+    
+    func push(force: Bool) async throws -> PushResult {
         fatalError("not implemented")
     }
 }

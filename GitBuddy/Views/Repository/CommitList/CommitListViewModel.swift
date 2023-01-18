@@ -22,13 +22,13 @@ class CommitListViewModel: BaseViewModel {
         
         super.init(repository: repository)
     
-        defaultErrorHandling { [weak self] in
+        defaultTask { [weak self] in
             self?.commitList = try await repository.getLog(branchName: branch.name).commitPathTree
         }
     }
     
     func checkoutBranch() {
-        defaultErrorHandling { [weak self] in
+        defaultTask { [weak self] in
             guard let self = self else {
                 return
             }

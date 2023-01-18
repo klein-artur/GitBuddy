@@ -21,7 +21,7 @@ class BaseViewModel: ObservableObject {
     
     @Published var gitError: String?
     
-    @Published var loadingCount: Int = 0
+    @MainActor @Published var loadingCount: Int = 0
     
     @Published var gitLogBranch: Branch?
     
@@ -35,6 +35,7 @@ class BaseViewModel: ObservableObject {
         self.repository = repository
         
         repository.objectWillChange
+            .receive(on: RunLoop.main)
             .sink(
                 receiveCompletion: { _ in },
                 receiveValue: { [weak self] _ in
@@ -66,7 +67,8 @@ class BaseViewModel: ObservableObject {
         }
     }
     
-    func defaultErrorHandling(_ code: @escaping (() async throws -> Void)) {
+    func defaultTask(_ code: @escaping (() async throws -> Void)) {
+        setLoading()
         Task {
             do {
                 try await code()
@@ -76,6 +78,9 @@ class BaseViewModel: ObservableObject {
                 } else {
                     print(error)
                 }
+            }
+            await MainActor.run {
+                stopLoading()
             }
         }
     }

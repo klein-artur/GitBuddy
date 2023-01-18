@@ -55,9 +55,12 @@ struct RepoView: View {
     private func isARepoView(status: StatusResult) -> some View {
         VStack(alignment: .leading) {
             BranchElementView(
-                branch: status.branch,
-                showLogButton: true,
-                status: status
+                viewModel: BranchElementViewModel(
+                    repository: GitRepo.standard,
+                    branch: status.branch,
+                    status: nil,
+                    showLogButton: true
+                )
             )
             Divider()
             TabView(selection: $tabSelection) {

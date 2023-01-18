@@ -10,9 +10,7 @@ import GitCaller
 
 struct BranchElementView: View {
     
-    let branch: Branch
-    let showLogButton: Bool
-    let status: StatusResult?
+    @ObservedObject var viewModel: BranchElementViewModel
     
     @State var showLogBranch: Branch?
     
@@ -32,28 +30,41 @@ struct BranchElementView: View {
                     .frame(height: 20)
                     .padding(.top, 7)
                 VStack(alignment: .leading) {
-                    Text(branch.name)
+                    Text(viewModel.branch.name)
                         .font(.title)
                         .lineLimit(1)
-                    if let upstream = branch.upstream {
+                    if let upstream = viewModel.branch.upstream {
                         Text(upstream.name)
                             .font(.caption)
                     }
                 }
-                OutdatedPillView(branch: branch)
+                OutdatedPillView(branch: viewModel.branch)
                     .padding(.top, 5)
-                if let status = status {
+                if let status = viewModel.status {
                     localChangesPill(status: status)
                         .padding(.top, 5)
                 }
             }
-            if showLogButton {
-                Spacer()
+            Spacer()
+            
+            if let shouldForce = viewModel.branch.shouldForcePull {
+                Button(shouldForce ? "Force Pull" : "Pull") {
+                    viewModel.pull(force: shouldForce)
+                }
+            }
+            if let shouldForce = viewModel.branch.shouldForcePush {
+                Button(shouldForce ? "Force Push" : "Push") {
+                    viewModel.push(force: shouldForce)
+                }
+            }
+            if viewModel.showLogButton {
                 Button("Commits".localized) {
-                    self.showLogBranch = branch
+                    self.showLogBranch = viewModel.branch
                 }
             }
         }
+        .loading(loadingCount: $viewModel.loadingCount)
+        .generalAlert(item: $viewModel.alertItem)
     }
     
     @ViewBuilder
@@ -73,9 +84,12 @@ struct BranchElementView: View {
 struct BranchElementView_Previews: PreviewProvider {
     static var previews: some View {
         BranchElementView(
-            branch: StatusResult.getTestStatus().branch,
-            showLogButton: true,
-            status: StatusResult.getTestStatus()
+            viewModel: BranchElementViewModel(
+                repository: PreviewRepo(),
+                branch: StatusResult.getTestStatus().branch,
+                status: StatusResult.getTestStatus(),
+                showLogButton: true
+            )
         )
     }
 }

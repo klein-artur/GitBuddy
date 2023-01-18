@@ -9,7 +9,7 @@ import SwiftUI
 import GitCaller
 
 @main
-struct GitBuddyApp: App {
+struct GitBuddyApp: App {                                                                                                                                                                                                        
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
     @StateObject var mainViewModel: GitBuddyAppMainViewModel = GitBuddyAppMainViewModel(repository: GitRepo.standard)
@@ -25,11 +25,43 @@ struct GitBuddyApp: App {
                 }
             }
             .navigationTitle(mainViewModel.repoName ?? "Git Buddy")
+            .gitErrorAlert(gitError: $mainViewModel.gitError)
             .onAppear {
                 self.mainViewModel.repoPathPublisher = appDelegate.$currentRepoDir
             }
+            .loading(loadingCount: $mainViewModel.loadingCount)
+            .generalAlert(item: $mainViewModel.alertItem)
         }
         .commands {
+            CommandMenu("Repository") {
+                Button("Fetch") {
+                    mainViewModel.defaultTask {
+                        try await GitRepo.standard.fetch()
+                    }
+                }
+                .keyboardShortcut("f", modifiers: .command)
+                .disabled(mainViewModel.status == nil)
+                if let shouldForce = mainViewModel.status?.branch.shouldForcePull {
+                    Button(shouldForce ? "Force Pull" : "Pull") {
+                        mainViewModel.pull(force: shouldForce)
+                    }
+                    .keyboardShortcut("p", modifiers: shouldForce ? [.command, .shift] : .command)
+                } else {
+                    Button("Pull") { }
+                    .keyboardShortcut("p", modifiers: .command)
+                    .disabled(true)
+                }
+                if let shouldForce = mainViewModel.status?.branch.shouldForcePush {
+                    Button(shouldForce ? "Force Push" : "Push") {
+                        mainViewModel.push(force: shouldForce)
+                    }
+                    .keyboardShortcut("u", modifiers: shouldForce ? [.command, .shift] : .command)
+                } else {
+                    Button("Push") { }
+                    .keyboardShortcut("u", modifiers: .command)
+                    .disabled(true)
+                }
+            }
             CommandGroup(replacing: .newItem) {
                 Button {
                     AppDelegate.shared?.openFile()

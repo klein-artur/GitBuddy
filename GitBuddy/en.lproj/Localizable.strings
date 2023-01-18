@@ -22,6 +22,7 @@
 "clone url placeholder" = "URL";
 
 "ok" = "Ok";
+"yes" = "Yes";
 "cancel" = "Cancel";
 
 // Repo Current Branch:
@@ -46,3 +47,13 @@
 "revert" = "Revert";
 "revert alert title" = "Revert File";
 "revert alert message" = "Do you really want to revert this changes? This cannot be undone";
+
+"Repository" = "Repository";
+"Fetch" = "Fetch";
+"Pull" = "Pull";
+"Force Pull" = "Force Pull";
+"Push" = "Push";
+"Force Push" = "Force Push";
+
+"Force Push Message" = "Do you want to force push the changes? This action is irreversible.";
+"Force Pull Message" = "Do you want to force pull the changes? This action is irreversible.";

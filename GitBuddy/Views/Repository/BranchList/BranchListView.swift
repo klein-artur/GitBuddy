@@ -10,7 +10,7 @@ import GitCaller
 
 struct BranchListView: View {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    @ObservedObject var viewModel: BranchListViewModel
+    @StateObject var viewModel: BranchListViewModel
     
     @State var selected: String = ""
     

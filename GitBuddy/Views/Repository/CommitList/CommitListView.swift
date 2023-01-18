@@ -16,9 +16,12 @@ struct CommitListView: View {
             VStack {
                 HStack {
                     BranchElementView(
-                        branch: commitListViewModel.branch,
-                        showLogButton: false,
-                        status: nil
+                        viewModel: BranchElementViewModel(
+                            repository: GitRepo.standard,
+                            branch: commitListViewModel.branch,
+                            status: nil,
+                            showLogButton: false
+                        )
                     )
                     Spacer()
                     if !commitListViewModel.branch.isCurrent {

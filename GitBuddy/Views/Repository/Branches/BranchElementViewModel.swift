@@ -1,44 +1,31 @@
 //
-//  GitBuddyAppMainViewModel.swift
+//  BranchElementViewModel.swift
 //  GitBuddy
 //
-//  Created by Artur Hellmann on 30.12.22.
+//  Created by Artur Hellmann on 17.01.23.
 //
 
 import Foundation
-import SwiftUI
-import Combine
 import GitCaller
 
 @MainActor
-class GitBuddyAppMainViewModel: BaseViewModel {
+class BranchElementViewModel: BaseViewModel {
     
-    @Published var status: StatusResult?
+    let branch: Branch
+    let status: StatusResult?
+    let showLogButton: Bool
     
-    var repoPathPublisher: (any Publisher<String?, Never>)? {
-        didSet {
-            guard let repoPathPublisher = repoPathPublisher else { return }
-            repoPathPublisher
-                .sink { [weak self] in
-                    self?.repoName = $0?.lastPathComponent
-                    self?.repoPath = $0
-                }
-                .store(in: &self.lifetimeCancellables)
-        }
+    init(
+        repository: some Repository,
+        branch: Branch,
+        status: StatusResult?,
+        showLogButton: Bool
+    ) {
+        self.branch = branch
+        self.status = status
+        self.showLogButton = showLogButton
+        super.init(repository: repository)
     }
-    
-    private func load() {
-        defaultTask { [weak self] in
-            self?.status = try await self?.repository.getStatus()
-        }
-    }
-    
-    override func updateSent() {
-        load()
-    }
-    
-    @Published var repoName: String?
-    @Published var repoPath: String?
     
     @MainActor
     func pull(force: Bool) {

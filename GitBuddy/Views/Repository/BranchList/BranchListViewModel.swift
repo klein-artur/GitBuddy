@@ -66,7 +66,7 @@ class BranchListViewModel: BaseViewModel {
     }
     
     func checkoutBranch(for item: Branch) {
-        defaultErrorHandling { [weak self] in
+        defaultTask { [weak self] in
             _ = try await self?.repository.checkout(branch: item)
         }
     }
@@ -80,15 +80,23 @@ class BranchListViewModel: BaseViewModel {
                     title: "Delete Branch",
                     role: .destructive,
                     action: { [weak self] in
-                        self?.defaultErrorHandling {
-                            if let result = try await self?.repository.checkout(branch: item), result.didChange {
-                                AppDelegate.shared?.reload()
-                            }
+                        self?.defaultTask {
+                            _ = try await self?.repository.checkout(branch: item)
                         }
                     }
                 )
             ]
         )
+    }
+    
+    @MainActor
+    override func updateSent() {
+        defaultTask { [weak self] in
+            guard let result = try await self?.repository.getBranches() else {
+                return
+            }
+            self?.branchResult = result
+        }
     }
     
 }
