@@ -74,7 +74,9 @@ class BaseViewModel: ObservableObject {
                 try await code()
             } catch {
                 if let parseError = error as? ParseError {
-                    self.gitError = parseError.rawOutput
+                    if shouldHandleError(parseError: parseError) {
+                        self.gitError = parseError.rawOutput
+                    }
                 } else {
                     print(error)
                 }
@@ -87,6 +89,10 @@ class BaseViewModel: ObservableObject {
     
     func showLog(for branch: Branch) {
         gitLogBranch = branch
+    }
+    
+    open func shouldHandleError(parseError: ParseError) -> Bool {
+        return true
     }
     
     open func updateSent() {

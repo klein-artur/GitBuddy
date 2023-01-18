@@ -81,4 +81,12 @@ class GitBuddyAppMainViewModel: BaseViewModel {
             }
         }
     }
+    
+    override func shouldHandleError(parseError: ParseError) -> Bool {
+        if parseError.type == .notARepository {
+            return false
+        } else {
+            return super.shouldHandleError(parseError: parseError)
+        }
+    }
 }
