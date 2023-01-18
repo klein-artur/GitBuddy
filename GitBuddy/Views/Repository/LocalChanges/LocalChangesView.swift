@@ -73,13 +73,6 @@ struct LocalChangeItem: View {
             }
             if showButton {
                 Spacer()
-                Button(staged ? "unstage" : "stage") {
-                    if staged {
-                        viewModel.unstage(change: change)
-                    } else {
-                        viewModel.stage(change: change)
-                    }
-                }
                 if change.state != .staged && change.kind != .newFile && change.kind != .bothAdded {
                     Button("revert") {
                         viewModel.revert(change: change)
@@ -91,6 +84,13 @@ struct LocalChangeItem: View {
             .padding(.vertical, 2)
             .onHover { isHovering in
                 showButton = isHovering
+            }
+            .onTapGesture(count: 2) {
+                if staged {
+                    viewModel.unstage(change: change)
+                } else {
+                    viewModel.stage(change: change)
+                }
             }
     }
 }
