@@ -61,6 +61,11 @@ struct GitBuddyApp: App {
                     .keyboardShortcut("u", modifiers: .command)
                     .disabled(true)
                 }
+                Button("New Branch") {
+                    mainViewModel.checkoutNewBranch()
+                }
+                .keyboardShortcut("b", modifiers: [.command, .shift])
+                .disabled(mainViewModel.status == nil)
             }
             CommandGroup(replacing: .newItem) {
                 Button {

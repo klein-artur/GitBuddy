@@ -57,3 +57,6 @@
 
 "Force Push Message" = "Do you want to force push the changes? This action is irreversible.";
 "Force Pull Message" = "Do you want to force pull the changes? This action is irreversible.";
+
+"New Branch" = "Checkout New Branch";
+"New Branch Name" = "Enter the name of the new Branch";

@@ -76,7 +76,7 @@ class BranchListViewModel: BaseViewModel {
             title: "Delete Branch",
             message: "delete local branch message",
             actions: [
-                AlertAction(
+                AlertButton(
                     title: "Delete Branch",
                     role: .destructive,
                     action: { [weak self] in

@@ -34,7 +34,7 @@ class BranchElementViewModel: BaseViewModel {
                 title: "Force Pull",
                 message: "Force Pull Message",
                 actions: [
-                    AlertAction(title: "yes", role: .destructive, action: { [weak self] in
+                    AlertButton(title: "yes", role: .destructive, action: { [weak self] in
                         self?.defaultTask {
                             _ = try await self?.repository.pull(force: force)
                         }
@@ -55,7 +55,7 @@ class BranchElementViewModel: BaseViewModel {
                 title: "Force Push",
                 message: "Force Push Message",
                 actions: [
-                    AlertAction(title: "yes", role: .destructive, action: { [weak self] in
+                    AlertButton(title: "yes", role: .destructive, action: { [weak self] in
                         self?.defaultTask {
                             _ = try await self?.repository.push(force: force)
                         }

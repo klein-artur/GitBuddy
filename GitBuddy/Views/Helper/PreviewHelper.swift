@@ -137,5 +137,9 @@ class PreviewRepo: Repository {
     func push(force: Bool) async throws -> PushResult {
         fatalError("not implemented")
     }
+    
+    func newBranchAndCheckout(name: String) async throws -> CheckoutResult {
+        fatalError("not implemented")
+    }
 }
 

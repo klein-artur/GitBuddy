@@ -52,7 +52,7 @@ class LocalChangesViewModel: BaseViewModel {
             title: "revert alert title",
             message: "revert alert message",
             actions: [
-                AlertAction(
+                AlertButton(
                     title: "revert",
                     role: .destructive,
                     action: { [weak self] in

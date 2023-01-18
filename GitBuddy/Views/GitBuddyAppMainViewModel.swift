@@ -15,6 +15,17 @@ class GitBuddyAppMainViewModel: BaseViewModel {
     
     @Published var status: StatusResult?
     
+    private var innerUpdate = false
+    @Published var newBranchName: String = "" {
+        didSet {
+            if !innerUpdate {
+                innerUpdate = true
+                newBranchName = newBranchName.replacingOccurrences(of: " ", with: "-")
+                innerUpdate = false
+            }
+        }
+    }
+    
     var repoPathPublisher: (any Publisher<String?, Never>)? {
         didSet {
             guard let repoPathPublisher = repoPathPublisher else { return }
@@ -47,7 +58,7 @@ class GitBuddyAppMainViewModel: BaseViewModel {
                 title: "Force Pull",
                 message: "Force Pull Message",
                 actions: [
-                    AlertAction(title: "yes", role: .destructive, action: { [weak self] in
+                    AlertButton(title: "yes", role: .destructive, action: { [weak self] in
                         self?.defaultTask {
                             _ = try await self?.repository.pull(force: force)
                         }
@@ -68,7 +79,7 @@ class GitBuddyAppMainViewModel: BaseViewModel {
                 title: "Force Push",
                 message: "Force Push Message",
                 actions: [
-                    AlertAction(title: "yes", role: .destructive, action: { [weak self] in
+                    AlertButton(title: "yes", role: .destructive, action: { [weak self] in
                         self?.defaultTask {
                             _ = try await self?.repository.push(force: force)
                         }
@@ -80,6 +91,27 @@ class GitBuddyAppMainViewModel: BaseViewModel {
                 _ = try await self?.repository.push(force: force)
             }
         }
+    }
+    
+    @MainActor
+    func checkoutNewBranch() {
+        alertItem = AlertItem(
+            title: "New Branch",
+            message: "New Branch Name",
+            actions: [
+                AlertTextField(title: "name", text: Binding(get: {
+                    self.newBranchName
+                }, set: { newValue in
+                    self.newBranchName = newValue
+                })),
+                AlertButton(title: "New Branch", action: { [weak self] in
+                    self?.defaultTask({
+                        _ = try await self?.repository.newBranchAndCheckout(name: self!.newBranchName)
+                    })
+                }),
+                AlertButton(title: "cancel", action: { })
+            ]
+        )
     }
     
     override func shouldHandleError(parseError: ParseError) -> Bool {
