@@ -68,6 +68,7 @@ struct LocalChangeItem: View {
     var body: some View {
         HStack {
             Text(change.kind.infoString)
+                .font(Font.system(size: 12).monospaced())
                 .foregroundColor(change.kind.infoColor)
             VStack(alignment: .leading) {
                 Text(change.path.lastPathComponent ?? "")
@@ -79,8 +80,10 @@ struct LocalChangeItem: View {
             }
             if showButton {
                 Spacer()
-                Button("Details") {
-                    localChangesFilePath = change.path
+                if change.kind != .deleted && change.kind != .newFile {
+                    Button("Details") {
+                        localChangesFilePath = change.path
+                    }
                 }
                 if change.state != .staged && change.kind != .newFile && change.kind != .bothAdded {
                     Button("revert") {
