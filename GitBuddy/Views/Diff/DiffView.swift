@@ -9,7 +9,6 @@ import SwiftUI
 import GitCaller
 
 struct DiffView: View {
-    @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: DiffViewModel
     
     var body: some View {
@@ -36,35 +35,32 @@ struct DiffView: View {
     @ViewBuilder
     private func diffView(diff: Diff, isStaged: Bool?) -> some View {
         LazyVStack {
-            HStack {
-                VStack(alignment: .leading) {
-                    Text(diff.leftName.lastPathComponent ?? "")
-                        .lineLimit(1)
-                        .fontWeight(.bold)
-                    Text(diff.leftName.replacingOccurrences(of: "/\(diff.leftName.lastPathComponent ?? "")", with: ""))
-                        .lineLimit(1)
-                        .font(.caption)
-                }
-                .frame(maxWidth: .infinity, alignment: .topLeading)
-                .padding(8)
-                .background(in: RoundedRectangle(cornerRadius: 6))
-                if viewModel.rightFile != nil {
+            GroupBox {
+                HStack {
                     VStack(alignment: .leading) {
-                        Text(diff.rightName.lastPathComponent ?? "")
+                        Text(diff.leftName.lastPathComponent ?? "")
                             .lineLimit(1)
                             .fontWeight(.bold)
-                        Text(diff.rightName.replacingOccurrences(of: "/\(diff.rightName.lastPathComponent ?? "")", with: ""))
+                        Text(diff.leftName.replacingOccurrences(of: "/\(diff.leftName.lastPathComponent ?? "")", with: ""))
                             .lineLimit(1)
                             .font(.caption)
                     }
                     .frame(maxWidth: .infinity, alignment: .topLeading)
-                    .padding(8)
-                    .background(in: RoundedRectangle(cornerRadius: 6))
-                }
-                if let isStaged = viewModel.staged {
-                    Button(isStaged ? "unstage" : "stage") {
-                        viewModel.stage()
-                        dismiss()
+                    if viewModel.rightFile != nil {
+                        VStack(alignment: .leading) {
+                            Text(diff.rightName.lastPathComponent ?? "")
+                                .lineLimit(1)
+                                .fontWeight(.bold)
+                            Text(diff.rightName.replacingOccurrences(of: "/\(diff.rightName.lastPathComponent ?? "")", with: ""))
+                                .lineLimit(1)
+                                .font(.caption)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .topLeading)
+                    }
+                    if let isStaged = viewModel.staged {
+                        Button(isStaged ? "unstage" : "stage") {
+                            viewModel.stage()
+                        }
                     }
                 }
             }
@@ -76,26 +72,29 @@ struct DiffView: View {
     
     @ViewBuilder
     private func hunkView(hunk: Hunk, index: Int, isStaged: Bool?) -> some View {
-        LazyVStack(alignment: .leading) {
-            Text("Hunk Nr. \(index + 1)")
-                .frame(maxWidth: .infinity)
-                .overlay(alignment: .topTrailing) {
-                    if let isStaged = viewModel.staged {
-                        Button(isStaged ? "unstage" : "stage") {
-                            viewModel.stage(index)
+        GroupBox {
+            LazyVStack(alignment: .leading) {
+                Text("Hunk Nr. \(index + 1)")
+                    .frame(maxWidth: .infinity)
+                    .overlay(alignment: .topTrailing) {
+                        if let isStaged = viewModel.staged {
+                            Button(isStaged ? "unstage" : "stage") {
+                                viewModel.stage(index)
+                            }
                         }
                     }
+                LazyVStack {
+                    ForEach(Array(hunk.lines.enumerated()), id: \.offset) { line in
+                        lineView(line: line.element, index: line.offset)
+                    }
                 }
-            LazyVStack {
-                ForEach(Array(hunk.lines.enumerated()), id: \.offset) { line in
-                    lineView(line: line.element, index: line.offset)
-                }
+                .padding()
+                .background(Color(nsColor: NSColor(red: 0.11, green: 0.11, blue: 0.11, alpha: 1.00)))
+                .foregroundColor(.primary)
+                .cornerRadius(8)
             }
-            .padding()
-            .background(in: RoundedRectangle(cornerRadius: 6))
         }
         .frame(maxWidth: .infinity, alignment: .topLeading)
-        .padding(8)
     }
     
     private func lineView(line: HunkLine, index: Int) -> some View {
@@ -104,11 +103,11 @@ struct DiffView: View {
         case .both:
             color = .clear
         case .left:
-            color = Color(nsColor: NSColor.systemRed.withAlphaComponent(0.4))
+            color = Color(nsColor: NSColor.systemRed.withAlphaComponent(0.3))
         case .right:
-            color = Color(nsColor: NSColor.systemGreen.withAlphaComponent(0.4))
+            color = Color(nsColor: NSColor.systemGreen.withAlphaComponent(0.3))
         }
-        return HStack(alignment: .top) {
+        return HStack(alignment: .lastTextBaseline) {
             Text("\(index + 1)")
                 .font(Font.system(size: 14).monospaced())
                 .frame(width: 30, alignment: .leading)
@@ -120,7 +119,6 @@ struct DiffView: View {
                 .background(color)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(1)
         .background(color)
     }
 }
