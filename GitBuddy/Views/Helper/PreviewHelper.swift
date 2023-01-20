@@ -175,7 +175,7 @@ class PreviewRepo: Repository {
      asdf
      
     -
-    +asdf
+    +asdf this is some very very long line that should be scrollable to the right if possible. So no elliptizes, no shortinging. Just scrolling to the right should be possible whenever the user wants to scroll.
      
      @@ -1,5 +1,5 @@
      asdf
@@ -200,7 +200,7 @@ class PreviewRepo: Repository {
      asdf
      
     -
-    +asdf
+    +asdf this is some very very long line that should be scrollable to the right if possible. So no elliptizes, no shortinging. Just scrolling to the right should be possible whenever the user wants to scroll.
      
      @@ -1,5 +1,5 @@
      asdf
