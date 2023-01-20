@@ -9,7 +9,7 @@ import SwiftUI
 import GitCaller
 
 struct CommitListView: View {
-    @ObservedObject var commitListViewModel: CommitListViewModel
+    @StateObject var commitListViewModel: CommitListViewModel
     
     var body: some View {
         if let commitList = commitListViewModel.commitList {

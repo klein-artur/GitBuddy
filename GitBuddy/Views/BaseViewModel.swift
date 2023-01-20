@@ -46,6 +46,10 @@ class BaseViewModel: ObservableObject {
 
     }
     
+    open func load() {
+        
+    }
+    
     func setLoading() {
         loadingCount += 1
     }
@@ -96,6 +100,6 @@ class BaseViewModel: ObservableObject {
     }
     
     open func updateSent() {
-        // do updates here.
+        self.load()
     }
 }

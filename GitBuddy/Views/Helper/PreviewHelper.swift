@@ -141,5 +141,70 @@ class PreviewRepo: Repository {
     func newBranchAndCheckout(name: String) async throws -> CheckoutResult {
         fatalError("not implemented")
     }
+    
+    func diff(path: String?, staged: Bool = false, rightPath: String? = nil) async throws -> DiffResult {
+        try DiffResultParser().parse(result: Self.simpleOneFileDiff).get()
+    }
+    
+    static let simpleTwoFileDiff: String = """
+    diff --git a/some/file/diffFile b/some/file/diffFile2
+    index 2959c86..1f2aa9f 100644
+    --- a/some/file/diffFile
+    +++ b/some/file/diffFile2
+    @@ -1,5 +1,5 @@
+     asdf
+     
+    -asdf
+    +asdfasdf
+     
+     asdf
+    diff --git a/some/file/diffFile2 b/some/file/diffFile2
+    index 2959c86..91b7927 100644
+    --- a/some/file/diffFile2
+    +++ b/some/file/diffFile2
+    @@ -3 +3 @@ asdf
+     
+     asdf
+     
+    -
+    +asdf
+     
+     @@ -1,5 +1,5 @@
+     asdf
+    @@ -33,7 +33,7 @@ asdf
+     
+     
+     
+    -asdf
+    +asdffdsa
+     
+     
+     
+    """
+    
+    static let simpleOneFileDiff: String = """
+    diff --git a/some/file/diffFile2 b/some/file/diffFile2
+    index 2959c86..91b7927 100644
+    --- a/some/file/diffFile2
+    +++ b/some/file/diffFile2
+    @@ -3 +3 @@ asdf
+     
+     asdf
+     
+    -
+    +asdf
+     
+     @@ -1,5 +1,5 @@
+     asdf
+    @@ -33,7 +33,7 @@ asdf
+     
+     
+     
+    -asdf
+    +asdffdsa
+     
+     
+     
+    """
 }
 

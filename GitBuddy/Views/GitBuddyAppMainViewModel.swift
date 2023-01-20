@@ -38,7 +38,7 @@ class GitBuddyAppMainViewModel: BaseViewModel {
         }
     }
     
-    private func load() {
+    override func load() {
         defaultTask { [weak self] in
             self?.status = try await self?.repository.getStatus()
         }

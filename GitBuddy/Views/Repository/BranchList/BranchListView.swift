@@ -86,7 +86,7 @@ struct BranchListView: View {
 struct BranchItemView: View {
     let branch: Branch
     let item: BranchTreeItem
-    @ObservedObject var viewModel: BranchListViewModel
+    @StateObject var viewModel: BranchListViewModel
     
     @State var buttonsVisible: Bool = false
     

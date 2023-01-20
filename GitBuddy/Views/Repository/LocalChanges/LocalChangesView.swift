@@ -9,7 +9,7 @@ import SwiftUI
 import GitCaller
 
 struct LocalChangesView: View {
-    @ObservedObject var viewModel: LocalChangesViewModel
+    @StateObject var viewModel: LocalChangesViewModel
     
     var body: some View {
         ScrollView {
@@ -61,6 +61,8 @@ struct LocalChangeItem: View {
     let staged: Bool
     @State var showButton: Bool = false
     
+    @State var localChangesFilePath: String?
+    
     var body: some View {
         HStack {
             Text(change.kind.infoString)
@@ -75,6 +77,9 @@ struct LocalChangeItem: View {
             }
             if showButton {
                 Spacer()
+                Button("Details") {
+                    localChangesFilePath = change.path
+                }
                 if change.state != .staged && change.kind != .newFile && change.kind != .bothAdded {
                     Button("revert") {
                         viewModel.revert(change: change)
@@ -93,6 +98,9 @@ struct LocalChangeItem: View {
                 } else {
                     viewModel.stage(change: change)
                 }
+            }
+            .sheet(item: $localChangesFilePath) { path in
+                DiffView(viewModel: DiffViewModel(repository: viewModel.repository, leftFile: path, staged: staged))
             }
     }
 }
