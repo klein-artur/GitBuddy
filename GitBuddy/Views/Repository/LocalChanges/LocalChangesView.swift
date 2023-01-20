@@ -12,23 +12,25 @@ struct LocalChangesView: View {
     @StateObject var viewModel: LocalChangesViewModel
     
     var body: some View {
-        ScrollView {
-            if let status = viewModel.status {
-                VStack {
-                    group(for: status.combinedUnstagedChanges, staged: false)
-                    group(for: status.stagedChanges, staged: true)
-                    if !status.stagedChanges.isEmpty {
-                        HStack{
-                            TextEditor(text: $viewModel.commitMessage)
-                                .frame(height: 50)
-                            Button("commit") {
-                                viewModel.commit()
-                            }
-                        }
+        VStack {
+            ScrollView {
+                if let status = viewModel.status {
+                    VStack {
+                        group(for: status.combinedUnstagedChanges, staged: false)
+                        group(for: status.stagedChanges, staged: true)
+                    }
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                }
+            }
+            if let status = viewModel.status, !status.stagedChanges.isEmpty {
+                HStack{
+                    TextEditor(text: $viewModel.commitMessage)
+                        .frame(height: 50)
+                    Button("commit") {
+                        viewModel.commit()
                     }
                 }
-                .padding()
-                .frame(maxWidth: .infinity)
             }
         }
         .onAppear {
