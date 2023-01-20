@@ -45,6 +45,7 @@ struct BranchListView: View {
         .generalAlert(item: $viewModel.alertItem)
         .gitErrorAlert(gitError: $viewModel.gitError)
         .commitSheet(for: $viewModel.gitLogBranch)
+        .loading(loadingCount: $viewModel.loadingCount)
     }
     
     @ViewBuilder
@@ -161,15 +162,6 @@ struct BranchListView_Previews: PreviewProvider {
         BranchListView(
             viewModel: BranchListViewModel(
                 repository: PreviewRepo(),
-                branchResult: try! BranchResultParser().parse(result: """
-                    * (HEAD detached at fadce24)
-                      Savebranch                             8667982e1 fixed issue
-                      main                                   8667982e1 [ahead 2] fixed issue
-                      other                                  8667982e1 [behind 2] fixed issue
-                      test/nested                            8667982e1 [ahead 3, behind 2] fixed issue
-                      remotes/origin/HEAD -> origin/main
-                      remotes/origin/main
-                    """).get(),
                 keyValueRepo: PreviewKeyValueRepo()
             )
         )

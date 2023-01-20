@@ -99,7 +99,15 @@ class PreviewRepo: Repository {
     }
     
     func getBranches() async throws -> GitCaller.BranchResult {
-        fatalError("not implemented")
+        return try BranchResultParser().parse(result: """
+        * (HEAD detached at fadce24)
+          Savebranch                             8667982e1 fixed issue
+          main                                   8667982e1 [ahead 2] fixed issue
+          other                                  8667982e1 [behind 2] fixed issue
+          test/nested                            8667982e1 [ahead 3, behind 2] fixed issue
+          remotes/origin/HEAD -> origin/main
+          remotes/origin/main
+        """).get()
     }
     
     func checkout(branch: GitCaller.Branch) async throws -> GitCaller.CheckoutResult {

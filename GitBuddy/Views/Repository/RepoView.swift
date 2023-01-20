@@ -88,19 +88,12 @@ struct RepoView: View {
     
     @ViewBuilder
     private var branchListView: some View {
-        if let branchResult = viewModel.branchResult {
-            BranchListView(
-                viewModel: BranchListViewModel(
-                    repository: GitRepo.standard,
-                    branchResult: branchResult,
-                    keyValueRepo: LocalKeyValueRepository()
-                )
+        BranchListView(
+            viewModel: BranchListViewModel(
+                repository: GitRepo.standard,
+                keyValueRepo: LocalKeyValueRepository()
             )
-        } else {
-            ProgressView()
-                .progressViewStyle(.circular)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-        }
+        )
     }
     
 }

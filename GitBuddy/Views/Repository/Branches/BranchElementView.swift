@@ -10,7 +10,7 @@ import GitCaller
 
 struct BranchElementView: View {
     
-    @StateObject var viewModel: BranchElementViewModel
+    @ObservedObject var viewModel: BranchElementViewModel
     
     @State var showLogBranch: Branch?
     

@@ -11,26 +11,31 @@ import GitCaller
 @MainActor
 class BranchListViewModel: BaseViewModel {
     
-    @Published var branchResult: BranchResult
-    
     let keyValueRepo: KeyValueRepository
     
     @Published var searchString = ""
     
+    @Published var branchResult: BranchResult? = nil
+    
     var branchTree: [BranchTreeItem] {
-        return branchResult.tree?.flatten.filter({ item in
+        return branchResult?.tree?.flatten.filter({ item in
             isVisible(for: item)
         }) ?? []
     }
     
     init(
         repository: some Repository,
-        branchResult: BranchResult,
         keyValueRepo: KeyValueRepository
     ) {
-        self.branchResult = branchResult
         self.keyValueRepo = keyValueRepo
         super.init(repository: repository)
+        self.load()
+    }
+    
+    override func load() {
+        defaultTask { [weak self] in
+            self?.branchResult = try await self?.repository.getBranches()
+        }
     }
     
     func isVisible(for item: BranchTreeItem) -> Bool {
