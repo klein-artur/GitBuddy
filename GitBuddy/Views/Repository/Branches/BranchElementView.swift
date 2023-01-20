@@ -38,12 +38,10 @@ struct BranchElementView: View {
                             .font(.caption)
                     }
                 }
-                OutdatedPillView(branch: viewModel.branch)
-                    .padding(.top, 5)
-                if let status = viewModel.status {
-                    localChangesPill(status: status)
-                        .padding(.top, 5)
-                }
+            }
+            OutdatedPillView(branch: viewModel.branch)
+            if let status = viewModel.status {
+                localChangesPill(status: status)
             }
             Spacer()
             
