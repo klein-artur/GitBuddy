@@ -107,7 +107,7 @@ struct DiffView: View {
         case .right:
             color = Color(nsColor: NSColor.systemGreen.withAlphaComponent(0.3))
         }
-        return HStack(alignment: .lastTextBaseline) {
+        return HStack(alignment: .firstTextBaseline) {
             Text("\(index + 1)")
                 .font(Font.system(size: 14).monospaced())
                 .frame(width: 30, alignment: .leading)
