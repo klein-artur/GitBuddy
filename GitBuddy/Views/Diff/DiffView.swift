@@ -108,13 +108,13 @@ struct DiffView: View {
         }
         return HStack(alignment: .firstTextBaseline) {
             Text(line.leftLine ?? "")
-                .font(Font.system(size: 12).monospaced())
-                .frame(width: 15, alignment: .leading)
+                .font(Font.system(size: 10).monospaced())
+                .frame(width: 25, alignment: .leading)
                 .padding(.trailing, 4)
                 .foregroundColor(.secondary)
             Text(line.rightLine ?? "")
-                .font(Font.system(size: 12).monospaced())
-                .frame(width: 15, alignment: .leading)
+                .font(Font.system(size: 10).monospaced())
+                .frame(width: 25, alignment: .leading)
                 .padding(.trailing, 8)
                 .foregroundColor(.secondary)
             Text(line.line.content.prefix(1))
