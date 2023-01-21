@@ -80,7 +80,7 @@ struct LocalChangeItem: View {
             }
             if showButton {
                 Spacer()
-                if change.kind != .deleted && change.kind != .newFile {
+                if change.kind == .modified {
                     Button("Details") {
                         localChangesFilePath = change.path
                     }
@@ -104,7 +104,7 @@ struct LocalChangeItem: View {
                     viewModel.stage(change: change)
                 }
             }
-            .sheet(item: $localChangesFilePath) { path in
+            .popover(item: $localChangesFilePath) { path in
                 DiffView(viewModel: DiffViewModel(repository: viewModel.repository, leftFile: path, staged: staged))
             }
     }

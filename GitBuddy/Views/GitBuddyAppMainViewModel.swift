@@ -129,4 +129,13 @@ class GitBuddyAppMainViewModel: BaseViewModel {
             return super.shouldHandleError(parseError: parseError)
         }
     }
+    
+    func test() {
+        Git().add.patch().minusMinus().path("testfile").run(predefinedInput: "n\ne\n")
+            .receive(on: RunLoop.main)
+            .sink { output in
+                print(output)
+            }
+            .store(in: &lifetimeCancellables)
+    }
 }

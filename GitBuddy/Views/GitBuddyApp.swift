@@ -7,12 +7,15 @@
 
 import SwiftUI
 import GitCaller
+import Combine
 
 @main
 struct GitBuddyApp: App {                                                                                                                                                                                                        
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
     @StateObject var mainViewModel: GitBuddyAppMainViewModel = GitBuddyAppMainViewModel(repository: GitRepo.standard)
+    
+    @State var showCommandView: Bool = false
     
     var body: some Scene {
         WindowGroup {
@@ -31,8 +34,18 @@ struct GitBuddyApp: App {
             }
             .loading(loadingCount: $mainViewModel.loadingCount)
             .generalAlert(item: $mainViewModel.alertItem)
+            .sheet(isPresented: $showCommandView) {
+                CommandInputView(viewModel: CommandInputViewModel(repository: mainViewModel.repository))
+            }
         }
         .commands {
+            CommandMenu("Actions") {
+                Button ("Run") {
+                    showCommandView = true
+                }
+                .keyboardShortcut("r", modifiers: [.command, .shift])
+                .disabled(mainViewModel.status == nil)
+            }
             CommandMenu("Repository") {
                 Button("Fetch") {
                     mainViewModel.defaultTask {

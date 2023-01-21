@@ -154,6 +154,10 @@ class PreviewRepo: Repository {
         try DiffResultParser().parse(result: Self.simpleOneFileDiff).get()
     }
     
+    func needsUpdate() {
+        fatalError("not implemented")
+    }
+    
     static let simpleTwoFileDiff: String = """
     diff --git a/some/file/diffFile b/some/file/diffFile2
     index 2959c86..1f2aa9f 100644

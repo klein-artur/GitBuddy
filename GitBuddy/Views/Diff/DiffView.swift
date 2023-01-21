@@ -84,22 +84,21 @@ struct DiffView: View {
                         }
                     }
                 LazyVStack {
-                    ForEach(Array(hunk.lines.enumerated()), id: \.offset) { line in
-                        lineView(line: line.element, index: line.offset)
+                    ForEach(hunk.viewHunkLines) { line in
+                        lineView(line: line)
                     }
                 }
                 .padding()
                 .background(Color(nsColor: NSColor(red: 0.11, green: 0.11, blue: 0.11, alpha: 1.00)))
-                .foregroundColor(.primary)
                 .cornerRadius(8)
             }
         }
         .frame(maxWidth: .infinity, alignment: .topLeading)
     }
     
-    private func lineView(line: HunkLine, index: Int) -> some View {
+    private func lineView(line: ViewHunkLine) -> some View {
         let color: Color
-        switch line.type {
+        switch line.line.type {
         case .both:
             color = .clear
         case .left:
@@ -108,15 +107,23 @@ struct DiffView: View {
             color = Color(nsColor: NSColor.systemGreen.withAlphaComponent(0.3))
         }
         return HStack(alignment: .firstTextBaseline) {
-            Text("\(index + 1)")
+            Text(line.leftLine ?? "")
                 .font(Font.system(size: 12).monospaced())
-                .frame(width: 30, alignment: .leading)
+                .frame(width: 15, alignment: .leading)
+                .padding(.trailing, 4)
+                .foregroundColor(.secondary)
+            Text(line.rightLine ?? "")
+                .font(Font.system(size: 12).monospaced())
+                .frame(width: 15, alignment: .leading)
                 .padding(.trailing, 8)
-            Text(line.content.prefix(1))
+                .foregroundColor(.secondary)
+            Text(line.line.content.prefix(1))
                 .font(Font.system(size: 12).monospaced())
-            Text(line.cleanedContent)
+                .foregroundColor(.secondary)
+            Text(line.line.cleanedContent)
                 .font(Font.system(size: 12).monospaced())
                 .background(color)
+                .foregroundColor(.primary)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(color)

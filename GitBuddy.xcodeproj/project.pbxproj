@@ -20,6 +20,8 @@
 		F447A38E2963C2C00056FDEF /* ErrorAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = F447A38D2963C2C00056FDEF /* ErrorAlert.swift */; };
 		F468ECEA29775D24005AA4E9 /* BranchElementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F468ECE929775D24005AA4E9 /* BranchElementViewModel.swift */; };
 		F468ECEC297768A7005AA4E9 /* Status+Presentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F468ECEB297768A7005AA4E9 /* Status+Presentation.swift */; };
+		F46C91E9297BD15D00A78C6F /* CommandInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46C91E8297BD15D00A78C6F /* CommandInputView.swift */; };
+		F46C91EB297BD29B00A78C6F /* CommandInputViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46C91EA297BD29B00A78C6F /* CommandInputViewModel.swift */; };
 		F47CB917295DD7AD00A47BA8 /* GitBuddyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47CB916295DD7AD00A47BA8 /* GitBuddyApp.swift */; };
 		F47CB919295DD7AD00A47BA8 /* RepoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47CB918295DD7AD00A47BA8 /* RepoView.swift */; };
 		F47CB91B295DD7AF00A47BA8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F47CB91A295DD7AF00A47BA8 /* Assets.xcassets */; };
@@ -75,6 +77,8 @@
 		F447A38D2963C2C00056FDEF /* ErrorAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAlert.swift; sourceTree = "<group>"; };
 		F468ECE929775D24005AA4E9 /* BranchElementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BranchElementViewModel.swift; sourceTree = "<group>"; };
 		F468ECEB297768A7005AA4E9 /* Status+Presentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Status+Presentation.swift"; sourceTree = "<group>"; };
+		F46C91E8297BD15D00A78C6F /* CommandInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandInputView.swift; sourceTree = "<group>"; };
+		F46C91EA297BD29B00A78C6F /* CommandInputViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandInputViewModel.swift; sourceTree = "<group>"; };
 		F47CB913295DD7AD00A47BA8 /* GitBuddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GitBuddy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F47CB916295DD7AD00A47BA8 /* GitBuddyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitBuddyApp.swift; sourceTree = "<group>"; };
 		F47CB918295DD7AD00A47BA8 /* RepoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoView.swift; sourceTree = "<group>"; };
@@ -156,6 +160,8 @@
 				F4445A90295E58310053D9B0 /* GitBuddyAppMainViewModel.swift */,
 				F4445AA2295E5C7F0053D9B0 /* BaseViewModel.swift */,
 				F4445AA4295E687D0053D9B0 /* NoPathSelectedView.swift */,
+				F46C91E8297BD15D00A78C6F /* CommandInputView.swift */,
+				F46C91EA297BD29B00A78C6F /* CommandInputViewModel.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -450,11 +456,13 @@
 				F4445A8F295E52810053D9B0 /* String.swift in Sources */,
 				F4C2C72429733AD300A8F745 /* LocalChangesView.swift in Sources */,
 				F4B04096296653CD007AD99C /* CommitItemView.swift in Sources */,
+				F46C91EB297BD29B00A78C6F /* CommandInputViewModel.swift in Sources */,
 				F47CB917295DD7AD00A47BA8 /* GitBuddyApp.swift in Sources */,
 				F4D6E50A296B6A4B00C302C1 /* OutdatedPillView.swift in Sources */,
 				F4D6E506296B59C600C302C1 /* KeyValueRepository.swift in Sources */,
 				F4C2C72629733B0800A8F745 /* LocalChangesViewModel.swift in Sources */,
 				F4B0409A29665452007AD99C /* CommitListViewModel.swift in Sources */,
+				F46C91E9297BD15D00A78C6F /* CommandInputView.swift in Sources */,
 				F468ECEA29775D24005AA4E9 /* BranchElementViewModel.swift in Sources */,
 				F4D6E50E296B89EE00C302C1 /* ConditionalModifier.swift in Sources */,
 				F4B040A229665BF4007AD99C /* Date.swift in Sources */,
