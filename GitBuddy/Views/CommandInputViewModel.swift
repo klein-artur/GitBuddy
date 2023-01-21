@@ -10,8 +10,22 @@ import GitCaller
 
 @MainActor
 class CommandInputViewModel: BaseViewModel {
-    @Published var commandInput: String = ""
+    @Published var commandInput: String = "" {
+        didSet {
+            updateAutocompletion()
+        }
+    }
     @Published var commandOutput: String = ""
+    
+    @Published var autocompletionList: [String]? = nil
+    
+    @Published var branches: BranchResult?
+    
+    override func load() {
+        defaultTask { [weak self] in
+            self?.branches = try await self?.repository.getBranches()
+        }
+    }
     
     func run() {
         setLoading()
@@ -26,5 +40,46 @@ class CommandInputViewModel: BaseViewModel {
                 self?.commandOutput = output
             })
             .store(in: &self.lifetimeCancellables)
+    }
+    
+    private func updateAutocompletion() {
+        guard loadingCount <= 0 else {
+            autocompletionList = nil
+            return
+        }
+        guard commandInput.words.count > 1 else {
+            autocompletionList = nil
+            return
+        }
+        
+        guard let branches = branches?.branches else {
+            autocompletionList = nil
+            return
+        }
+        
+        let searchString = commandInput.words[commandInput.words.endIndex - 1]
+        
+        let results = branches
+            .filter({ branch in
+                branch.name.hasPrefix(searchString)
+                && branch.name != searchString
+            })
+            .map({ branch in
+                branch.name
+            })
+        
+        guard !results.isEmpty else {
+            autocompletionList = nil
+            return
+        }
+        
+        autocompletionList = results
+    }
+    
+    func autocompletionSelected(value: String) {
+        self.autocompletionList = nil
+        var words = self.commandInput.words
+        words[words.endIndex - 1] = value
+        self.commandInput = words.joined(separator: " ")
     }
 }

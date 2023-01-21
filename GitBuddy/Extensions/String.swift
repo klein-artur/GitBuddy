@@ -30,3 +30,12 @@ extension String {
         self.url?.lastPathComponent
     }
 }
+
+
+// MARK: Wording
+
+extension String {
+    var words: [String] {
+        self.components(separatedBy: .whitespacesAndNewlines).filter { !$0.isEmpty }
+    }
+}
