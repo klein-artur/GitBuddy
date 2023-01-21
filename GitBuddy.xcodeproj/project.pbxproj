@@ -22,11 +22,11 @@
 		F468ECEC297768A7005AA4E9 /* Status+Presentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F468ECEB297768A7005AA4E9 /* Status+Presentation.swift */; };
 		F46C91E9297BD15D00A78C6F /* CommandInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46C91E8297BD15D00A78C6F /* CommandInputView.swift */; };
 		F46C91EB297BD29B00A78C6F /* CommandInputViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46C91EA297BD29B00A78C6F /* CommandInputViewModel.swift */; };
+		F46C91EE297C3A3000A78C6F /* GitCaller in Frameworks */ = {isa = PBXBuildFile; productRef = F46C91ED297C3A3000A78C6F /* GitCaller */; };
 		F47CB917295DD7AD00A47BA8 /* GitBuddyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47CB916295DD7AD00A47BA8 /* GitBuddyApp.swift */; };
 		F47CB919295DD7AD00A47BA8 /* RepoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47CB918295DD7AD00A47BA8 /* RepoView.swift */; };
 		F47CB91B295DD7AF00A47BA8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F47CB91A295DD7AF00A47BA8 /* Assets.xcassets */; };
 		F47CB91E295DD7AF00A47BA8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F47CB91D295DD7AF00A47BA8 /* Preview Assets.xcassets */; };
-		F47CB928295DD82300A47BA8 /* GitCaller in Frameworks */ = {isa = PBXBuildFile; productRef = F47CB927295DD82300A47BA8 /* GitCaller */; };
 		F4B0409429664485007AD99C /* CommitListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B0409329664485007AD99C /* CommitListView.swift */; };
 		F4B04096296653CD007AD99C /* CommitItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B04095296653CD007AD99C /* CommitItemView.swift */; };
 		F4B04098296653F0007AD99C /* CommitTreeElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B04097296653F0007AD99C /* CommitTreeElementView.swift */; };
@@ -85,7 +85,6 @@
 		F47CB91A295DD7AF00A47BA8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F47CB91D295DD7AF00A47BA8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		F47CB91F295DD7AF00A47BA8 /* GitBuddy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GitBuddy.entitlements; sourceTree = "<group>"; };
-		F47CB925295DD80A00A47BA8 /* GitCaller */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = GitCaller; path = ../GitCaller; sourceTree = "<group>"; };
 		F4B0409329664485007AD99C /* CommitListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommitListView.swift; sourceTree = "<group>"; };
 		F4B04095296653CD007AD99C /* CommitItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommitItemView.swift; sourceTree = "<group>"; };
 		F4B04097296653F0007AD99C /* CommitTreeElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommitTreeElementView.swift; sourceTree = "<group>"; };
@@ -123,7 +122,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F47CB928295DD82300A47BA8 /* GitCaller in Frameworks */,
+				F46C91EE297C3A3000A78C6F /* GitCaller in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -205,7 +204,6 @@
 		F47CB90A295DD7AD00A47BA8 = {
 			isa = PBXGroup;
 			children = (
-				F47CB925295DD80A00A47BA8 /* GitCaller */,
 				F47CB915295DD7AD00A47BA8 /* GitBuddy */,
 				F4445A97295E58790053D9B0 /* GitBuddyTests */,
 				F47CB914295DD7AD00A47BA8 /* Products */,
@@ -353,7 +351,7 @@
 			);
 			name = GitBuddy;
 			packageProductDependencies = (
-				F47CB927295DD82300A47BA8 /* GitCaller */,
+				F46C91ED297C3A3000A78C6F /* GitCaller */,
 			);
 			productName = GitBuddy;
 			productReference = F47CB913295DD7AD00A47BA8 /* GitBuddy.app */;
@@ -388,6 +386,9 @@
 				Base,
 			);
 			mainGroup = F47CB90A295DD7AD00A47BA8;
+			packageReferences = (
+				F46C91EC297C3A3000A78C6F /* XCRemoteSwiftPackageReference "GitCaller" */,
+			);
 			productRefGroup = F47CB914295DD7AD00A47BA8 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -748,9 +749,21 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		F46C91EC297C3A3000A78C6F /* XCRemoteSwiftPackageReference "GitCaller" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/klein-artur/GitCaller";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
-		F47CB927295DD82300A47BA8 /* GitCaller */ = {
+		F46C91ED297C3A3000A78C6F /* GitCaller */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = F46C91EC297C3A3000A78C6F /* XCRemoteSwiftPackageReference "GitCaller" */;
 			productName = GitCaller;
 		};
 /* End XCSwiftPackageProductDependency section */

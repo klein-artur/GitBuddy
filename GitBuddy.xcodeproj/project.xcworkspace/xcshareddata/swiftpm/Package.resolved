@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "gitcaller",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/klein-artur/GitCaller",
+      "state" : {
+        "branch" : "main",
+        "revision" : "925ea2b2f360a2f62fc6bb25e2d64e05c7861013"
+      }
+    }
+  ],
+  "version" : 2
+}
