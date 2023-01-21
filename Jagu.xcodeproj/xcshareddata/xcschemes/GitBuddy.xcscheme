@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "F47CB912295DD7AD00A47BA8"
-               BuildableName = "GitBuddy.app"
-               BlueprintName = "GitBuddy"
-               ReferencedContainer = "container:GitBuddy.xcodeproj">
+               BuildableName = "Jagu.app"
+               BlueprintName = "Jagu"
+               ReferencedContainer = "container:Jagu.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -34,9 +34,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "F4445A95295E58790053D9B0"
-               BuildableName = "GitBuddyTests.xctest"
-               BlueprintName = "GitBuddyTests"
-               ReferencedContainer = "container:GitBuddy.xcodeproj">
+               BuildableName = "JaguTests.xctest"
+               BlueprintName = "JaguTests"
+               ReferencedContainer = "container:Jagu.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -56,9 +56,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F47CB912295DD7AD00A47BA8"
-            BuildableName = "GitBuddy.app"
-            BlueprintName = "GitBuddy"
-            ReferencedContainer = "container:GitBuddy.xcodeproj">
+            BuildableName = "Jagu.app"
+            BlueprintName = "Jagu"
+            ReferencedContainer = "container:Jagu.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -73,9 +73,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F47CB912295DD7AD00A47BA8"
-            BuildableName = "GitBuddy.app"
-            BlueprintName = "GitBuddy"
-            ReferencedContainer = "container:GitBuddy.xcodeproj">
+            BuildableName = "Jagu.app"
+            BlueprintName = "Jagu"
+            ReferencedContainer = "container:Jagu.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
