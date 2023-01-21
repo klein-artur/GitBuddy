@@ -1,5 +1,7 @@
-# GitBuddy
+# Jagu (Just another git UI)
 
-A very lightweight smart git ui deep in development.
+This is just another GIT UI. Just a very lightweight one that focusses on the main actions a typical Dev will do. 
+You can also do everything else.
 
-Currently it uses [GitBuddy](https://github.com/klein-artur/GitBuddy) in combination with [GitParser](https://github.com/klein-artur/GitParser) as local swift packages.
+## Do some slow ride.
+This is just in alpha phase. Take it easy. Tell me what you think and feel free to create PullRequests :-P

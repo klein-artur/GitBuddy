@@ -23,6 +23,7 @@
 		F46C91E9297BD15D00A78C6F /* CommandInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46C91E8297BD15D00A78C6F /* CommandInputView.swift */; };
 		F46C91EB297BD29B00A78C6F /* CommandInputViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46C91EA297BD29B00A78C6F /* CommandInputViewModel.swift */; };
 		F46C91EE297C3A3000A78C6F /* GitCaller in Frameworks */ = {isa = PBXBuildFile; productRef = F46C91ED297C3A3000A78C6F /* GitCaller */; };
+		F46DC533297CA710001E357D /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = F46DC532297CA710001E357D /* README.md */; };
 		F47CB917295DD7AD00A47BA8 /* GitBuddyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47CB916295DD7AD00A47BA8 /* GitBuddyApp.swift */; };
 		F47CB919295DD7AD00A47BA8 /* RepoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47CB918295DD7AD00A47BA8 /* RepoView.swift */; };
 		F47CB91B295DD7AF00A47BA8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F47CB91A295DD7AF00A47BA8 /* Assets.xcassets */; };
@@ -79,6 +80,7 @@
 		F468ECEB297768A7005AA4E9 /* Status+Presentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Status+Presentation.swift"; sourceTree = "<group>"; };
 		F46C91E8297BD15D00A78C6F /* CommandInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandInputView.swift; sourceTree = "<group>"; };
 		F46C91EA297BD29B00A78C6F /* CommandInputViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandInputViewModel.swift; sourceTree = "<group>"; };
+		F46DC532297CA710001E357D /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		F47CB913295DD7AD00A47BA8 /* Jagu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Jagu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F47CB916295DD7AD00A47BA8 /* GitBuddyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitBuddyApp.swift; sourceTree = "<group>"; };
 		F47CB918295DD7AD00A47BA8 /* RepoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoView.swift; sourceTree = "<group>"; };
@@ -140,12 +142,12 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		F4445A97295E58790053D9B0 /* GitBuddyTests */ = {
+		F4445A97295E58790053D9B0 /* JaguTests */ = {
 			isa = PBXGroup;
 			children = (
 				F4445A9F295E59790053D9B0 /* GitBuddyAppMainViewModelTest.swift */,
 			);
-			path = GitBuddyTests;
+			path = JaguTests;
 			sourceTree = "<group>";
 		};
 		F4445AA1295E5C400053D9B0 /* Views */ = {
@@ -204,8 +206,9 @@
 		F47CB90A295DD7AD00A47BA8 = {
 			isa = PBXGroup;
 			children = (
-				F47CB915295DD7AD00A47BA8 /* GitBuddy */,
-				F4445A97295E58790053D9B0 /* GitBuddyTests */,
+				F46DC532297CA710001E357D /* README.md */,
+				F47CB915295DD7AD00A47BA8 /* Jagu */,
+				F4445A97295E58790053D9B0 /* JaguTests */,
 				F47CB914295DD7AD00A47BA8 /* Products */,
 				F47CB926295DD82300A47BA8 /* Frameworks */,
 			);
@@ -220,7 +223,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		F47CB915295DD7AD00A47BA8 /* GitBuddy */ = {
+		F47CB915295DD7AD00A47BA8 /* Jagu */ = {
 			isa = PBXGroup;
 			children = (
 				F4D6E504296B59AF00C302C1 /* Repositories */,
@@ -233,7 +236,7 @@
 				F4445A67295DE5A90053D9B0 /* AppDelegate.swift */,
 				F4445A6D295DEB580053D9B0 /* Localizable.strings */,
 			);
-			path = GitBuddy;
+			path = Jagu;
 			sourceTree = "<group>";
 		};
 		F47CB91C295DD7AF00A47BA8 /* Preview Content */ = {
@@ -413,6 +416,7 @@
 			files = (
 				F47CB91E295DD7AF00A47BA8 /* Preview Assets.xcassets in Resources */,
 				F4445A6B295DEB580053D9B0 /* Localizable.strings in Resources */,
+				F46DC533297CA710001E357D /* README.md in Resources */,
 				F47CB91B295DD7AF00A47BA8 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -511,7 +515,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.hellmann.GitBuddyTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hellmann.JaguTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -536,7 +540,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.hellmann.GitBuddyTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hellmann.JaguTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -665,11 +669,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
-				CODE_SIGN_ENTITLEMENTS = GitBuddy/GitBuddy.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Jagu/Jagu.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"GitBuddy/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Jagu/Preview Content\"";
 				DEVELOPMENT_TEAM = 3SXRZ8J7UJ;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
@@ -681,9 +686,10 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = "Alpha 0.1.1";
-				PRODUCT_BUNDLE_IDENTIFIER = com.hellmann.GitBuddy;
+				MARKETING_VERSION = "Alpha 0.1.2";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hellmann.Jagu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -695,11 +701,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
-				CODE_SIGN_ENTITLEMENTS = GitBuddy/GitBuddy.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Jagu/Jagu.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"GitBuddy/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Jagu/Preview Content\"";
 				DEVELOPMENT_TEAM = 3SXRZ8J7UJ;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
@@ -711,9 +718,10 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = "Alpha 0.1.1";
-				PRODUCT_BUNDLE_IDENTIFIER = com.hellmann.GitBuddy;
+				MARKETING_VERSION = "Alpha 0.1.2";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hellmann.Jagu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};
