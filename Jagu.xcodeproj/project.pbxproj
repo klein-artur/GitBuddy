@@ -72,7 +72,7 @@
 		F4445A9F295E59790053D9B0 /* GitBuddyAppMainViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitBuddyAppMainViewModelTest.swift; sourceTree = "<group>"; };
 		F4445AA2295E5C7F0053D9B0 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		F4445AA4295E687D0053D9B0 /* NoPathSelectedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoPathSelectedView.swift; sourceTree = "<group>"; };
-		F4445AA7295E7BDB0053D9B0 /* RepoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RepoViewModel.swift; path = ../../../../../../Desktop/RepoViewModel.swift; sourceTree = "<group>"; };
+		F4445AA7295E7BDB0053D9B0 /* RepoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoViewModel.swift; sourceTree = "<group>"; };
 		F447A3892963B8D60056FDEF /* Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loading.swift; sourceTree = "<group>"; };
 		F447A38D2963C2C00056FDEF /* ErrorAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAlert.swift; sourceTree = "<group>"; };
 		F468ECE929775D24005AA4E9 /* BranchElementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BranchElementViewModel.swift; sourceTree = "<group>"; };
@@ -756,7 +756,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/klein-artur/GitCaller";
 			requirement = {
-				branch = main;
+				branch = develop;
 				kind = branch;
 			};
 		};
