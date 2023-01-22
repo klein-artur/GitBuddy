@@ -9,6 +9,7 @@ extension Change.Kind {
         case .deleted: return "DEL"
         case .newFile: return "ADD"
         case .modified: return "MOD"
+        case .renamed: return "REN"
         }
     }
     
@@ -17,7 +18,7 @@ extension Change.Kind {
         case .bothAdded, .bothModified: return Color(NSColor.systemYellow)
         case .deleted: return Color(NSColor.systemRed)
         case .newFile: return Color(NSColor.systemGreen)
-        case .modified: return Color(NSColor.systemOrange)
+        case .modified, .renamed: return Color(NSColor.systemOrange)
         }
     }
 }
