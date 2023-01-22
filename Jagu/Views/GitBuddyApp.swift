@@ -27,7 +27,7 @@ struct JaguApp: App {
                         .frame(width: 500, height: 400)
                 }
             }
-            .navigationTitle(mainViewModel.repoName ?? "Git Buddy")
+            .navigationTitle(mainViewModel.repoName ?? "Jagu")
             .gitErrorAlert(gitError: $mainViewModel.gitError)
             .onAppear {
                 self.mainViewModel.repoPathPublisher = appDelegate.$currentRepoDir
