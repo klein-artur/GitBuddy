@@ -69,16 +69,13 @@ struct RepoView: View {
                         Text("Branches")
                     }
                     .tag("branches")
-                if let status = viewModel.gitStatus, status.status == .unclean {
+                if let status = viewModel.gitStatus, status.status != .clean {
                     LocalChangesView(
                         viewModel: LocalChangesViewModel(
                             repository: GitRepo.standard,
                             status: status
                         )
                     )
-                        .tabItem {
-                            Text("Local Changes")
-                        }
                         .tag("loalChanges")
                 }
             }

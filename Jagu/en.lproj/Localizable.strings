@@ -71,3 +71,11 @@
 "Actions" = "Actions";
 
 "done" = "Done";
+
+"merge into " = "Merge into %@";
+"Merging" = "Merging";
+"mark as solved" = "Mark as solved";
+"merge" = "Merge";
+"continue" = "Continue";
+"abort" = "abort";
+"in middle of merge" = "Ongoing Merge";
