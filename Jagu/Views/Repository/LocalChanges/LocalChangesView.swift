@@ -114,10 +114,11 @@ struct LocalChangeItem: View {
                 }
             }
         }
-        .padding(.vertical, 2)
-        .onTapGesture(count: 2) {
-            viewModel.doubleClicked(change: change, staged: staged)
-        }
+            .padding(.vertical, 2)
+            .contentShape(Rectangle())  
+            .onTapGesture(count: 2) {
+                viewModel.doubleClicked(change: change, staged: staged)
+            }
             .onHover { isHovering in
                 showButton = isHovering
             }
