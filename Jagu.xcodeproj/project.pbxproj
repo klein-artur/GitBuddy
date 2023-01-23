@@ -698,7 +698,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = "Alpha 0.1.4";
+				MARKETING_VERSION = "Alpha 0.1.5";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hellmann.Jagu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -730,7 +730,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = "Alpha 0.1.4";
+				MARKETING_VERSION = "Alpha 0.1.5";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hellmann.Jagu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
