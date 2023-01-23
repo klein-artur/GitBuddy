@@ -32,7 +32,6 @@ struct BranchListView: View {
                         .onTapGesture(count: 2) {
                             switch item.type {
                             case let .branch(branch):
-                                // selected = branch.name
                                 viewModel.checkoutBranch(for: branch)
                             case .directory(_):
                                 viewModel.changeOpenState(for: item)
@@ -110,6 +109,13 @@ struct BranchItemView: View {
                             viewModel.deleteBranch(for: branch)
                         } label: {
                             Text("Delete Branch")
+                        }
+                        if let status = viewModel.status {
+                            Button {
+                                viewModel.mergeBranch(for: branch)
+                            } label: {
+                                Text("merge into ".localized.formatted(status.branch.name))
+                            }
                         }
                     }
                 }

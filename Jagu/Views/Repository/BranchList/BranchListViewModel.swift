@@ -15,6 +15,8 @@ class BranchListViewModel: BaseViewModel {
     
     @Published var searchString = ""
     
+    @Published var status: StatusResult? = nil
+    
     @Published var branchResult: BranchResult? = nil
     
     var branchTree: [BranchTreeItem] {
@@ -35,6 +37,7 @@ class BranchListViewModel: BaseViewModel {
     override func load() {
         defaultTask { [weak self] in
             self?.branchResult = try await self?.repository.getBranches()
+            self?.status = try await self?.repository.getStatus()
         }
     }
     
@@ -94,13 +97,9 @@ class BranchListViewModel: BaseViewModel {
         )
     }
     
-    @MainActor
-    override func updateSent() {
-        defaultTask { [weak self] in
-            guard let result = try await self?.repository.getBranches() else {
-                return
-            }
-            self?.branchResult = result
+    func mergeBranch(for item: Branch) {
+        self.defaultTask { [weak self] in
+            try await self?.repository.merge(branch: item.name)
         }
     }
     

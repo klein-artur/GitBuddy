@@ -16,6 +16,17 @@ struct LocalChangesView: View {
             ScrollView {
                 if let status = viewModel.status {
                     VStack {
+                        if viewModel.status?.status == .merging {
+                            HStack {
+                                Text("in middle of merge")
+                                Spacer()
+                                Button {
+                                    viewModel.abort()
+                                } label: {
+                                    Text("abort")
+                                }
+                            }
+                        }
                         group(for: status.combinedUnstagedChanges, staged: false)
                         group(for: status.stagedChanges, staged: true)
                     }
@@ -27,10 +38,13 @@ struct LocalChangesView: View {
                 HStack{
                     TextEditor(text: $viewModel.commitMessage)
                         .frame(height: 50)
-                    Button("commit") {
+                    Button {
                         viewModel.commit()
+                    } label: {
+                        Text(status.status == .merging ? "continue" : "commit")
                     }
                 }
+                .padding()
             }
         }
         .onAppear {
@@ -38,6 +52,10 @@ struct LocalChangesView: View {
         }
         .gitErrorAlert(gitError: $viewModel.gitError)
         .generalAlert(item: $viewModel.alertItem)
+        .tabItem {
+            Text(viewModel.status?.status == .unclean ? "Local Changes" : "Merging")
+        }
+        .loading(loadingCount: $viewModel.loadingCount)
     }
     
     @ViewBuilder
@@ -80,14 +98,20 @@ struct LocalChangeItem: View {
             }
             if showButton {
                 Spacer()
-                if change.kind == .modified {
+                if change.kind.canShowDetails {
                     Button("Details") {
                         localChangesFilePath = change.path
                     }
                 }
                 if change.state != .staged && change.kind != .newFile && change.kind != .bothAdded {
-                    Button("revert") {
-                        viewModel.revert(change: change)
+                    if change.kind == .modified {
+                        Button("revert") {
+                            viewModel.revert(change: change)
+                        }
+                    } else {
+                        Button("merge") {
+                            viewModel.startMerging(change: change)
+                        }
                     }
                 }
             }
@@ -97,11 +121,25 @@ struct LocalChangeItem: View {
             .onHover { isHovering in
                 showButton = isHovering
             }
-            .onTapGesture(count: 2) {
-                if staged {
-                    viewModel.unstage(change: change)
-                } else {
-                    viewModel.stage(change: change)
+            .if(!change.kind.conflict, transform: { view in
+                view.onTapGesture(count: 2) {
+                    if staged {
+                        viewModel.unstage(change: change)
+                    } else {
+                        viewModel.stage(change: change)
+                    }
+                }
+            })
+            .contextMenu {
+                if (change.kind.conflict) {
+                    Button("mark as solved") {
+                        viewModel.stage(change: change)
+                    }
+                }
+                if (change.kind.deletable) {
+                    Button("delete file") {
+                        viewModel.delete(change: change)
+                    }
                 }
             }
             .popover(item: $localChangesFilePath) { path in

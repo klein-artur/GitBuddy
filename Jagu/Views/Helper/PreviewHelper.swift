@@ -95,7 +95,34 @@ class PreviewRepo: Repository {
     }
     
     func getStatus() async throws -> GitCaller.StatusResult {
-        return StatusResult.getTestStatus()
+        let input = """
+        On branch main
+        Your branch is ahead of 'origin/main' by 1 commit.
+          (use "git push" to publish your local commits)
+        
+        All conflicts fixed but you are still merging.
+          (use "git commit" to conclude merge)
+
+        Changes to be committed:
+          (use "git restore --staged <file>..." to unstage)
+            modified:   shared/ContentView.swift
+            deleted:    shared/DeviceDetail/EditDevicePrioView.swift
+            new file:   shared/DeviceDetail/Test2.swift
+            renamed:    test/testfile -> test/testfileNew
+
+        Changes not staged for commit:
+          (use "git add/rm <file>..." to update what will be committed)
+          (use "git restore <file>..." to discard changes in working directory)
+            modified:   Home.xcodeproj/project.pbxproj
+            modified:   shared/DataRepository.swift
+            deleted:    shared/DeviceDetail/DeviceDetailView.swift
+
+        Untracked files:
+          (use "git add <file>..." to include in what will be committed)
+            shared/DeviceDetail/Test.swift
+            shared/DeviceDetail/Test2.swift
+        """
+        return try! StatusParser().parse(result: input).get()
     }
     
     func getBranches() async throws -> GitCaller.BranchResult {
@@ -156,6 +183,22 @@ class PreviewRepo: Repository {
     
     func needsUpdate() {
         fatalError("not implemented")
+    }
+    
+    func merge(branch: String) async throws {
+        fatalError("not implemented")
+    }
+    
+    func abortMerge() async throws {
+        fatalError("not implemented")
+    }
+    
+    func mergetool(file: String, tool: String) async throws {
+        fatalError("not implemented")
+    }
+    
+    func getMergeCommitMessage() async throws -> String {
+        return "asdf"
     }
     
     static let simpleTwoFileDiff: String = """
