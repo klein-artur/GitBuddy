@@ -17,6 +17,7 @@ struct GitErrorAlert: ViewModifier {
                     Text(error)
                         .lineLimit(nil)
                         .frame(width: 500, height: 400, alignment: .topLeading)
+                        .font(Font.system(size: 12).monospaced())
                     Button("Ok") {
                         gitError = nil
                     }.keyboardShortcut(.defaultAction)

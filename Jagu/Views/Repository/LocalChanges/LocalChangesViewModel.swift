@@ -78,4 +78,22 @@ class LocalChangesViewModel: BaseViewModel {
             ]
         )
     }
+    
+    func delete(change: Change) {
+        alertItem = AlertItem(
+            title: "delete file",
+            message: "delete file message",
+            actions: [
+                AlertButton(
+                    title: "delete file",
+                    role: .destructive,
+                    action: { [weak self] in
+                        self?.defaultTask {
+                            try FileService().delete(file: change.path)
+                        }
+                    }
+                )
+            ]
+        )
+    }
 }

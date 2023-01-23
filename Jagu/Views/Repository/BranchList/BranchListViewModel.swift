@@ -103,16 +103,6 @@ class BranchListViewModel: BaseViewModel {
         }
     }
     
-    @MainActor
-    override func updateSent() {
-        defaultTask { [weak self] in
-            guard let result = try await self?.repository.getBranches() else {
-                return
-            }
-            self?.branchResult = result
-        }
-    }
-    
 }
 
 extension BranchTreeItem {

@@ -79,3 +79,6 @@
 "continue" = "Continue";
 "abort" = "abort";
 "in middle of merge" = "Ongoing Merge";
+
+"delete file" = "Delete";
+"delete file message" = "Do you really want to delete the file?";

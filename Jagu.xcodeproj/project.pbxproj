@@ -22,8 +22,9 @@
 		F468ECEC297768A7005AA4E9 /* Status+Presentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F468ECEB297768A7005AA4E9 /* Status+Presentation.swift */; };
 		F46C91E9297BD15D00A78C6F /* CommandInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46C91E8297BD15D00A78C6F /* CommandInputView.swift */; };
 		F46C91EB297BD29B00A78C6F /* CommandInputViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46C91EA297BD29B00A78C6F /* CommandInputViewModel.swift */; };
-		F46C91EE297C3A3000A78C6F /* GitCaller in Frameworks */ = {isa = PBXBuildFile; productRef = F46C91ED297C3A3000A78C6F /* GitCaller */; };
 		F46DC533297CA710001E357D /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = F46DC532297CA710001E357D /* README.md */; };
+		F46DC541297E16FF001E357D /* GitCaller in Frameworks */ = {isa = PBXBuildFile; productRef = F46DC540297E16FF001E357D /* GitCaller */; };
+		F46DC544297E1861001E357D /* FileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46DC543297E1861001E357D /* FileService.swift */; };
 		F47CB917295DD7AD00A47BA8 /* GitBuddyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47CB916295DD7AD00A47BA8 /* GitBuddyApp.swift */; };
 		F47CB919295DD7AD00A47BA8 /* RepoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47CB918295DD7AD00A47BA8 /* RepoView.swift */; };
 		F47CB91B295DD7AF00A47BA8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F47CB91A295DD7AF00A47BA8 /* Assets.xcassets */; };
@@ -81,6 +82,7 @@
 		F46C91E8297BD15D00A78C6F /* CommandInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandInputView.swift; sourceTree = "<group>"; };
 		F46C91EA297BD29B00A78C6F /* CommandInputViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandInputViewModel.swift; sourceTree = "<group>"; };
 		F46DC532297CA710001E357D /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		F46DC543297E1861001E357D /* FileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileService.swift; sourceTree = "<group>"; };
 		F47CB913295DD7AD00A47BA8 /* Jagu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Jagu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F47CB916295DD7AD00A47BA8 /* GitBuddyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitBuddyApp.swift; sourceTree = "<group>"; };
 		F47CB918295DD7AD00A47BA8 /* RepoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoView.swift; sourceTree = "<group>"; };
@@ -124,7 +126,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F46C91EE297C3A3000A78C6F /* GitCaller in Frameworks */,
+				F46DC541297E16FF001E357D /* GitCaller in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -203,6 +205,14 @@
 			path = General;
 			sourceTree = "<group>";
 		};
+		F46DC542297E1853001E357D /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				F46DC543297E1861001E357D /* FileService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		F47CB90A295DD7AD00A47BA8 = {
 			isa = PBXGroup;
 			children = (
@@ -226,6 +236,7 @@
 		F47CB915295DD7AD00A47BA8 /* Jagu */ = {
 			isa = PBXGroup;
 			children = (
+				F46DC542297E1853001E357D /* Services */,
 				F4D6E504296B59AF00C302C1 /* Repositories */,
 				F4B040A329666D22007AD99C /* Model */,
 				F4445AA1295E5C400053D9B0 /* Views */,
@@ -354,7 +365,7 @@
 			);
 			name = Jagu;
 			packageProductDependencies = (
-				F46C91ED297C3A3000A78C6F /* GitCaller */,
+				F46DC540297E16FF001E357D /* GitCaller */,
 			);
 			productName = GitBuddy;
 			productReference = F47CB913295DD7AD00A47BA8 /* Jagu.app */;
@@ -390,7 +401,7 @@
 			);
 			mainGroup = F47CB90A295DD7AD00A47BA8;
 			packageReferences = (
-				F46C91EC297C3A3000A78C6F /* XCRemoteSwiftPackageReference "GitCaller" */,
+				F46DC53F297E16FF001E357D /* XCRemoteSwiftPackageReference "GitCaller" */,
 			);
 			productRefGroup = F47CB914295DD7AD00A47BA8 /* Products */;
 			projectDirPath = "";
@@ -447,6 +458,7 @@
 				F447A38E2963C2C00056FDEF /* ErrorAlert.swift in Sources */,
 				F4B040A029665B3D007AD99C /* BadgeView.swift in Sources */,
 				F407535A296E15B700C35F3C /* GeneralAlert.swift in Sources */,
+				F46DC544297E1861001E357D /* FileService.swift in Sources */,
 				F4D6E50C296B739900C302C1 /* ClearButton.swift in Sources */,
 				F4C2C72829740A0D00A8F745 /* CommitListViewSheet.swift in Sources */,
 				F4B0409E29665B0F007AD99C /* TagCloudView.swift in Sources */,
@@ -760,7 +772,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		F46C91EC297C3A3000A78C6F /* XCRemoteSwiftPackageReference "GitCaller" */ = {
+		F46DC53F297E16FF001E357D /* XCRemoteSwiftPackageReference "GitCaller" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/klein-artur/GitCaller";
 			requirement = {
@@ -771,9 +783,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		F46C91ED297C3A3000A78C6F /* GitCaller */ = {
+		F46DC540297E16FF001E357D /* GitCaller */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = F46C91EC297C3A3000A78C6F /* XCRemoteSwiftPackageReference "GitCaller" */;
+			package = F46DC53F297E16FF001E357D /* XCRemoteSwiftPackageReference "GitCaller" */;
 			productName = GitCaller;
 		};
 /* End XCSwiftPackageProductDependency section */

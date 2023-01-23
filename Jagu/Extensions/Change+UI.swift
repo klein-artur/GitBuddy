@@ -24,7 +24,11 @@ extension Change.Kind {
         }
     }
     
-    var isConflict: Bool {
+    var conflict: Bool {
         self == .deletedByThem || self == .deletedByUs || self == .bothAdded || self == .bothModified
+    }
+    
+    var deletable: Bool {
+        self == .newFile || self == .modified || self == .renamed
     }
 }

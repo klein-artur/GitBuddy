@@ -121,7 +121,7 @@ struct LocalChangeItem: View {
             .onHover { isHovering in
                 showButton = isHovering
             }
-            .if(!change.kind.isConflict, transform: { view in
+            .if(!change.kind.conflict, transform: { view in
                 view.onTapGesture(count: 2) {
                     if staged {
                         viewModel.unstage(change: change)
@@ -131,9 +131,14 @@ struct LocalChangeItem: View {
                 }
             })
             .contextMenu {
-                if (change.kind.isConflict) {
+                if (change.kind.conflict) {
                     Button("mark as solved") {
                         viewModel.stage(change: change)
+                    }
+                }
+                if (change.kind.deletable) {
+                    Button("delete file") {
+                        viewModel.delete(change: change)
                     }
                 }
             }
