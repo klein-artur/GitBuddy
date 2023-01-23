@@ -97,9 +97,9 @@ class BranchListViewModel: BaseViewModel {
         )
     }
     
-    func mergeBranch(for item: Branch) {
+    func mergeBranch(for item: Branch, noFF: Bool) {
         self.defaultTask { [weak self] in
-            try await self?.repository.merge(branch: item.name)
+            try await self?.repository.merge(branch: item.name, noFF: noFF)
         }
     }
     

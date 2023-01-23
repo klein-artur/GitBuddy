@@ -35,4 +35,12 @@ extension Change.Kind {
     var canShowDetails: Bool {
         self == .modified
     }
+    
+    var mergable: Bool {
+        self == .bothAdded || self == .bothModified
+    }
+    
+    var leftRight: Bool {
+        mergable || self == .deletedByUs || self == .deletedByThem
+    }
 }

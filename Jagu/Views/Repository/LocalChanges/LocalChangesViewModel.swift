@@ -8,10 +8,65 @@
 import SwiftUI
 import GitCaller
 
+struct ChangeItem {
+    let change: Change
+    let otherKind: Change.Kind?
+    var changeKind: Change.Kind {
+        otherKind ?? change.kind
+    }
+}
+
+struct ChangeLine {
+    let leftItem: ChangeItem
+    let rightItem: ChangeItem?
+}
+
 @MainActor
 class LocalChangesViewModel: BaseViewModel {
 
-    @Published var status: StatusResult?
+    @Published var status: StatusResult? {
+        didSet {
+            if let status = self.status {
+                self.unstagedChanges = status.combinedUnstagedChanges.map({ change in
+                    switch change.kind {
+                    case .modified, .renamed, .newFile, .deleted:
+                        return ChangeLine(
+                            leftItem: ChangeItem(change: change, otherKind: nil),
+                            rightItem: nil
+                        )
+                    case .bothModified:
+                        return ChangeLine(
+                            leftItem: ChangeItem(change: change, otherKind: .modified),
+                            rightItem: ChangeItem(change: change, otherKind: .modified)
+                        )
+                    case .bothAdded:
+                        return ChangeLine(
+                            leftItem: ChangeItem(change: change, otherKind: .newFile),
+                            rightItem: ChangeItem(change: change, otherKind: .newFile)
+                        )
+                    case .deletedByUs:
+                        return ChangeLine(
+                            leftItem: ChangeItem(change: change, otherKind: .deleted),
+                            rightItem: ChangeItem(change: change, otherKind: .modified)
+                        )
+                    case .deletedByThem:
+                        return ChangeLine(
+                            leftItem: ChangeItem(change: change, otherKind: .modified),
+                            rightItem: ChangeItem(change: change, otherKind: .deleted)
+                        )
+                    }
+                })
+                self.stagedChanges = status.stagedChanges.map({ change in
+                    ChangeLine(
+                        leftItem: ChangeItem(change: change, otherKind: nil),
+                        rightItem: nil
+                    )
+                })
+            }
+        }
+    }
+    @Published var unstagedChanges: [ChangeLine] = []
+    @Published var stagedChanges: [ChangeLine] = []
     @Published var commitMessage: String = ""
     
     init(repository: some Repository, status: StatusResult) {
@@ -95,5 +150,62 @@ class LocalChangesViewModel: BaseViewModel {
                 )
             ]
         )
+    }
+    
+    func use(item: ChangeItem, in change: ChangeLine, left: Bool) {
+        if change.rightItem != nil {
+            alertItem = AlertItem(
+                title: left ? "Using our" : "Using their",
+                message: left ? "Using our message" : "Using their message",
+                actions: [
+                    AlertButton(title: "ok", action: { [weak self] in
+                        
+                        self?.defaultTask {
+                            switch item.change.kind {
+                            case .bothAdded, .bothModified:
+                                if left {
+                                    _ = try await self?.repository.useOurs(path: item.change.path)
+                                } else {
+                                    _ = try await self?.repository.useTheirs(path: item.change.path)
+                                }
+                            case .deletedByUs:
+                                if left {
+                                    try FileService().delete(file: item.change.path)
+                                }
+                                _ = try await self?.repository.stage(file: item.change.path)
+                            case .deletedByThem: 
+                                if !left {
+                                    try FileService().delete(file: item.change.path)
+                                }
+                                _ = try await self?.repository.stage(file: item.change.path)
+                            default: break
+                            }
+                        }
+                        
+                    }),
+                    AlertButton(title: "cancel", action: { })
+                ]
+            )
+        }
+    }
+    
+    func doubleClicked(change: ChangeLine, staged: Bool) {
+        if !change.leftItem.change.kind.conflict {
+            if staged {
+                self.unstage(change: change.leftItem.change)
+            } else {
+                self.stage(change: change.leftItem.change)
+            }
+        }
+    }
+    
+    var canContinue: Bool {
+        self.status?.canContinue ?? false
+    }
+}
+
+extension StatusResult {
+    var canContinue: Bool {
+        isMerging && combinedUnstagedChanges.isEmpty && stagedChanges.isEmpty
     }
 }
