@@ -9,6 +9,10 @@ import Foundation
 import GitCaller
 
 class PreviewRepo: Repository {
+    func continueMerge() async throws {
+        fatalError("not implemented")
+    }
+    
     func clone(url: String) async throws -> GitCaller.CloneResult {
         fatalError("not implemented")
     }
@@ -100,22 +104,24 @@ class PreviewRepo: Repository {
         Your branch is ahead of 'origin/main' by 1 commit.
           (use "git push" to publish your local commits)
         
-        All conflicts fixed but you are still merging.
-          (use "git commit" to conclude merge)
+        You have unmerged paths.
+          (fix conflicts and run "git commit")
+          (use "git merge --abort" to abort the merge)
 
         Changes to be committed:
           (use "git restore --staged <file>..." to unstage)
-            modified:   shared/ContentView.swift
-            deleted:    shared/DeviceDetail/EditDevicePrioView.swift
-            new file:   shared/DeviceDetail/Test2.swift
             renamed:    test/testfile -> test/testfileNew
 
         Changes not staged for commit:
           (use "git add/rm <file>..." to update what will be committed)
           (use "git restore <file>..." to discard changes in working directory)
-            modified:   Home.xcodeproj/project.pbxproj
-            modified:   shared/DataRepository.swift
             deleted:    shared/DeviceDetail/DeviceDetailView.swift
+        
+        Unmerged paths:
+          (use "git add/rm <file>..." as appropriate to mark resolution)
+            deleted by us:   testfile
+            both modified:   testfileee
+            both added:      testfileeeee
 
         Untracked files:
           (use "git add <file>..." to include in what will be committed)
@@ -194,6 +200,14 @@ class PreviewRepo: Repository {
     }
     
     func mergetool(file: String, tool: String) async throws {
+        fatalError("not implemented")
+    }
+    
+    func useOurs(path: String) async throws {
+        fatalError("not implemented")
+    }
+    
+    func useTheirs(path: String) async throws {
         fatalError("not implemented")
     }
     

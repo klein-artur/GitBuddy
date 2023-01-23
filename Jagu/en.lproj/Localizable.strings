@@ -81,6 +81,12 @@
 "in middle of merge" = "Ongoing Merge";
 "merging this into that" = "Merge %@ into %@.";
 "no fast forward merge" = "no fast forward merge (--no-ff)";
+"Using our" = "Using our changes";
+"Using their" = "Using their changes";
+"Using our message" = "Resolve the merge conflict by using our changes";
+"Using their message" = "Resolve the merge conflict by using their changes";
+"select" = "Select";
+"No Mergeissues" = "No Issues";
 
 "delete file" = "Delete";
 "delete file message" = "Do you really want to delete the file?";

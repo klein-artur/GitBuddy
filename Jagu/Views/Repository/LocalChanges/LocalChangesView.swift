@@ -19,6 +19,9 @@ struct LocalChangesView: View {
                         if viewModel.status?.status == .merging {
                             HStack {
                                 Text("in middle of merge")
+                                if viewModel.canContinue {
+                                    Text("No Mergeissues")
+                                }
                                 Spacer()
                                 Button {
                                     viewModel.abort()
@@ -27,14 +30,14 @@ struct LocalChangesView: View {
                                 }
                             }
                         }
-                        group(for: status.combinedUnstagedChanges, staged: false)
-                        group(for: status.stagedChanges, staged: true)
+                        group(for: viewModel.unstagedChanges, staged: false)
+                        group(for: viewModel.stagedChanges, staged: true)
                     }
                     .padding()
                     .frame(maxWidth: .infinity)
                 }
             }
-            if let status = viewModel.status, !status.stagedChanges.isEmpty {
+            if let status = viewModel.status, !status.stagedChanges.isEmpty || status.canContinue {
                 HStack{
                     TextEditor(text: $viewModel.commitMessage)
                         .frame(height: 50)
@@ -59,14 +62,14 @@ struct LocalChangesView: View {
     }
     
     @ViewBuilder
-    private func group(for changeList: [Change], staged: Bool) -> some View {
+    private func group(for changeList: [ChangeLine], staged: Bool) -> some View {
         let changes = changeList.sorted { left, right in
-            left.path < right.path
+            left.leftItem.change.path < right.leftItem.change.path
         }
         if !changes.isEmpty {
             GroupBox(staged ? "staged changes" : "unstaged changes") {
                 LazyVStack (alignment: .leading) {
-                    ForEach(changeList, id: \.path) { change in
+                    ForEach(changeList, id: \.leftItem.change.path) { change in
                         LocalChangeItem(viewModel: viewModel, change: change, staged: staged)
                     }
                 }
@@ -77,7 +80,7 @@ struct LocalChangesView: View {
 
 struct LocalChangeItem: View {
     let viewModel: LocalChangesViewModel
-    let change: Change
+    let change: ChangeLine
     let staged: Bool
     @State var showButton: Bool = false
     
@@ -85,66 +88,96 @@ struct LocalChangeItem: View {
     
     var body: some View {
         HStack {
-            Text(change.kind.infoString)
-                .font(Font.system(size: 12).monospaced())
-                .foregroundColor(change.kind.infoColor)
-            VStack(alignment: .leading) {
-                Text(change.path.lastPathComponent ?? "")
-                    .lineLimit(1)
-                    .fontWeight(.bold)
-                Text(change.path.replacingOccurrences(of: "/\(change.path.lastPathComponent ?? "")", with: ""))
-                    .lineLimit(1)
-                    .font(.caption)
+            itemView(for: change.leftItem, isLeft: true, change: change)
+                .frame(maxWidth: .infinity, alignment: .leading)
+            if let rightItem = change.rightItem {
+                itemView(for: rightItem, isLeft: false, change: change)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.leading, 8)
             }
-            if showButton {
-                Spacer()
-                if change.kind.canShowDetails {
+            if showButton && change.rightItem == nil {
+                if change.leftItem.change.kind.canShowDetails {
+                    Spacer()
                     Button("Details") {
-                        localChangesFilePath = change.path
+                        localChangesFilePath = change.leftItem.change.path
                     }
                 }
-                if change.state != .staged && change.kind != .newFile && change.kind != .bothAdded {
-                    if change.kind == .modified {
-                        Button("revert") {
-                            viewModel.revert(change: change)
+                if change.leftItem.change.state != .staged && change.leftItem.changeKind != .newFile && change.leftItem.changeKind != .bothAdded {
+                    if change.leftItem.changeKind == .modified {
+                        if !change.leftItem.change.kind.canShowDetails {
+                            Spacer()
                         }
-                    } else {
-                        Button("merge") {
-                            viewModel.startMerging(change: change)
+                        Button("revert") {
+                            viewModel.revert(change: change.leftItem.change)
                         }
                     }
                 }
             }
         }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.vertical, 2)
+        .padding(.vertical, 2)
+        .onTapGesture(count: 2) {
+            viewModel.doubleClicked(change: change, staged: staged)
+        }
             .onHover { isHovering in
                 showButton = isHovering
             }
-            .if(!change.kind.conflict, transform: { view in
-                view.onTapGesture(count: 2) {
-                    if staged {
-                        viewModel.unstage(change: change)
-                    } else {
-                        viewModel.stage(change: change)
-                    }
-                }
-            })
             .contextMenu {
-                if (change.kind.conflict) {
+                if (change.leftItem.changeKind.conflict) {
                     Button("mark as solved") {
-                        viewModel.stage(change: change)
+                        viewModel.stage(change: change.leftItem.change)
                     }
                 }
-                if (change.kind.deletable) {
+                if (change.leftItem.changeKind.deletable) {
                     Button("delete file") {
-                        viewModel.delete(change: change)
+                        viewModel.delete(change: change.leftItem.change)
                     }
                 }
             }
             .popover(item: $localChangesFilePath) { path in
                 DiffView(viewModel: DiffViewModel(repository: viewModel.repository, leftFile: path, staged: staged))
             }
+    }
+    
+    @ViewBuilder
+    func itemView(for item: ChangeItem, isLeft: Bool, change: ChangeLine) -> some View {
+        HStack {
+            Text(item.changeKind.infoString)
+                .font(Font.system(size: 12).monospaced())
+                .foregroundColor(item.changeKind.infoColor)
+            VStack(alignment: .leading) {
+                Text(item.change.path.lastPathComponent ?? "")
+                    .lineLimit(1)
+                    .fontWeight(.bold)
+                Text(item.change.path.replacingOccurrences(of: "/\(item.change.path.lastPathComponent ?? "")", with: ""))
+                    .lineLimit(1)
+                    .font(.caption)
+            }
+            if item.change.kind.leftRight {
+                Spacer()
+                
+                Button("select") {
+                    Task {
+                        await MainActor.run(body: {
+                            self.viewModel.use(item: item, in: change, left: isLeft)
+                        })
+                    }
+                    
+                }
+                if isLeft {
+                    if item.change.kind.mergable {
+                        Button("merge") {
+                            Task {
+                                await MainActor.run(body: {
+                                    viewModel.startMerging(change: item.change)
+                                })
+                            }
+                        }
+                    }
+                }
+            }
+            
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 }
 

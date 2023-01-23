@@ -69,7 +69,7 @@ struct RepoView: View {
                         Text("Branches")
                     }
                     .tag("branches")
-                if let status = viewModel.gitStatus, status.status != .clean {
+                if let status = viewModel.gitStatus, status.status != .clean || status.isMerging {
                     LocalChangesView(
                         viewModel: LocalChangesViewModel(
                             repository: GitRepo.standard,
