@@ -23,7 +23,7 @@ struct LocalChangesView: View {
                                 Button {
                                     viewModel.abort()
                                 } label: {
-                                    Text("abort")
+                                    Text("abort merge")
                                 }
                             }
                         }

@@ -90,6 +90,9 @@ struct BranchItemView: View {
     
     @State var buttonsVisible: Bool = false
     
+    @State var mergeDecissionShown: Bool = false
+    @State var noFastForwardMerge: Bool = false
+    
     var body: some View {
         branchItem(branch: branch)
             .frame(maxWidth: .infinity, idealHeight: 20, alignment: .leading)
@@ -112,7 +115,7 @@ struct BranchItemView: View {
                         }
                         if let status = viewModel.status {
                             Button {
-                                viewModel.mergeBranch(for: branch)
+                                mergeDecissionShown = true
                             } label: {
                                 Text("merge into ".localized.formatted(status.branch.name))
                             }
@@ -123,6 +126,17 @@ struct BranchItemView: View {
             .onHover { isHover in
                 buttonsVisible = isHover
             }
+            .ifLet(viewModel.status) { view, status in
+                view.decision(
+                        showDecision: $mergeDecissionShown,
+                        title: "merge into ".localized.formatted(status.branch.name),
+                        message: "merging this into that".localized.formatted(branch.name, status.branch.name)) {
+                            viewModel.mergeBranch(for: branch, noFF: noFastForwardMerge)
+                        } content: {
+                            Toggle("no fast forward merge", isOn: $noFastForwardMerge)
+                        }
+            }
+
     }
     
     @ViewBuilder

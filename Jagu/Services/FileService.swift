@@ -6,10 +6,12 @@
 //
 
 import Foundation
+import GitCaller
 
 class FileService {
     
     func delete(file: String) throws {
         try FileManager.default.removeItem(atPath: file)
+        GitRepo.standard.needsUpdate()
     }
 }
