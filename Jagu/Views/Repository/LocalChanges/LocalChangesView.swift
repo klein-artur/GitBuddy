@@ -98,7 +98,7 @@ struct LocalChangeItem: View {
             }
             if showButton {
                 Spacer()
-                if change.kind == .modified {
+                if change.kind.canShowDetails {
                     Button("Details") {
                         localChangesFilePath = change.path
                     }

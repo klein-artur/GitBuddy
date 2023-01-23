@@ -31,4 +31,8 @@ extension Change.Kind {
     var deletable: Bool {
         self == .newFile || self == .modified || self == .renamed
     }
+    
+    var canShowDetails: Bool {
+        self == .modified
+    }
 }
