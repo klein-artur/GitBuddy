@@ -116,22 +116,27 @@ class LocalChangesViewModel: BaseViewModel {
     }
     
     func revert(change: Change) {
-        alertItem = AlertItem(
-            title: "revert alert title",
-            message: "revert alert message",
-            actions: [
-                AlertButton(
-                    title: "revert",
-                    role: .destructive,
-                    action: { [weak self] in
-                        self?.defaultTask {
-                            _ = try await self?.repository.revert(unstagedFile: change.path)
-                            self?.load()
+        if change.kind == .modified {
+            alertItem = AlertItem(
+                title: "revert alert title",
+                message: "revert alert message",
+                actions: [
+                    AlertButton(
+                        title: "revert",
+                        role: .destructive,
+                        action: { [weak self] in
+                            self?.defaultTask {
+                                _ = try await self?.repository.revert(unstagedFile: change.path)
+                            }
                         }
-                    }
-                )
-            ]
-        )
+                    )
+                ]
+            )
+        } else {
+            defaultTask { [weak self] in
+                try await self?.repository.revertDeleted(unstagedFile: change.path)
+            }
+        }
     }
     
     func delete(change: Change) {

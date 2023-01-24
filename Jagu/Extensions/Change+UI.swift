@@ -43,4 +43,8 @@ extension Change.Kind {
     var leftRight: Bool {
         mergable || self == .deletedByUs || self == .deletedByThem
     }
+    
+    var revertable: Bool {
+        self != .newFile && self != .bothAdded && (self == .modified || self == .deleted)
+    }
 }

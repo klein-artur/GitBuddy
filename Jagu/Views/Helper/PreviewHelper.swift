@@ -163,6 +163,10 @@ class PreviewRepo: Repository {
         fatalError("not implemented")
     }
     
+    func revertDeleted(unstagedFile path: String) async throws {
+        fatalError("not implemented")
+    }
+    
     func commit(message: String) async throws {
         fatalError("not implemented")
     }

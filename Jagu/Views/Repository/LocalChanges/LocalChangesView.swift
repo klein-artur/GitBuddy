@@ -102,8 +102,7 @@ struct LocalChangeItem: View {
                         localChangesFilePath = change.leftItem.change.path
                     }
                 }
-                if change.leftItem.change.state != .staged && change.leftItem.changeKind != .newFile && change.leftItem.changeKind != .bothAdded {
-                    if change.leftItem.changeKind == .modified {
+                if change.leftItem.change.state != .staged && change.leftItem.changeKind.revertable {
                         if !change.leftItem.change.kind.canShowDetails {
                             Spacer()
                         }
@@ -111,7 +110,6 @@ struct LocalChangeItem: View {
                             viewModel.revert(change: change.leftItem.change)
                         }
                     }
-                }
             }
         }
             .padding(.vertical, 2)
