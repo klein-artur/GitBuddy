@@ -12,21 +12,19 @@ struct LoadingModifier: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .sheet(isPresented: Binding(get: {
-                loadingCount > 0
-            }, set: { _, _ in
-                
-            })) {
-                VStack(alignment: .center) {
-                    HStack(alignment: .center) {
-                        ProgressView()
-                            .padding(32)
+            .overlay {
+                if loadingCount > 0 {
+                    VStack(alignment: .center) {
+                        HStack(alignment: .center) {
+                            ProgressView()
+                                .padding(32)
+                        }
+                        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 8))
                     }
-                    .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 8))
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .ignoresSafeArea()
+                    .allowsHitTesting(true)
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .ignoresSafeArea()
-                .allowsHitTesting(true)
             }
     }
 }
