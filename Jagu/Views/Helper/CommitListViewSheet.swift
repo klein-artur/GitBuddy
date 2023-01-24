@@ -11,6 +11,7 @@ import GitCaller
 struct CommitListViewSheet: ViewModifier {
     
     @Binding var branch: Branch?
+    @Binding var shown: Bool
     
     func body(content: Content) -> some View {
         content.sheet(item: $branch) { branch in
@@ -21,13 +22,24 @@ struct CommitListViewSheet: ViewModifier {
                 )
             )
                 .frame(minWidth: 800, minHeight: 600)
+        }.sheet(isPresented: $shown) {
+            CommitListView(
+                commitListViewModel: CommitListViewModel(
+                    repository: GitRepo.standard,
+                    branch: nil
+                )
+            )
+                .frame(minWidth: 800, minHeight: 600)
         }
     }
 }
 
 extension View {
     func commitSheet(for branch: Binding<Branch?>) -> some View {
-        modifier(CommitListViewSheet(branch: branch))
+        modifier(CommitListViewSheet(branch: branch, shown: .constant(false)))
+    }
+    func commitSheet(presented: Binding<Bool>) -> some View {
+        modifier(CommitListViewSheet(branch: .constant(nil), shown: presented))
     }
 }
 

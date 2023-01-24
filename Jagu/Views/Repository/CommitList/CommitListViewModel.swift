@@ -11,28 +11,43 @@ import GitCaller
 @MainActor
 class CommitListViewModel: BaseViewModel {
     
-    let branch: Branch
+    let branch: Branch?
     @Published var commitList: CommitList?
     
     init(
         repository: some Repository,
-        branch: Branch
+        branch: Branch?
     ) {
         self.branch = branch
         
         super.init(repository: repository)
+        
+        load()
     
+    }
+    
+    override func load() {
         defaultTask { [weak self] in
-            self?.commitList = try await repository.getLog(branchName: branch.name).commitPathTree
+            if let branch = self?.branch {
+                var branchName: String = ""
+                if let upstream = branch.upstream {
+                    branchName = "\(branch.name) \(upstream.name)"
+                } else {
+                    branchName = branch.name
+                }
+                self?.commitList = try await self?.repository.getLog(branchName: branchName).commitPathTree
+            } else {
+                self?.commitList = try await self?.repository.getLog().commitPathTree
+            }
         }
     }
     
     func checkoutBranch() {
         defaultTask { [weak self] in
-            guard let self = self else {
+            guard let self = self, let branch = self.branch else {
                 return
             }
-            let result = try await self.repository.checkout(branch: self.branch)
+            let result = try await self.repository.checkout(branch: branch)
             if result.didChange {
                 AppDelegate.shared?.reload()
             }

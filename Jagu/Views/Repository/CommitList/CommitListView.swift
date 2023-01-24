@@ -14,25 +14,27 @@ struct CommitListView: View {
     var body: some View {
         if let commitList = commitListViewModel.commitList {
             VStack {
-                HStack {
-                    BranchElementView(
-                        viewModel: BranchElementViewModel(
-                            repository: GitRepo.standard,
-                            branch: commitListViewModel.branch,
-                            status: nil,
-                            showLogButton: false
+                if let branch = commitListViewModel.branch {
+                    HStack {
+                        BranchElementView(
+                            viewModel: BranchElementViewModel(
+                                repository: GitRepo.standard,
+                                branch: branch,
+                                status: nil,
+                                showLogButton: false
+                            )
                         )
-                    )
-                    Spacer()
-                    if !commitListViewModel.branch.isCurrent {
-                        Button("Checkout") {
-                            commitListViewModel.checkoutBranch()
+                        Spacer()
+                        if !branch.isCurrent {
+                            Button("Checkout") {
+                                commitListViewModel.checkoutBranch()
+                            }
                         }
                     }
+                    .padding([.horizontal, .top], 16)
+                    Divider()
+                        .padding(.horizontal, 16)
                 }
-                .padding([.horizontal, .top], 16)
-                Divider()
-                    .padding(.horizontal, 16)
                 ScrollView {
                     LazyVStack {
                         ForEach(commitList.indices, id: \.self) { index in

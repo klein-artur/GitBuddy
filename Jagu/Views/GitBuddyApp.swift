@@ -16,6 +16,7 @@ struct JaguApp: App {
     @StateObject var mainViewModel: JaguAppMainViewModel = JaguAppMainViewModel(repository: GitRepo.standard)
     
     @State var showCommandView: Bool = false
+    @State var showCommitList: Bool = false
     
     var body: some Scene {
         WindowGroup {
@@ -37,6 +38,7 @@ struct JaguApp: App {
             .sheet(isPresented: $showCommandView) {
                 CommandInputView(viewModel: CommandInputViewModel(repository: mainViewModel.repository))
             }
+            .commitSheet(presented: $showCommitList)
         }
         .commands {
             CommandMenu("Actions") {
@@ -85,6 +87,9 @@ struct JaguApp: App {
                 }
                 .keyboardShortcut("b", modifiers: [.command, .shift])
                 .disabled(mainViewModel.status == nil)
+                Button("Commits") {
+                    showCommitList = true
+                }
             }
             CommandGroup(replacing: .newItem) {
                 Button {
