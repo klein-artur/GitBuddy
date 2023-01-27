@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		F407535A296E15B700C35F3C /* GeneralAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4075359296E15B700C35F3C /* GeneralAlert.swift */; };
+		F41A682C2983DBC600948C80 /* KeyAwareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41A682B2983DBC600948C80 /* KeyAwareView.swift */; };
 		F4445A68295DE5A90053D9B0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4445A67295DE5A90053D9B0 /* AppDelegate.swift */; };
 		F4445A6B295DEB580053D9B0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F4445A6D295DEB580053D9B0 /* Localizable.strings */; };
 		F4445A8F295E52810053D9B0 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4445A8E295E52810053D9B0 /* String.swift */; };
@@ -67,6 +68,7 @@
 
 /* Begin PBXFileReference section */
 		F4075359296E15B700C35F3C /* GeneralAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralAlert.swift; sourceTree = "<group>"; };
+		F41A682B2983DBC600948C80 /* KeyAwareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyAwareView.swift; sourceTree = "<group>"; };
 		F4445A67295DE5A90053D9B0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F4445A6C295DEB580053D9B0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F4445A8E295E52810053D9B0 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 				F4C2C72729740A0D00A8F745 /* CommitListViewSheet.swift */,
 				F4C2C72D297480E700A8F745 /* PreviewHelper.swift */,
 				F44676EE297E93DD00122FFB /* HandleDecissionView.swift */,
+				F41A682B2983DBC600948C80 /* KeyAwareView.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -454,6 +457,7 @@
 				F447A38A2963B8D60056FDEF /* Loading.swift in Sources */,
 				F4445A91295E58310053D9B0 /* GitBuddyAppMainViewModel.swift in Sources */,
 				F4E664152978A989009E3898 /* Change+UI.swift in Sources */,
+				F41A682C2983DBC600948C80 /* KeyAwareView.swift in Sources */,
 				F4C2C72B29742F0500A8F745 /* BranchElementView.swift in Sources */,
 				F4445A68295DE5A90053D9B0 /* AppDelegate.swift in Sources */,
 				F47CB919295DD7AD00A47BA8 /* RepoView.swift in Sources */,

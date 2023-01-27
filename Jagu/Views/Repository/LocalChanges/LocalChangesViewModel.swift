@@ -207,6 +207,65 @@ class LocalChangesViewModel: BaseViewModel {
     var canContinue: Bool {
         self.status?.canContinue ?? false
     }
+    
+    func getChangeFor(item: ChangeLine, staged: Bool, offset: Int) -> DiffChange? {
+        guard item.rightItem == nil && item.leftItem.change.kind.canShowDetails else {
+            return nil
+        }
+        if offset == 0 {
+            return DiffChange(change: item, staged: staged)
+        } else {
+            if staged {
+                guard let index = self.stagedChanges.firstIndex(where: { $0.leftItem.change.path == item.leftItem.change.path}) else {
+                    return nil
+                }
+                if offset < 0 {
+                    guard index > 0 else {
+                        return nil
+                    }
+                    for searchIndex in (0...(index - 1)).reversed() {
+                        if let checkItem = getChangeFor(item: self.stagedChanges[searchIndex], staged: staged, offset: 0) {
+                            return checkItem
+                        }
+                    }
+                } else {
+                    guard index < stagedChanges.count - 1 else {
+                        return nil
+                    }
+                    for searchIndex in (index + 1)..<unstagedChanges.endIndex {
+                        if let checkItem = getChangeFor(item: self.stagedChanges[searchIndex], staged: staged, offset: 0) {
+                            return checkItem
+                        }
+                    }
+                }
+                return nil
+            } else {
+                guard let index = self.unstagedChanges.firstIndex(where: { $0.leftItem.change.path == item.leftItem.change.path}) else {
+                    return nil
+                }
+                if offset < 0 {
+                    guard index > 0 else {
+                        return nil
+                    }
+                    for searchIndex in (0...(index - 1)).reversed() {
+                        if let checkItem = getChangeFor(item: self.unstagedChanges[searchIndex], staged: staged, offset: 0) {
+                            return checkItem
+                        }
+                    }
+                } else {
+                    guard index < unstagedChanges.count - 1 else {
+                        return nil
+                    }
+                    for searchIndex in (index + 1)..<unstagedChanges.endIndex {
+                        if let checkItem = getChangeFor(item: self.unstagedChanges[searchIndex], staged: staged, offset: 0) {
+                            return checkItem
+                        }
+                    }
+                }
+                return nil
+            }
+        }
+    }
 }
 
 extension StatusResult {

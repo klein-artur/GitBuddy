@@ -11,10 +11,12 @@ import GitCaller
 struct LocalChangesView: View {
     @StateObject var viewModel: LocalChangesViewModel
     
+    @State var localChangesFilePath: DiffChange?
+    
     var body: some View {
         VStack {
             ScrollView {
-                if let status = viewModel.status {
+                if viewModel.status != nil {
                     VStack {
                         if viewModel.status?.status == .merging {
                             HStack {
@@ -59,6 +61,26 @@ struct LocalChangesView: View {
             Text(viewModel.status?.status == .unclean ? "Local Changes" : "Merging")
         }
         .loading(loadingCount: $viewModel.loadingCount)
+        .sheet(item: $localChangesFilePath) { path in
+            DiffView(viewModel: DiffViewModel(repository: viewModel.repository, leftFile: path.change.leftItem.change.path, staged: path.staged))
+                .background(
+                    KeyAwareView { event in
+                        var newElement: DiffChange? = nil
+                        switch event {
+                        case .upArrow:
+                            newElement = viewModel.getChangeFor(item: path.change, staged: path.staged, offset: -1)
+                        case .downArrow:
+                            newElement = viewModel.getChangeFor(item: path.change, staged: path.staged, offset: 1)
+                        }
+                        if let newElement = newElement {
+                            localChangesFilePath = nil
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                self.localChangesFilePath = newElement
+                            }
+                        }
+                    }
+                )
+        }
     }
     
     @ViewBuilder
@@ -70,12 +92,20 @@ struct LocalChangesView: View {
             GroupBox(staged ? "staged changes" : "unstaged changes") {
                 LazyVStack (alignment: .leading) {
                     ForEach(changeList, id: \.leftItem.change.path) { change in
-                        LocalChangeItem(viewModel: viewModel, change: change, staged: staged)
+                        LocalChangeItem(viewModel: viewModel, change: change, staged: staged, localChangesFilePath: $localChangesFilePath)
                     }
                 }
             }
         }
     }
+}
+
+struct DiffChange: Identifiable {
+    var id: String {
+        "\(change.leftItem.change.path)---\(staged)"
+    }
+    let change: ChangeLine
+    let staged: Bool
 }
 
 struct LocalChangeItem: View {
@@ -84,7 +114,7 @@ struct LocalChangeItem: View {
     let staged: Bool
     @State var showButton: Bool = false
     
-    @State var localChangesFilePath: String?
+    @Binding var localChangesFilePath: DiffChange?
     
     var body: some View {
         HStack {
@@ -96,10 +126,10 @@ struct LocalChangeItem: View {
                     .padding(.leading, 8)
             }
             if showButton && change.rightItem == nil {
-                if change.leftItem.change.kind.canShowDetails {
+                if let diffChange = viewModel.getChangeFor(item: change, staged: staged, offset: 0) {
                     Spacer()
                     Button("Details") {
-                        localChangesFilePath = change.leftItem.change.path
+                        localChangesFilePath = diffChange
                     }
                 }
                 if change.leftItem.change.state != .staged && change.leftItem.changeKind.revertable {
@@ -132,9 +162,7 @@ struct LocalChangeItem: View {
                     }
                 }
             }
-            .popover(item: $localChangesFilePath) { path in
-                DiffView(viewModel: DiffViewModel(repository: viewModel.repository, leftFile: path, staged: staged))
-            }
+            
     }
     
     @ViewBuilder

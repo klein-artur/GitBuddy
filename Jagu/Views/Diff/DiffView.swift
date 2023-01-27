@@ -9,12 +9,13 @@ import SwiftUI
 import GitCaller
 
 struct DiffView: View {
+    @Environment(\.dismiss) private var dismiss
     @StateObject var viewModel: DiffViewModel
     
     var body: some View {
         ScrollView {
             LazyVStack {
-                if let diff = viewModel.diff {
+                if let diff = viewModel.diff, !diff.diffs.isEmpty {
                     ForEach(diff.diffs, id: \.original) { diff in
                         diffView(diff: diff, isStaged: viewModel.staged)
                     }
@@ -26,10 +27,10 @@ struct DiffView: View {
         }
         .frame(minWidth: 800, minHeight: 600, alignment: .topLeading)
         .loading(loadingCount: $viewModel.loadingCount)
-        .onAppear {
-            viewModel.load()
-        }
         .gitErrorAlert(gitError: $viewModel.gitError)
+        .onAppear {
+            viewModel.dismiss = _dismiss.wrappedValue
+        }
     }
     
     @ViewBuilder

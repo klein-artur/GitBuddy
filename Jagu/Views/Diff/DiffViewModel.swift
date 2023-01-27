@@ -7,6 +7,7 @@
 
 import Foundation
 import GitCaller
+import SwiftUI
 
 @MainActor
 class DiffViewModel: BaseViewModel {
@@ -16,12 +17,14 @@ class DiffViewModel: BaseViewModel {
     
     @Published var diff: DiffResult? = nil
     
+    var dismiss: DismissAction? = nil
+    
     init(repository: some Repository, leftFile: String?, rightFile: String? = nil, staged: Bool? = nil) {
         self.leftFile = leftFile
         self.rightFile = rightFile
         self.staged = staged
         super.init(repository: repository)
-        
+        self.load()
     }
     
     override func load() {
@@ -30,7 +33,16 @@ class DiffViewModel: BaseViewModel {
                 return
             }
             self.diff = try await self.repository.diff(path: self.leftFile, staged: self.staged ?? false, rightPath: self.rightFile)
+            
+            if self.diff == nil || self.diff?.diffs.isEmpty == true {
+                self.dismiss?()
+            }
         }
+    }
+    
+    override func shouldHandleError(parseError: ParseError) -> Bool {
+        print("")
+        return true
     }
     
     func stage(_ hunkIndex: Int? = nil) {
