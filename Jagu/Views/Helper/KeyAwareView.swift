@@ -19,6 +19,7 @@ extension KeyAwareView {
     enum Event {
         case upArrow
         case downArrow
+        case enter
     }
 }
 
@@ -32,6 +33,8 @@ private class KeyView: NSView {
             onEvent(.downArrow)
         case 126:
             onEvent(.upArrow)
+        case 36:
+            onEvent(.enter)
         default:
             super.keyDown(with: event)
         }

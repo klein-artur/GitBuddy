@@ -71,6 +71,15 @@ struct LocalChangesView: View {
                             newElement = viewModel.getChangeFor(item: path.change, staged: path.staged, offset: -1)
                         case .downArrow:
                             newElement = viewModel.getChangeFor(item: path.change, staged: path.staged, offset: 1)
+                        case .enter:
+                            if let element = viewModel.getChangeFor(item: path.change, staged: path.staged, offset: 1) ?? viewModel.getChangeFor(item: path.change, staged: path.staged, offset: -1) {
+                                newElement = element
+                            }
+                            if path.staged {
+                                viewModel.unstage(change: path.change.leftItem.change)
+                            } else {
+                                viewModel.stage(change: path.change.leftItem.change)
+                            }
                         }
                         if let newElement = newElement {
                             localChangesFilePath = nil
