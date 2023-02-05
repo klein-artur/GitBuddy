@@ -29,13 +29,11 @@ class CommitListViewModel: BaseViewModel {
     override func load() {
         defaultTask { [weak self] in
             if let branch = self?.branch {
-                var branchName: String = ""
+                var branchNames: [String] = [branch.name]
                 if let upstream = branch.upstream {
-                    branchName = "\(branch.name) \(upstream.name)"
-                } else {
-                    branchName = branch.name
+                    branchNames.append(upstream.name)
                 }
-                self?.commitList = try await self?.repository.getLog(branchName: branchName).commitPathTree
+                self?.commitList = try await self?.repository.getLog(branchNames: branchNames).commitPathTree
             } else {
                 self?.commitList = try await self?.repository.getLog().commitPathTree
             }

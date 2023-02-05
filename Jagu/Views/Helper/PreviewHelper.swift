@@ -9,6 +9,18 @@ import Foundation
 import GitCaller
 
 class PreviewRepo: Repository {
+    func getConfig(scope: GitCaller.ConfigScope, key: GitCaller.ConfigKey) async throws -> String {
+        fatalError("not implemented")
+    }
+    
+    func setConfig(scope: GitCaller.ConfigScope, key: GitCaller.ConfigKey, value: String) async throws {
+        fatalError("not implemented")
+    }
+    
+    func unsetConfig(scope: GitCaller.ConfigScope, key: GitCaller.ConfigKey) async throws {
+        fatalError("not implemented")
+    }
+    
     func continueMerge() async throws {
         fatalError("not implemented")
     }
@@ -17,7 +29,7 @@ class PreviewRepo: Repository {
         fatalError("not implemented")
     }
     
-    func getLog(branchName: String) async throws -> GitCaller.LogResult {
+    func getLog(branchNames: [String]) async throws -> GitCaller.LogResult {
         LogResult(
             originalOutput: "",
             commits: [

@@ -69,6 +69,7 @@
 /* Begin PBXFileReference section */
 		F4075359296E15B700C35F3C /* GeneralAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralAlert.swift; sourceTree = "<group>"; };
 		F41A682B2983DBC600948C80 /* KeyAwareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyAwareView.swift; sourceTree = "<group>"; };
+		F41A6851298B1A7E00948C80 /* GitCaller */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = GitCaller; path = ../GitCaller; sourceTree = "<group>"; };
 		F4445A67295DE5A90053D9B0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F4445A6C295DEB580053D9B0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F4445A8E295E52810053D9B0 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
@@ -222,6 +223,7 @@
 		F47CB90A295DD7AD00A47BA8 = {
 			isa = PBXGroup;
 			children = (
+				F41A6851298B1A7E00948C80 /* GitCaller */,
 				F46DC532297CA710001E357D /* README.md */,
 				F47CB915295DD7AD00A47BA8 /* Jagu */,
 				F4445A97295E58790053D9B0 /* JaguTests */,
