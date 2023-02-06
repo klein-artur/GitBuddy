@@ -12,6 +12,8 @@ struct DiffView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject var viewModel: DiffViewModel
     
+    @State var currentLineButton: String? = "1 3"
+    
     var body: some View {
         ScrollView {
             LazyVStack {
@@ -79,14 +81,44 @@ struct DiffView: View {
                     .frame(maxWidth: .infinity)
                     .overlay(alignment: .topTrailing) {
                         if let isStaged = viewModel.staged {
-                            Button(isStaged ? "unstage" : "stage") {
-                                viewModel.stage(index)
+                            HStack {
+                                if let currentSelectedLines = viewModel.selectedHunkLines[index] {
+                                    Button(isStaged ? "unstage lines" : "stage lines") {
+                                        viewModel.stage(index, lines: currentSelectedLines)
+                                        viewModel.selectedHunkLines.removeValue(forKey: index)
+                                    }
+                                }
+                                Button(isStaged ? "unstage" : "stage") {
+                                    viewModel.stage(index)
+                                }
                             }
                         }
                     }
                 LazyVStack {
-                    ForEach(hunk.viewHunkLines) { line in
-                        lineView(line: line)
+                    ForEach(Array(hunk.viewHunkLines.enumerated()), id: \.element.id) { line in
+                        HStack {
+                            lineView(line: line.element)
+                                .onHover { isHovering in
+                                    currentLineButton = isHovering && line.element.isDiff ? "\(index) \(line.offset)" : nil
+                                }
+                                .padding(.leading, 20)
+                        }.overlay(alignment: .leading) {
+                            Toggle(isOn: Binding(get: {
+                                viewModel.isSelected(in: index, line: line.offset)
+                            }, set: { newValue, _ in
+                                viewModel.selectLine(in: index, line: line.offset, selected: newValue)
+                            })) { }
+                                .opacity(line.element.isDiff ? 1 : 0)
+                        }
+                        
+//                            .overlay(alignment: .trailing) {
+//                                if currentLineButton == "\(index) \(line.offset)" {
+//                                    Button(isStaged == true ? "unstage" : "stage") {
+//                                        viewModel.stage(index, lines: [line.offset])
+//                                    }
+//                                    .buttonStyle(BorderlessButtonStyle())
+//                                }
+//                            }
                     }
                 }
                 .padding()

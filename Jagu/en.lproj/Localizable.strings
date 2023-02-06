@@ -43,6 +43,8 @@
 "unstaged changes" = "Unstaged Changes";
 "stage" = "Stage";
 "unstage" = "Unstage";
+"stage lines" = "Stage Lines";
+"unstage lines" = "Unstage Lines";
 "commit" = "Commit";
 "revert" = "Revert";
 "revert alert title" = "Revert File";

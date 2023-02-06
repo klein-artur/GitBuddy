@@ -16,6 +16,7 @@ class DiffViewModel: BaseViewModel {
     let staged: Bool?
     
     @Published var diff: DiffResult? = nil
+    @Published var selectedHunkLines: [Int: [Int]] = [:]
     
     var dismiss: DismissAction? = nil
     
@@ -45,13 +46,31 @@ class DiffViewModel: BaseViewModel {
         return true
     }
     
-    func stage(_ hunkIndex: Int? = nil) {
+    func stage(_ hunkIndex: Int? = nil, lines: [Int]? = nil) {
         defaultTask { [weak self] in
             if let leftFile = self?.leftFile, self?.staged == true {
-                _ = try await self?.repository.unstage(file: leftFile, hunk: hunkIndex)
+                _ = try await self?.repository.unstage(file: leftFile, hunk: hunkIndex, lines: lines)
             } else {
-                _ = try await self?.repository.stage(file: self?.leftFile, hunk: hunkIndex)
+                _ = try await self?.repository.stage(file: self?.leftFile, hunk: hunkIndex, lines: lines)
             }
+        }
+    }
+    
+    func isSelected(in index: Int, line: Int) -> Bool {
+        selectedHunkLines[index]?.contains(line) ?? false
+    }
+    
+    func selectLine(in index: Int, line: Int, selected: Bool) {
+        var currentList = selectedHunkLines[index] ?? []
+        if selected {
+            currentList.append(line)
+        } else {
+            currentList = currentList.filter { $0 != line }
+        }
+        if currentList.isEmpty {
+            selectedHunkLines.removeValue(forKey: index)
+        } else {
+            selectedHunkLines[index] = currentList
         }
     }
 }
@@ -64,6 +83,10 @@ struct ViewHunkLine: Identifiable {
     let leftLine: String?
     let rightLine: String?
     let line: HunkLine
+    
+    var isDiff: Bool {
+        !line.content.hasPrefix(" ")
+    }
 }
 
 extension Hunk {
