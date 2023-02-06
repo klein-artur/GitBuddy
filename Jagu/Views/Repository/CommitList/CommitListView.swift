@@ -37,8 +37,8 @@ struct CommitListView: View {
                 }
                 ScrollView {
                     LazyVStack {
-                        ForEach(commitList.indices, id: \.self) { index in
-                            CommitItemView(commitInfo: commitList[index])
+                        ForEach(commitList, id: \.commit.objectHash) { commitInfo in
+                            CommitItemView(commitInfo: commitInfo)
                                 .padding(0)
                                 .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
                         }
