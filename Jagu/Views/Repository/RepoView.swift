@@ -58,7 +58,7 @@ struct RepoView: View {
                 viewModel: BranchElementViewModel(
                     repository: GitRepo.standard,
                     branch: status.branch,
-                    status: nil,
+                    status: status,
                     showLogButton: true
                 )
             )

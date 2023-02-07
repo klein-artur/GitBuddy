@@ -11,7 +11,7 @@ import GitCaller
 @MainActor
 class CommitListViewModel: BaseViewModel {
     
-    let branch: Branch?
+    var branch: Branch?
     @Published var commitList: CommitList?
     
     @Published var tagCreationCommit: Commit? = nil
@@ -32,7 +32,15 @@ class CommitListViewModel: BaseViewModel {
     
     override func load() {
         defaultTask { [weak self] in
-            if let branch = self?.branch {
+            if var branch = self?.branch {
+                
+                if let foundBranch = try await self?.repository.getBranches().branches?.first(where: { b in
+                    b.name == branch.name
+                }) {
+                    self?.branch = foundBranch
+                    branch = foundBranch
+                }
+                
                 var branchNames: [String] = [branch.name]
                 if let upstream = branch.upstream {
                     branchNames.append(upstream.name)
