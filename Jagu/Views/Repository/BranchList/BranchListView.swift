@@ -109,7 +109,7 @@ struct BranchItemView: View {
                     }
                     if branch.isLocal {
                         Button {
-                            viewModel.deleteBranch(for: branch)
+                            viewModel.toDeleteBranch = branch
                         } label: {
                             Text("Delete Branch")
                         }
@@ -136,6 +136,17 @@ struct BranchItemView: View {
                             Toggle("no fast forward merge", isOn: $noFastForwardMerge)
                         }
             }
+            .decision(
+                item: $viewModel.toDeleteBranch,
+              title: "Delete Branch",
+                message: "delete local branch message") { branch  in
+                    viewModel.deleteBranch(for: branch)
+                } content: {
+                    Toggle(isOn: $viewModel.shouldForce) {
+                        Text("force delete")
+                    }
+                }
+
 
     }
     
