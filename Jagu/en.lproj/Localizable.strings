@@ -93,3 +93,10 @@
 "delete file" = "Delete";
 "delete file message" = "Do you really want to delete the file?";
 
+"create tag title" = "New Tag";
+"create tag message" = "Create Tag.";
+"create tag with message" = "With message.";
+"message" = "Message";
+"name" = "Name";
+"push tags" = "Push all Tags";
+

@@ -41,12 +41,37 @@ struct CommitListView: View {
                             CommitItemView(commitInfo: commitInfo)
                                 .padding(0)
                                 .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
+                                .contentShape(Rectangle())  
+                                .contextMenu {
+                                    Button("create tag title") {
+                                        commitListViewModel.tagCreationCommit = commitInfo.commit
+                                    }
+                                }
                         }
                     }
                     .padding(16)
                 }
             }
             .gitErrorAlert(gitError: $commitListViewModel.gitError)
+            .decision(
+                item: $commitListViewModel.tagCreationCommit,
+                title: "create tag title"
+            ) { commit in
+                commitListViewModel.creeateTag(commit: commit)
+            } content: {
+                Form {
+                    TextField("name", text: $commitListViewModel.tagName)
+                        .onChange(of: commitListViewModel.tagName) { newValue in
+                            commitListViewModel.tagName = newValue.filter(\.isWhitespace.negated)
+                        }
+                    Toggle(isOn: $commitListViewModel.hasTagMessage) {
+                        Text("create tag with message")
+                    }
+                    TextField("message", text: $commitListViewModel.tagMessage)
+                        .opacity(commitListViewModel.hasTagMessage ? 1.0 : 0.0)
+                }
+            }
+
         } else {
             ProgressView()
                 .progressViewStyle(.circular)
@@ -65,4 +90,14 @@ struct CommitListView_Previews: PreviewProvider {
             )
         )
     }
+}
+
+extension Commit: Identifiable {
+    public var id: String {
+        objectHash
+    }
+}
+
+extension Bool {
+    var negated: Bool { !self }
 }

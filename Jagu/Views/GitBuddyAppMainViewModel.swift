@@ -122,6 +122,12 @@ class JaguAppMainViewModel: BaseViewModel {
         )
     }
     
+    func pushTags() {
+        defaultTask { [weak self] in
+            try await self?.repository.pushTags()
+        }
+    }
+    
     override func shouldHandleError(parseError: ParseError) -> Bool {
         if parseError.type == .notARepository {
             return false

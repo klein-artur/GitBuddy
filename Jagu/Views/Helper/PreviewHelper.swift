@@ -9,24 +9,32 @@ import Foundation
 import GitCaller
 
 class PreviewRepo: Repository {
+    func pushTags() async throws {
+        fatalError("Preview and Test Repo implementation used in productive code!")
+    }
+    
+    func deleteTag(name: String) async throws {
+        fatalError("Preview and Test Repo implementation used in productive code!")
+    }
+    
     func getConfig(scope: GitCaller.ConfigScope, key: GitCaller.ConfigKey) async throws -> String {
-        fatalError("not implemented")
+        fatalError("Preview and Test Repo implementation used in productive code!")
     }
     
     func setConfig(scope: GitCaller.ConfigScope, key: GitCaller.ConfigKey, value: String) async throws {
-        fatalError("not implemented")
+        fatalError("Preview and Test Repo implementation used in productive code!")
     }
     
     func unsetConfig(scope: GitCaller.ConfigScope, key: GitCaller.ConfigKey) async throws {
-        fatalError("not implemented")
+        fatalError("Preview and Test Repo implementation used in productive code!")
     }
     
     func continueMerge() async throws {
-        fatalError("not implemented")
+        fatalError("Preview and Test Repo implementation used in productive code!")
     }
     
     func clone(url: String) async throws -> GitCaller.CloneResult {
-        fatalError("not implemented")
+        fatalError("Preview and Test Repo implementation used in productive code!")
     }
     
     func getLog(branchNames: [String]) async throws -> GitCaller.LogResult {
@@ -103,11 +111,11 @@ class PreviewRepo: Repository {
     }
     
     func getLog(commitHash: String) async throws -> GitCaller.LogResult {
-        fatalError("not implemented")
+        fatalError("Preview and Test Repo implementation used in productive code!")
     }
     
     func getLog() async throws -> GitCaller.LogResult {
-        fatalError("not implemented")
+        fatalError("Preview and Test Repo implementation used in productive code!")
     }
     
     func getStatus() async throws -> GitCaller.StatusResult {
@@ -156,47 +164,47 @@ class PreviewRepo: Repository {
     }
     
     func checkout(branch: GitCaller.Branch) async throws -> GitCaller.CheckoutResult {
-        fatalError("not implemented")
+        fatalError("Preview and Test Repo implementation used in productive code!")
     }
     
     func delete(branch: GitCaller.Branch, force: Bool) async throws -> GitCaller.BranchResult {
-        fatalError("not implemented")
+        fatalError("Preview and Test Repo implementation used in productive code!")
     }
     
     func stage(file path: String?) async throws {
-        fatalError("not implemented")
+        fatalError("Preview and Test Repo implementation used in productive code!")
     }
     
     func unstage(file path: String) async throws -> RestoreResult {
-        fatalError("not implemented")
+        fatalError("Preview and Test Repo implementation used in productive code!")
     }
     
     func revert(unstagedFile path: String) async throws -> RestoreResult {
-        fatalError("not implemented")
+        fatalError("Preview and Test Repo implementation used in productive code!")
     }
     
     func revertDeleted(unstagedFile path: String) async throws {
-        fatalError("not implemented")
+        fatalError("Preview and Test Repo implementation used in productive code!")
     }
     
     func commit(message: String) async throws {
-        fatalError("not implemented")
+        fatalError("Preview and Test Repo implementation used in productive code!")
     }
     
     func fetch() async throws {
-        fatalError("not implemented")
+        fatalError("Preview and Test Repo implementation used in productive code!")
     }
     
     func pull(force: Bool) async throws -> PullResult {
-        fatalError("not implemented")
+        fatalError("Preview and Test Repo implementation used in productive code!")
     }
     
     public func push(force: Bool, createUpstream: Bool = false, remoteName: String? = nil, newName: String? = nil) async throws -> PushResult {
-        fatalError("not implemented")
+        fatalError("Preview and Test Repo implementation used in productive code!")
     }
     
     func newBranchAndCheckout(name: String) async throws -> CheckoutResult {
-        fatalError("not implemented")
+        fatalError("Preview and Test Repo implementation used in productive code!")
     }
     
     func diff(path: String?, staged: Bool = false, rightPath: String? = nil) async throws -> DiffResult {
@@ -204,27 +212,27 @@ class PreviewRepo: Repository {
     }
     
     func needsUpdate() {
-        fatalError("not implemented")
+        fatalError("Preview and Test Repo implementation used in productive code!")
     }
     
     func merge(branch: String) async throws {
-        fatalError("not implemented")
+        fatalError("Preview and Test Repo implementation used in productive code!")
     }
     
     func abortMerge() async throws {
-        fatalError("not implemented")
+        fatalError("Preview and Test Repo implementation used in productive code!")
     }
     
     func mergetool(file: String, tool: String) async throws {
-        fatalError("not implemented")
+        fatalError("Preview and Test Repo implementation used in productive code!")
     }
     
     func useOurs(path: String) async throws {
-        fatalError("not implemented")
+        fatalError("Preview and Test Repo implementation used in productive code!")
     }
     
     func useTheirs(path: String) async throws {
-        fatalError("not implemented")
+        fatalError("Preview and Test Repo implementation used in productive code!")
     }
     
     func getMergeCommitMessage() async throws -> String {

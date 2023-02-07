@@ -87,8 +87,13 @@ struct JaguApp: App {
                 }
                 .keyboardShortcut("b", modifiers: [.command, .shift])
                 .disabled(mainViewModel.status == nil)
+                Divider()
                 Button("Commits") {
                     showCommitList = true
+                }
+                Divider()
+                Button("push tags") {
+                    mainViewModel.pushTags()
                 }
             }
             CommandGroup(replacing: .newItem) {

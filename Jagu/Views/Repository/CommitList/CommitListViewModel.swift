@@ -14,6 +14,11 @@ class CommitListViewModel: BaseViewModel {
     let branch: Branch?
     @Published var commitList: CommitList?
     
+    @Published var tagCreationCommit: Commit? = nil
+    @Published var tagName: String = ""
+    @Published var hasTagMessage: Bool = false
+    @Published var tagMessage: String = ""
+    
     init(
         repository: some Repository,
         branch: Branch?
@@ -23,7 +28,6 @@ class CommitListViewModel: BaseViewModel {
         super.init(repository: repository)
         
         load()
-    
     }
     
     override func load() {
@@ -49,6 +53,25 @@ class CommitListViewModel: BaseViewModel {
             if result.didChange {
                 AppDelegate.shared?.reload()
             }
+        }
+    }
+    
+    func creeateTag(commit: Commit) {
+        defaultTask { [weak self] in
+            guard let name = self?.tagName else {
+                return
+            }
+            
+            try await self?.repository.createTag(
+                name: name,
+                on: commit.objectHash,
+                message: self?.hasTagMessage == true ? self?.tagMessage : nil
+            )
+            
+            self?.tagCreationCommit = nil
+            self?.tagName = ""
+            self?.tagMessage = ""
+            self?.hasTagMessage = false
         }
     }
     
