@@ -50,6 +50,7 @@ struct CommandInputView: View {
                 ScrollView {
                     Text(viewModel.commandOutput)
                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                        .textSelection(.enabled)
                 }
             }
         }

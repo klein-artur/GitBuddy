@@ -21,6 +21,7 @@ struct CommitItemView: View {
                     .font(Font.system(Font.TextStyle.body, design: Font.Design.monospaced))
                     .lineLimit(1)
                     .padding(.bottom, 3)
+                    .textSelection(.enabled)
                 TagCloudView(tags: commitInfo.commit.tags.map {
                     TagElement(icon: Image("tag-solid"), text: $0) }, backgroundColor: Color(red: 0.87, green: 0.97, blue: 0.89), foregroundColor: .black)
                 TagCloudView(tags: commitInfo.commit.branches.map {
@@ -29,6 +30,7 @@ struct CommitItemView: View {
                 HStack {
                     Text(commitInfo.commit.shortHash)
                         .font(Font.system(Font.TextStyle.body, design: Font.Design.monospaced))
+                        .textSelection(.enabled)
                     Spacer()
                     Text(commitInfo.commit.author.name)
                         .font(Font.system(Font.TextStyle.body, design: Font.Design.monospaced))

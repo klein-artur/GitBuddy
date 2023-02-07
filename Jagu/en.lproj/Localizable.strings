@@ -62,6 +62,7 @@
 
 "New Branch" = "Create New Branch";
 "New Branch Name" = "Enter the name of the new Branch";
+"force delete" = "Force delete, ignore not synced changes.";
 
 "Push New Branch" = "Push New Branch (with upstream)";
 
