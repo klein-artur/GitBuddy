@@ -149,7 +149,7 @@ class LocalChangesViewModel: BaseViewModel {
                     role: .destructive,
                     action: { [weak self] in
                         self?.defaultTask {
-                            try FileService().delete(file: change.path)
+                            try FileService(fileManager: FileManager.default, repository: GitRepo.standard).delete(file: change.path)
                         }
                     }
                 )
@@ -175,12 +175,12 @@ class LocalChangesViewModel: BaseViewModel {
                                 }
                             case .deletedByUs:
                                 if left {
-                                    try FileService().delete(file: item.change.path)
+                                    try FileService(fileManager: FileManager.default, repository: GitRepo.standard).delete(file: item.change.path)
                                 }
                                 _ = try await self?.repository.stage(file: item.change.path)
                             case .deletedByThem: 
                                 if !left {
-                                    try FileService().delete(file: item.change.path)
+                                    try FileService(fileManager: FileManager.default, repository: GitRepo.standard).delete(file: item.change.path)
                                 }
                                 _ = try await self?.repository.stage(file: item.change.path)
                             default: break
