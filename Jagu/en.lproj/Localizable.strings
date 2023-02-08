@@ -9,6 +9,8 @@
 "File" = "File";
 "Open" = "Open";
 "Reload" = "Reload";
+"Favorites" = "Favorites";
+"Save favorite" = "Make Favorite";
 
 "choose repository title" = "Open Repository";
 

@@ -68,6 +68,29 @@ final class FavoriteRepoRepositoryTests: XCTestCase {
         verify(mockUserDefaults).synchronize()
     }
     
+    func testDeleteExistent() throws {
+        // given
+        let newPath = "test/path"
+        stub(mockUserDefaults) {
+            when($0).stringArray(forKey: anyString()).thenReturn([newPath])
+            when($0).set(any(), forKey: LocalFavoriteRepoRepository.defaultsKey).thenDoNothing()
+            when($0).synchronize().thenReturn(true)
+        }
+        
+        // when
+        self.sut.deleteFavorite(path: newPath)
+        
+        // then
+        verify(mockUserDefaults).stringArray(forKey: LocalFavoriteRepoRepository.defaultsKey)
+        verify(mockUserDefaults).set(ParameterMatcher<Any?> { input in
+            guard let input = input as? [String] else {
+                return false
+            }
+            return input.isEmpty
+        }, forKey: LocalFavoriteRepoRepository.defaultsKey)
+        verify(mockUserDefaults).synchronize()
+    }
+    
     func testGetPaths() throws {
         // given
         let newPath = "test/path"

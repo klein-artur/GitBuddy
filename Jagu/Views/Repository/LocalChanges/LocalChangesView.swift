@@ -184,6 +184,8 @@ struct LocalChangeItem: View {
                 Text(item.change.path.lastPathComponent ?? "")
                     .lineLimit(1)
                     .fontWeight(.bold)
+                
+                // TODO: this is not a good idea.
                 Text(item.change.path.replacingOccurrences(of: "/\(item.change.path.lastPathComponent ?? "")", with: ""))
                     .lineLimit(1)
                     .font(.caption)

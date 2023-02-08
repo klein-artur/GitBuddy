@@ -16,4 +16,7 @@ protocol FavoriteRepoRepository {
     /// Gets all favorite paths.
     func getFavorites() -> [String]
     
+    /// Deletes the given path as a favorite
+    func deleteFavorite(path: String)
+    
 }

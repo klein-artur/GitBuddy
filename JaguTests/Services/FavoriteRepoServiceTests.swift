@@ -5,31 +5,55 @@
 //  Created by Artur Hellmann on 08.02.23.
 //
 
+@testable import Jagu
+
 import XCTest
+import Cuckoo
 
 final class FavoriteRepoServiceTests: XCTestCase {
+    var sut: FavoriteRepoService!
+    
+    let mockFavoriteRepoRepository = MockFavoriteRepoRepository()
 
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+        self.sut = FavoriteRepoService(repoRepository: mockFavoriteRepoRepository)
+        
+        stub(mockFavoriteRepoRepository) { stub in
+            when(stub).getFavorites().thenReturn(["test/one", "test/two"])
+            when(stub).setAsFavorite(path: anyString()).thenDoNothing()
         }
     }
 
+    override func tearDownWithError() throws {
+        self.sut = nil
+    }
+    
+    func testGetsTwoFavorites() {
+        // when
+        let result = sut.favorites
+        
+        // then
+        verify(mockFavoriteRepoRepository).getFavorites()
+        XCTAssertEqual(result, wantesFavorites)
+    }
+    
+    func testSaveFavorites() {
+        // when
+        sut.saveFavorite(path: "some/path")
+        
+        // then
+        verify(mockFavoriteRepoRepository).setAsFavorite(path: "some/path")
+    }
+
+}
+
+let wantesFavorites = [
+    RepoFavorite(path: "test/one"),
+    RepoFavorite(path: "test/two")
+]
+
+extension RepoFavorite: Equatable {
+    public static func == (lhs: RepoFavorite, rhs: RepoFavorite) -> Bool {
+        lhs.path == rhs.path
+    }
 }

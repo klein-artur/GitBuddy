@@ -9,7 +9,7 @@ import Foundation
 import GitCaller
 
 @MainActor
-class BranchListViewModel: BaseViewModel {
+class BranchListViewModel: BaseRepositoryViewModel {
     
     let keyValueRepo: KeyValueRepository
     

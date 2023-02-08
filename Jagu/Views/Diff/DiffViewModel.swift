@@ -10,7 +10,7 @@ import GitCaller
 import SwiftUI
 
 @MainActor
-class DiffViewModel: BaseViewModel {
+class DiffViewModel: BaseRepositoryViewModel {
     let leftFile: String?
     let rightFile: String?
     let staged: Bool?

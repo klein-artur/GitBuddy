@@ -6,3 +6,12 @@
 //
 
 import Foundation
+
+struct RepoFavorite {
+    let path: String
+    
+    var name: String {
+        path.lastPathComponent ?? path
+    }
+}
+ 

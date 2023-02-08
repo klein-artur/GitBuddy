@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		F407535A296E15B700C35F3C /* GeneralAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4075359296E15B700C35F3C /* GeneralAlert.swift */; };
 		F41A682C2983DBC600948C80 /* KeyAwareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41A682B2983DBC600948C80 /* KeyAwareView.swift */; };
+		F422AD1A29945018007A1B81 /* FavoritesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F422AD1929945018007A1B81 /* FavoritesViewModel.swift */; };
+		F422AD1F299456F4007A1B81 /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F422AD1E299456F4007A1B81 /* FavoritesView.swift */; };
 		F4445A68295DE5A90053D9B0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4445A67295DE5A90053D9B0 /* AppDelegate.swift */; };
 		F4445A6B295DEB580053D9B0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F4445A6D295DEB580053D9B0 /* Localizable.strings */; };
 		F4445A8F295E52810053D9B0 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4445A8E295E52810053D9B0 /* String.swift */; };
@@ -63,6 +65,9 @@
 		F4DD5155297A8DD400787B66 /* DiffView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DD5154297A8DD400787B66 /* DiffView.swift */; };
 		F4DD5157297A8DE100787B66 /* DiffViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DD5156297A8DE100787B66 /* DiffViewModel.swift */; };
 		F4E664152978A989009E3898 /* Change+UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E664142978A989009E3898 /* Change+UI.swift */; };
+		F4E76A862993E57900C16ADC /* RepoFavorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E76A852993E57900C16ADC /* RepoFavorite.swift */; };
+		F4E76A882993E80300C16ADC /* FavoriteRepoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E76A872993E80300C16ADC /* FavoriteRepoService.swift */; };
+		F4E76A8A2993EC1C00C16ADC /* FavoriteRepoServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E76A892993EC1C00C16ADC /* FavoriteRepoServiceTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +84,8 @@
 		F4075359296E15B700C35F3C /* GeneralAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralAlert.swift; sourceTree = "<group>"; };
 		F41A682B2983DBC600948C80 /* KeyAwareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyAwareView.swift; sourceTree = "<group>"; };
 		F41A6851298B1A7E00948C80 /* GitCaller */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = GitCaller; path = ../GitCaller; sourceTree = "<group>"; };
+		F422AD1929945018007A1B81 /* FavoritesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewModel.swift; sourceTree = "<group>"; };
+		F422AD1E299456F4007A1B81 /* FavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
 		F4445A67295DE5A90053D9B0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F4445A6C295DEB580053D9B0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F4445A8E295E52810053D9B0 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
@@ -134,6 +141,9 @@
 		F4DD5154297A8DD400787B66 /* DiffView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffView.swift; sourceTree = "<group>"; };
 		F4DD5156297A8DE100787B66 /* DiffViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffViewModel.swift; sourceTree = "<group>"; };
 		F4E664142978A989009E3898 /* Change+UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Change+UI.swift"; sourceTree = "<group>"; };
+		F4E76A852993E57900C16ADC /* RepoFavorite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoFavorite.swift; sourceTree = "<group>"; };
+		F4E76A872993E80300C16ADC /* FavoriteRepoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteRepoService.swift; sourceTree = "<group>"; };
+		F4E76A892993EC1C00C16ADC /* FavoriteRepoServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteRepoServiceTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +166,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F422AD1829945008007A1B81 /* Favorites */ = {
+			isa = PBXGroup;
+			children = (
+				F422AD1929945018007A1B81 /* FavoritesViewModel.swift */,
+				F422AD1E299456F4007A1B81 /* FavoritesView.swift */,
+			);
+			path = Favorites;
+			sourceTree = "<group>";
+		};
+		F422AD1B29945463007A1B81 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		F4445A8D295E526E0053D9B0 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -170,6 +196,7 @@
 		F4445A97295E58790053D9B0 /* JaguTests */ = {
 			isa = PBXGroup;
 			children = (
+				F422AD1B29945463007A1B81 /* ViewModels */,
 				F4A7E7812993BA4F00768999 /* Services */,
 				F4A7E7802993BA4300768999 /* Repositories */,
 				F490DCCD2993A4DF0058F5D8 /* Generalizations */,
@@ -182,6 +209,7 @@
 		F4445AA1295E5C400053D9B0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F422AD1829945008007A1B81 /* Favorites */,
 				F4DD5153297A8DC800787B66 /* Diff */,
 				F447A38C2963C29D0056FDEF /* General */,
 				F447A3882963B8C60056FDEF /* Helper */,
@@ -238,6 +266,7 @@
 			isa = PBXGroup;
 			children = (
 				F46DC543297E1861001E357D /* FileService.swift */,
+				F4E76A872993E80300C16ADC /* FavoriteRepoService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -316,6 +345,7 @@
 			isa = PBXGroup;
 			children = (
 				F490DCCB2993A3B30058F5D8 /* FileServiceTests.swift */,
+				F4E76A892993EC1C00C16ADC /* FavoriteRepoServiceTests.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -336,6 +366,7 @@
 		F4B040A329666D22007AD99C /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				F4E76A852993E57900C16ADC /* RepoFavorite.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -509,6 +540,8 @@
 			inputPaths = (
 				"$(SRCROOT)/JaguTests/Generalizations/FileManager.swift",
 				"$(SRCROOT)/JaguTests/Generalizations/UserDefaults.swift",
+				"$(SRCROOT)/Jagu/Repositories/FavoriteRepoRepository.swift",
+				"$(SRCROOT)/Jagu/Services/FavoriteRepoService.swift",
 			);
 			outputFileListPaths = (
 			);
@@ -528,6 +561,7 @@
 				F490DCCC2993A3B30058F5D8 /* FileServiceTests.swift in Sources */,
 				F4A7E7832993BA6D00768999 /* FavoriteRepoRepositoryTests.swift in Sources */,
 				F4A7E77F2993B9BA00768999 /* UserDefaults.swift in Sources */,
+				F4E76A8A2993EC1C00C16ADC /* FavoriteRepoServiceTests.swift in Sources */,
 				F4445AA0295E59790053D9B0 /* GitBuddyAppMainViewModelTest.swift in Sources */,
 				F490DCCA29939D770058F5D8 /* GeneratedMocks.swift in Sources */,
 				F4A7E7782993B7C300768999 /* FileManager.swift in Sources */,
@@ -552,6 +586,7 @@
 				F407535A296E15B700C35F3C /* GeneralAlert.swift in Sources */,
 				F46DC544297E1861001E357D /* FileService.swift in Sources */,
 				F4D6E50C296B739900C302C1 /* ClearButton.swift in Sources */,
+				F4E76A862993E57900C16ADC /* RepoFavorite.swift in Sources */,
 				F4A7E7852993BBA500768999 /* UserDefaultsRepo.swift in Sources */,
 				F4C2C72829740A0D00A8F745 /* CommitListViewSheet.swift in Sources */,
 				F4B0409E29665B0F007AD99C /* TagCloudView.swift in Sources */,
@@ -574,14 +609,17 @@
 				F4D6E506296B59C600C302C1 /* KeyValueRepository.swift in Sources */,
 				F4C2C72629733B0800A8F745 /* LocalChangesViewModel.swift in Sources */,
 				F4A7E77B2993B8F200768999 /* FavoriteRepoRepository.swift in Sources */,
+				F422AD1A29945018007A1B81 /* FavoritesViewModel.swift in Sources */,
 				F4B0409A29665452007AD99C /* CommitListViewModel.swift in Sources */,
 				F46C91E9297BD15D00A78C6F /* CommandInputView.swift in Sources */,
 				F468ECEA29775D24005AA4E9 /* BranchElementViewModel.swift in Sources */,
 				F4D6E50E296B89EE00C302C1 /* ConditionalModifier.swift in Sources */,
 				F4B040A229665BF4007AD99C /* Date.swift in Sources */,
 				F4445AA3295E5C7F0053D9B0 /* BaseViewModel.swift in Sources */,
+				F422AD1F299456F4007A1B81 /* FavoritesView.swift in Sources */,
 				F4B0409429664485007AD99C /* CommitListView.swift in Sources */,
 				F4DD5157297A8DE100787B66 /* DiffViewModel.swift in Sources */,
+				F4E76A882993E80300C16ADC /* FavoriteRepoService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

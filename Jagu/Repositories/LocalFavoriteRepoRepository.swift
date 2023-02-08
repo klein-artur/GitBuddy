@@ -27,4 +27,10 @@ class LocalFavoriteRepoRepository: FavoriteRepoRepository, UserDefaultsRepo {
     func getFavorites() -> [String] {
         return userDefaults.stringArray(forKey: Self.defaultsKey) ?? []
     }
+    
+    func deleteFavorite(path: String) {
+        var currentList = getFavorites().filter { $0 != path }
+        userDefaults.set(Array(currentList), forKey: Self.defaultsKey)
+        userDefaults.synchronize()
+    }
 }

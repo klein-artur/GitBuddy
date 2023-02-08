@@ -22,7 +22,7 @@ struct ChangeLine {
 }
 
 @MainActor
-class LocalChangesViewModel: BaseViewModel {
+class LocalChangesViewModel: BaseRepositoryViewModel {
 
     @Published var status: StatusResult? {
         didSet {

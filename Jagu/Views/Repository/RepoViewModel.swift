@@ -9,7 +9,7 @@ import Foundation
 import GitCaller
 
 @MainActor
-class RepoViewModel: BaseViewModel {
+class RepoViewModel: BaseRepositoryViewModel {
     
     let repoPath: String
     let appDelegate: AppDelegate

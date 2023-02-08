@@ -10,13 +10,15 @@ import GitCaller
 import Combine
 
 @main
-struct JaguApp: App {                                                                                                                                                                                                        
+struct
+JaguApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
     @StateObject var mainViewModel: JaguAppMainViewModel = JaguAppMainViewModel(repository: GitRepo.standard)
     
     @State var showCommandView: Bool = false
     @State var showCommitList: Bool = false
+    @State var showFavorites: Bool = false
     
     var body: some Scene {
         WindowGroup {
@@ -38,6 +40,15 @@ struct JaguApp: App {
             .sheet(isPresented: $showCommandView) {
                 CommandInputView(viewModel: CommandInputViewModel(repository: mainViewModel.repository))
             }
+            .sheet(isPresented: $showFavorites, content: {
+                FavoritesView(
+                    viewModel: FavoritesViewModel(
+                        favoriteRepoService: FavoriteRepoService(
+                            repoRepository: LocalFavoriteRepoRepository(userDefaults: UserDefaults.standard)
+                        )
+                    )
+                )
+            })
             .commitSheet(presented: $showCommitList)
         }
         .commands {
@@ -103,6 +114,18 @@ struct JaguApp: App {
                     Text("Open")
                 }
                 .keyboardShortcut("o", modifiers: .command)
+                Button {
+                    self.showFavorites = true
+                } label: {
+                    Text("Favorites")
+                }
+                .keyboardShortcut("o", modifiers: [.command, .option])
+                Button {
+                    mainViewModel.addCurrentAsFavorite()
+                } label: {
+                    Text("Save favorite")
+                }
+                .disabled(mainViewModel.status == nil || mainViewModel.isFavorite)
                 Button {
                     GitRepo.standard.objectWillChange.send()
                 } label: {

@@ -9,7 +9,7 @@ import Foundation
 import GitCaller
 
 @MainActor
-class CommitListViewModel: BaseViewModel {
+class CommitListViewModel: BaseRepositoryViewModel {
     
     var branch: Branch?
     @Published var commitList: CommitList?

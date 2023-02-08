@@ -9,7 +9,7 @@ import Foundation
 import GitCaller
 
 @MainActor
-class CommandInputViewModel: BaseViewModel {
+class CommandInputViewModel: BaseRepositoryViewModel {
     @Published var commandInput: String = "" {
         didSet {
             updateAutocompletion()

@@ -1,4 +1,415 @@
-// MARK: - Mocks generated from file: Jagu/Services/FileService.swift at 2023-02-08 12:03:54 +0000
+// MARK: - Mocks generated from file: Jagu/Repositories/FavoriteRepoRepository.swift at 2023-02-08 23:25:00 +0000
+
+//
+//  FavoriteRepoRepository.swift
+//  Jagu
+//
+//  Created by Artur Hellmann on 08.02.23.
+//
+
+import Cuckoo
+@testable import Jagu
+
+import Foundation
+
+
+
+
+
+
+ class MockFavoriteRepoRepository: FavoriteRepoRepository, Cuckoo.ProtocolMock {
+    
+     typealias MocksType = FavoriteRepoRepository
+    
+     typealias Stubbing = __StubbingProxy_FavoriteRepoRepository
+     typealias Verification = __VerificationProxy_FavoriteRepoRepository
+
+     let cuckoo_manager = Cuckoo.MockManager.preconfiguredManager ?? Cuckoo.MockManager(hasParent: false)
+
+    
+    private var __defaultImplStub: FavoriteRepoRepository?
+
+     func enableDefaultImplementation(_ stub: FavoriteRepoRepository) {
+        __defaultImplStub = stub
+        cuckoo_manager.enableDefaultStubImplementation()
+    }
+    
+
+    
+
+    
+
+    
+    
+    
+    
+     func setAsFavorite(path: String)  {
+        
+    return cuckoo_manager.call(
+    """
+    setAsFavorite(path: String)
+    """,
+            parameters: (path),
+            escapingParameters: (path),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.setAsFavorite(path: path))
+        
+    }
+    
+    
+    
+    
+    
+     func getFavorites() -> [String] {
+        
+    return cuckoo_manager.call(
+    """
+    getFavorites() -> [String]
+    """,
+            parameters: (),
+            escapingParameters: (),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.getFavorites())
+        
+    }
+    
+    
+    
+    
+    
+     func deleteFavorite(path: String)  {
+        
+    return cuckoo_manager.call(
+    """
+    deleteFavorite(path: String)
+    """,
+            parameters: (path),
+            escapingParameters: (path),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.deleteFavorite(path: path))
+        
+    }
+    
+    
+
+     struct __StubbingProxy_FavoriteRepoRepository: Cuckoo.StubbingProxy {
+        private let cuckoo_manager: Cuckoo.MockManager
+    
+         init(manager: Cuckoo.MockManager) {
+            self.cuckoo_manager = manager
+        }
+        
+        
+        
+        
+        func setAsFavorite<M1: Cuckoo.Matchable>(path: M1) -> Cuckoo.ProtocolStubNoReturnFunction<(String)> where M1.MatchedType == String {
+            let matchers: [Cuckoo.ParameterMatcher<(String)>] = [wrap(matchable: path) { $0 }]
+            return .init(stub: cuckoo_manager.createStub(for: MockFavoriteRepoRepository.self, method:
+    """
+    setAsFavorite(path: String)
+    """, parameterMatchers: matchers))
+        }
+        
+        
+        
+        
+        func getFavorites() -> Cuckoo.ProtocolStubFunction<(), [String]> {
+            let matchers: [Cuckoo.ParameterMatcher<Void>] = []
+            return .init(stub: cuckoo_manager.createStub(for: MockFavoriteRepoRepository.self, method:
+    """
+    getFavorites() -> [String]
+    """, parameterMatchers: matchers))
+        }
+        
+        
+        
+        
+        func deleteFavorite<M1: Cuckoo.Matchable>(path: M1) -> Cuckoo.ProtocolStubNoReturnFunction<(String)> where M1.MatchedType == String {
+            let matchers: [Cuckoo.ParameterMatcher<(String)>] = [wrap(matchable: path) { $0 }]
+            return .init(stub: cuckoo_manager.createStub(for: MockFavoriteRepoRepository.self, method:
+    """
+    deleteFavorite(path: String)
+    """, parameterMatchers: matchers))
+        }
+        
+        
+    }
+
+     struct __VerificationProxy_FavoriteRepoRepository: Cuckoo.VerificationProxy {
+        private let cuckoo_manager: Cuckoo.MockManager
+        private let callMatcher: Cuckoo.CallMatcher
+        private let sourceLocation: Cuckoo.SourceLocation
+    
+         init(manager: Cuckoo.MockManager, callMatcher: Cuckoo.CallMatcher, sourceLocation: Cuckoo.SourceLocation) {
+            self.cuckoo_manager = manager
+            self.callMatcher = callMatcher
+            self.sourceLocation = sourceLocation
+        }
+    
+        
+    
+        
+        
+        
+        @discardableResult
+        func setAsFavorite<M1: Cuckoo.Matchable>(path: M1) -> Cuckoo.__DoNotUse<(String), Void> where M1.MatchedType == String {
+            let matchers: [Cuckoo.ParameterMatcher<(String)>] = [wrap(matchable: path) { $0 }]
+            return cuckoo_manager.verify(
+    """
+    setAsFavorite(path: String)
+    """, callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+        }
+        
+        
+        
+        
+        @discardableResult
+        func getFavorites() -> Cuckoo.__DoNotUse<(), [String]> {
+            let matchers: [Cuckoo.ParameterMatcher<Void>] = []
+            return cuckoo_manager.verify(
+    """
+    getFavorites() -> [String]
+    """, callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+        }
+        
+        
+        
+        
+        @discardableResult
+        func deleteFavorite<M1: Cuckoo.Matchable>(path: M1) -> Cuckoo.__DoNotUse<(String), Void> where M1.MatchedType == String {
+            let matchers: [Cuckoo.ParameterMatcher<(String)>] = [wrap(matchable: path) { $0 }]
+            return cuckoo_manager.verify(
+    """
+    deleteFavorite(path: String)
+    """, callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+        }
+        
+        
+    }
+}
+
+
+ class FavoriteRepoRepositoryStub: FavoriteRepoRepository {
+    
+
+    
+
+    
+    
+    
+    
+     func setAsFavorite(path: String)   {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
+    
+    
+    
+    
+     func getFavorites() -> [String]  {
+        return DefaultValueRegistry.defaultValue(for: ([String]).self)
+    }
+    
+    
+    
+    
+    
+     func deleteFavorite(path: String)   {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
+    
+}
+
+
+
+
+
+// MARK: - Mocks generated from file: Jagu/Services/FavoriteRepoService.swift at 2023-02-08 23:25:00 +0000
+
+//
+//  FavoriteRepoService.swift
+//  Jagu
+//
+//  Created by Artur Hellmann on 08.02.23.
+//
+
+import Cuckoo
+@testable import Jagu
+
+import Foundation
+
+
+
+
+
+
+ class MockFavoriteRepoService: FavoriteRepoService, Cuckoo.ClassMock {
+    
+     typealias MocksType = FavoriteRepoService
+    
+     typealias Stubbing = __StubbingProxy_FavoriteRepoService
+     typealias Verification = __VerificationProxy_FavoriteRepoService
+
+     let cuckoo_manager = Cuckoo.MockManager.preconfiguredManager ?? Cuckoo.MockManager(hasParent: true)
+
+    
+    private var __defaultImplStub: FavoriteRepoService?
+
+     func enableDefaultImplementation(_ stub: FavoriteRepoService) {
+        __defaultImplStub = stub
+        cuckoo_manager.enableDefaultStubImplementation()
+    }
+    
+
+    
+    
+    
+    
+     override var favorites: [RepoFavorite] {
+        get {
+            return cuckoo_manager.getter("favorites",
+                superclassCall:
+                    
+                    super.favorites
+                    ,
+                defaultCall: __defaultImplStub!.favorites)
+        }
+        
+    }
+    
+    
+
+    
+
+    
+    
+    
+    
+     override func saveFavorite(path: String)  {
+        
+    return cuckoo_manager.call(
+    """
+    saveFavorite(path: String)
+    """,
+            parameters: (path),
+            escapingParameters: (path),
+            superclassCall:
+                
+                super.saveFavorite(path: path)
+                ,
+            defaultCall: __defaultImplStub!.saveFavorite(path: path))
+        
+    }
+    
+    
+
+     struct __StubbingProxy_FavoriteRepoService: Cuckoo.StubbingProxy {
+        private let cuckoo_manager: Cuckoo.MockManager
+    
+         init(manager: Cuckoo.MockManager) {
+            self.cuckoo_manager = manager
+        }
+        
+        
+        
+        var favorites: Cuckoo.ClassToBeStubbedReadOnlyProperty<MockFavoriteRepoService, [RepoFavorite]> {
+            return .init(manager: cuckoo_manager, name: "favorites")
+        }
+        
+        
+        
+        
+        
+        func saveFavorite<M1: Cuckoo.Matchable>(path: M1) -> Cuckoo.ClassStubNoReturnFunction<(String)> where M1.MatchedType == String {
+            let matchers: [Cuckoo.ParameterMatcher<(String)>] = [wrap(matchable: path) { $0 }]
+            return .init(stub: cuckoo_manager.createStub(for: MockFavoriteRepoService.self, method:
+    """
+    saveFavorite(path: String)
+    """, parameterMatchers: matchers))
+        }
+        
+        
+    }
+
+     struct __VerificationProxy_FavoriteRepoService: Cuckoo.VerificationProxy {
+        private let cuckoo_manager: Cuckoo.MockManager
+        private let callMatcher: Cuckoo.CallMatcher
+        private let sourceLocation: Cuckoo.SourceLocation
+    
+         init(manager: Cuckoo.MockManager, callMatcher: Cuckoo.CallMatcher, sourceLocation: Cuckoo.SourceLocation) {
+            self.cuckoo_manager = manager
+            self.callMatcher = callMatcher
+            self.sourceLocation = sourceLocation
+        }
+    
+        
+        
+        
+        var favorites: Cuckoo.VerifyReadOnlyProperty<[RepoFavorite]> {
+            return .init(manager: cuckoo_manager, name: "favorites", callMatcher: callMatcher, sourceLocation: sourceLocation)
+        }
+        
+        
+    
+        
+        
+        
+        @discardableResult
+        func saveFavorite<M1: Cuckoo.Matchable>(path: M1) -> Cuckoo.__DoNotUse<(String), Void> where M1.MatchedType == String {
+            let matchers: [Cuckoo.ParameterMatcher<(String)>] = [wrap(matchable: path) { $0 }]
+            return cuckoo_manager.verify(
+    """
+    saveFavorite(path: String)
+    """, callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+        }
+        
+        
+    }
+}
+
+
+ class FavoriteRepoServiceStub: FavoriteRepoService {
+    
+    
+    
+    
+     override var favorites: [RepoFavorite] {
+        get {
+            return DefaultValueRegistry.defaultValue(for: ([RepoFavorite]).self)
+        }
+        
+    }
+    
+    
+
+    
+
+    
+    
+    
+    
+     override func saveFavorite(path: String)   {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
+    
+}
+
+
+
+
+
+// MARK: - Mocks generated from file: Jagu/Services/FileService.swift at 2023-02-08 23:25:00 +0000
 
 //
 //  FileService.swift
@@ -133,7 +544,7 @@ import GitCaller
 
 
 
-// MARK: - Mocks generated from file: Jagu/Views/Helper/PreviewHelper.swift at 2023-02-08 12:03:54 +0000
+// MARK: - Mocks generated from file: Jagu/Views/Helper/PreviewHelper.swift at 2023-02-08 23:25:00 +0000
 
 //
 //  PreviewHelper.swift
@@ -1798,7 +2209,7 @@ import GitCaller
 
 
 
-// MARK: - Mocks generated from file: JaguTests/Generalizations/FileManager.swift at 2023-02-08 12:03:54 +0000
+// MARK: - Mocks generated from file: JaguTests/Generalizations/FileManager.swift at 2023-02-08 23:25:00 +0000
 
 //
 //  FileManagerProtocol.swift
@@ -1932,7 +2343,7 @@ import Foundation
 
 
 
-// MARK: - Mocks generated from file: JaguTests/Generalizations/UserDefaults.swift at 2023-02-08 12:03:54 +0000
+// MARK: - Mocks generated from file: JaguTests/Generalizations/UserDefaults.swift at 2023-02-08 23:25:00 +0000
 
 //
 //  UserDefaults.swift

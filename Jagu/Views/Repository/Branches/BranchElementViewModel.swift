@@ -9,7 +9,7 @@ import Foundation
 import GitCaller
 
 @MainActor
-class BranchElementViewModel: BaseViewModel {
+class BranchElementViewModel: BaseRepositoryViewModel {
     
     let branch: Branch
     let status: StatusResult?

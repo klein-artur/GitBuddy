@@ -45,7 +45,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
-    fileprivate func openRepo(path: String) {
+    func openRepo(path: String) {
         FileManager.default.changeCurrentDirectoryPath(path)
         currentRepoDir = path
     }

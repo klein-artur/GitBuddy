@@ -11,9 +11,13 @@ import Combine
 import GitCaller
 
 @MainActor
-class JaguAppMainViewModel: BaseViewModel {
+class JaguAppMainViewModel: BaseRepositoryViewModel {
     
     @Published var status: StatusResult?
+    
+    let favoritesService = FavoriteRepoService(
+        repoRepository: LocalFavoriteRepoRepository(userDefaults: UserDefaults.standard)
+    )
     
     private var innerUpdate = false
     @Published var newBranchName: String = "" {
@@ -23,6 +27,12 @@ class JaguAppMainViewModel: BaseViewModel {
                 newBranchName = newBranchName.replacingOccurrences(of: " ", with: "-")
                 innerUpdate = false
             }
+        }
+    }
+    
+    var isFavorite: Bool {
+        favoritesService.favorites.contains { favorite in
+            favorite.path == self.repoPath
         }
     }
     
@@ -126,6 +136,13 @@ class JaguAppMainViewModel: BaseViewModel {
         defaultTask { [weak self] in
             try await self?.repository.pushTags()
         }
+    }
+    
+    func addCurrentAsFavorite() {
+        guard let path = self.repoPath else {
+            return
+        }
+        favoritesService.saveFavorite(path: path)
     }
     
     override func shouldHandleError(parseError: ParseError) -> Bool {
