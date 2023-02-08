@@ -31,6 +31,8 @@
 		F47CB919295DD7AD00A47BA8 /* RepoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47CB918295DD7AD00A47BA8 /* RepoView.swift */; };
 		F47CB91B295DD7AF00A47BA8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F47CB91A295DD7AF00A47BA8 /* Assets.xcassets */; };
 		F47CB91E295DD7AF00A47BA8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F47CB91D295DD7AF00A47BA8 /* Preview Assets.xcassets */; };
+		F490DCC829939C220058F5D8 /* Cuckoo in Frameworks */ = {isa = PBXBuildFile; productRef = F490DCC729939C220058F5D8 /* Cuckoo */; };
+		F490DCCA29939D770058F5D8 /* GeneratedMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = F490DCC929939D760058F5D8 /* GeneratedMocks.swift */; };
 		F4B0409429664485007AD99C /* CommitListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B0409329664485007AD99C /* CommitListView.swift */; };
 		F4B04096296653CD007AD99C /* CommitItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B04095296653CD007AD99C /* CommitItemView.swift */; };
 		F4B04098296653F0007AD99C /* CommitTreeElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B04097296653F0007AD99C /* CommitTreeElementView.swift */; };
@@ -94,6 +96,7 @@
 		F47CB91A295DD7AF00A47BA8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F47CB91D295DD7AF00A47BA8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		F47CB91F295DD7AF00A47BA8 /* GitBuddy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GitBuddy.entitlements; sourceTree = "<group>"; };
+		F490DCC929939D760058F5D8 /* GeneratedMocks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneratedMocks.swift; sourceTree = "<group>"; };
 		F4B0409329664485007AD99C /* CommitListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommitListView.swift; sourceTree = "<group>"; };
 		F4B04095296653CD007AD99C /* CommitItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommitItemView.swift; sourceTree = "<group>"; };
 		F4B04097296653F0007AD99C /* CommitTreeElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommitTreeElementView.swift; sourceTree = "<group>"; };
@@ -124,6 +127,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F490DCC829939C220058F5D8 /* Cuckoo in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -152,6 +156,7 @@
 		F4445A97295E58790053D9B0 /* JaguTests */ = {
 			isa = PBXGroup;
 			children = (
+				F490DCC929939D760058F5D8 /* GeneratedMocks.swift */,
 				F4445A9F295E59790053D9B0 /* GitBuddyAppMainViewModelTest.swift */,
 			);
 			path = JaguTests;
@@ -345,6 +350,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F4445A9C295E58790053D9B0 /* Build configuration list for PBXNativeTarget "JaguTests" */;
 			buildPhases = (
+				F490DCC629939A6A0058F5D8 /* ShellScript */,
 				F4445A92295E58790053D9B0 /* Sources */,
 				F4445A93295E58790053D9B0 /* Frameworks */,
 				F4445A94295E58790053D9B0 /* Resources */,
@@ -355,6 +361,9 @@
 				F4445A9B295E58790053D9B0 /* PBXTargetDependency */,
 			);
 			name = JaguTests;
+			packageProductDependencies = (
+				F490DCC729939C220058F5D8 /* Cuckoo */,
+			);
 			productName = GitBuddyTests;
 			productReference = F4445A96295E58790053D9B0 /* JaguTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -410,6 +419,7 @@
 			mainGroup = F47CB90A295DD7AD00A47BA8;
 			packageReferences = (
 				F46DC53F297E16FF001E357D /* XCRemoteSwiftPackageReference "GitCaller" */,
+				F490DCC3299399D20058F5D8 /* XCRemoteSwiftPackageReference "Cuckoo" */,
 			);
 			productRefGroup = F47CB914295DD7AD00A47BA8 /* Products */;
 			projectDirPath = "";
@@ -442,12 +452,33 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		F490DCC629939A6A0058F5D8 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ $ACTION == \"indexbuild\" ]; then\n  echo \"Not running Cuckoo generator during indexing.\"\n  exit 0\nfi\n\n# Skip for preview builds\nif [ \"${ENABLE_PREVIEWS}\" = \"YES\" ]; then\n  echo \"Not running Cuckoo generator during preview builds.\"\n  exit 0\nfi\n\n# Define output file. Change \"${PROJECT_DIR}/${PROJECT_NAME}Tests\" to your test's root source folder, if it's not the default name.\nOUTPUT_FILE=\"${PROJECT_DIR}/${PROJECT_NAME}Tests/GeneratedMocks.swift\"\necho \"Generated Mocks File = ${OUTPUT_FILE}\"\n\n# Define input directory. Change \"${PROJECT_DIR}/${PROJECT_NAME}\" to your project's root source folder, if it's not the default name.\nINPUT_DIR=\"${PROJECT_DIR}/${PROJECT_NAME}\"\necho \"Mocks Input Directory = ${INPUT_DIR}\"\n\n# Generate mock files, include as many input files as you'd like to create mocks for.\n\"${PROJECT_DIR}/run\" --download generate --testable \"${PROJECT_NAME}\" \\\n--output \"${OUTPUT_FILE}\" \\\n\"${INPUT_DIR}/Services/FileService.swift\"\n# ... and so forth, the last line should never end with a backslash\n\n# After running once, locate `GeneratedMocks.swift` and drag it into your Xcode test target group.\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		F4445A92295E58790053D9B0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				F4445AA0295E59790053D9B0 /* GitBuddyAppMainViewModelTest.swift in Sources */,
+				F490DCCA29939D770058F5D8 /* GeneratedMocks.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -790,6 +821,14 @@
 				kind = branch;
 			};
 		};
+		F490DCC3299399D20058F5D8 /* XCRemoteSwiftPackageReference "Cuckoo" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Brightify/Cuckoo.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -797,6 +836,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F46DC53F297E16FF001E357D /* XCRemoteSwiftPackageReference "GitCaller" */;
 			productName = GitCaller;
+		};
+		F490DCC729939C220058F5D8 /* Cuckoo */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F490DCC3299399D20058F5D8 /* XCRemoteSwiftPackageReference "Cuckoo" */;
+			productName = Cuckoo;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
