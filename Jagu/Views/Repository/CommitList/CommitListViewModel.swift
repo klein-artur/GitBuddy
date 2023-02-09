@@ -20,12 +20,11 @@ class CommitListViewModel: BaseRepositoryViewModel {
     @Published var tagMessage: String = ""
     
     init(
-        repository: some Repository,
         branch: Branch?
     ) {
         self.branch = branch
         
-        super.init(repository: repository)
+        super.init()
         
         load()
     }

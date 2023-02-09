@@ -16,7 +16,6 @@ class BranchElementViewModel: BaseRepositoryViewModel {
     let showLogButton: Bool
     
     init(
-        repository: some Repository,
         branch: Branch,
         status: StatusResult?,
         showLogButton: Bool
@@ -24,7 +23,7 @@ class BranchElementViewModel: BaseRepositoryViewModel {
         self.branch = branch
         self.status = status
         self.showLogButton = showLogButton
-        super.init(repository: repository)
+        super.init()
     }
     
     @MainActor

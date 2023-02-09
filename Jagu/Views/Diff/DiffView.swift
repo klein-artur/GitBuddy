@@ -7,6 +7,7 @@
 
 import SwiftUI
 import GitCaller
+import SwiftDose
 
 struct DiffView: View {
     @Environment(\.dismiss) private var dismiss
@@ -164,10 +165,14 @@ struct DiffView: View {
 }
 
 struct DiffView_Previews: PreviewProvider {
+    
+    init() {
+        DoseValues[RepositoryProvider.self] = PreviewRepo()
+    }
+    
     static var previews: some View {
         DiffView(
             viewModel: DiffViewModel(
-                repository: PreviewRepo(),
                 leftFile: nil,
                 rightFile: nil,
                 staged: false

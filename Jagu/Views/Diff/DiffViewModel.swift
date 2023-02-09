@@ -20,11 +20,11 @@ class DiffViewModel: BaseRepositoryViewModel {
     
     var dismiss: DismissAction? = nil
     
-    init(repository: some Repository, leftFile: String?, rightFile: String? = nil, staged: Bool? = nil) {
+    init(leftFile: String?, rightFile: String? = nil, staged: Bool? = nil) {
         self.leftFile = leftFile
         self.rightFile = rightFile
         self.staged = staged
-        super.init(repository: repository)
+        super.init()
         self.load()
     }
     

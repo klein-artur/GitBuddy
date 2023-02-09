@@ -69,9 +69,9 @@ class LocalChangesViewModel: BaseRepositoryViewModel {
     @Published var stagedChanges: [ChangeLine] = []
     @Published var commitMessage: String = ""
     
-    init(repository: some Repository, status: StatusResult) {
+    init(status: StatusResult) {
         self.status = status
-        super.init(repository: repository)
+        super.init()
     }
     
     override func load() {

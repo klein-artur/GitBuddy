@@ -14,7 +14,7 @@ struct
 JaguApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
-    @StateObject var mainViewModel: JaguAppMainViewModel = JaguAppMainViewModel(repository: GitRepo.standard)
+    @StateObject var mainViewModel: JaguAppMainViewModel = JaguAppMainViewModel()
     
     @State var showCommandView: Bool = false
     @State var showCommitList: Bool = false
@@ -24,7 +24,7 @@ JaguApp: App {
         WindowGroup {
             VStack {
                 if let repoPath = mainViewModel.repoPath {
-                    RepoView(viewModel: RepoViewModel(repository: GitRepo.standard, repoPath: repoPath, appDelegate: appDelegate))
+                    RepoView(viewModel: RepoViewModel(repoPath: repoPath, appDelegate: appDelegate))
                 } else {
                     NoPathSelectedView()
                         .frame(width: 500, height: 400)
@@ -38,14 +38,12 @@ JaguApp: App {
             .loading(loadingCount: $mainViewModel.loadingCount)
             .generalAlert(item: $mainViewModel.alertItem)
             .sheet(isPresented: $showCommandView) {
-                CommandInputView(viewModel: CommandInputViewModel(repository: mainViewModel.repository))
+                CommandInputView(viewModel: CommandInputViewModel())
             }
             .sheet(isPresented: $showFavorites, content: {
                 FavoritesView(
                     viewModel: FavoritesViewModel(
-                        favoriteRepoService: FavoriteRepoService(
-                            repoRepository: LocalFavoriteRepoRepository(userDefaults: UserDefaults.standard)
-                        )
+                        favoriteRepoService: FavoriteRepoService()
                     )
                 )
             })

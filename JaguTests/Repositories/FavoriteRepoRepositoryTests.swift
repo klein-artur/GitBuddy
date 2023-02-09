@@ -8,6 +8,7 @@
 
 import XCTest
 import Cuckoo
+import SwiftDose
 
 final class FavoriteRepoRepositoryTests: XCTestCase {
     var sut: LocalFavoriteRepoRepository!
@@ -15,7 +16,9 @@ final class FavoriteRepoRepositoryTests: XCTestCase {
     let mockUserDefaults = MockUserDefaultsSC()
 
     override func setUpWithError() throws {
-        self.sut = LocalFavoriteRepoRepository(userDefaults: mockUserDefaults)
+        DoseValues[UserDefaultsProvider.self] = mockUserDefaults
+        
+        self.sut = LocalFavoriteRepoRepository()
     }
 
     override func tearDownWithError() throws {

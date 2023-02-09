@@ -19,10 +19,10 @@ class RepoViewModel: BaseRepositoryViewModel {
     
     @Published var cloneRepoUrl = ""
     
-    init(repository: some Repository, repoPath: String, appDelegate: AppDelegate, gitStatus: StatusResult? = nil) {
+    init(repoPath: String, appDelegate: AppDelegate, gitStatus: StatusResult? = nil) {
         self.repoPath = repoPath
         self.appDelegate = appDelegate
-        super.init(repository: repository)
+        super.init()
         if let gitStatus = gitStatus {
             self.gitStatus = gitStatus
         } else {

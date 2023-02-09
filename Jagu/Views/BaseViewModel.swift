@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 import Combine
 import GitCaller
+import SwiftDose
 
 @MainActor
 class BaseViewModel: ObservableObject {
@@ -71,18 +72,16 @@ class BaseViewModel: ObservableObject {
 
 class BaseRepositoryViewModel: BaseViewModel {
     
-    let repository: any Repository
+    @Dose(\.repository) var repository: any Repository
     
     @Published var gitError: String?
     
     @Published var gitLogBranch: Branch?
     
-    init(repository: some Repository) {
-        self.repository = repository
-        
+    override init() {
         super.init()
         
-        repository.objectWillChange
+        (repository as? GitRepo)?.objectWillChange
             .receive(on: RunLoop.main)
             .sink(
                 receiveCompletion: { _ in },

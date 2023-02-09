@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftDose
 
 struct FavoritesView: View {
     @StateObject var viewModel: FavoritesViewModel
@@ -45,6 +46,11 @@ struct FavoritesView: View {
 }
 
 struct FavoritesView_Previews: PreviewProvider {
+    
+    init() {
+        DoseValues[FavoriteRepoServiceProvider.self] = PreviewFavoriteRepoService()
+    }
+    
     static var previews: some View {
         FavoritesView(
             viewModel: FavoritesViewModel(
@@ -55,10 +61,6 @@ struct FavoritesView_Previews: PreviewProvider {
 }
 
 private class PreviewFavoriteRepoService: FavoriteRepoService {
-    
-    init() {
-        super.init(repoRepository: LocalFavoriteRepoRepository(userDefaults: UserDefaults.standard))
-    }
     
     override var favorites: [RepoFavorite] {
         [

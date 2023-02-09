@@ -6,13 +6,10 @@
 //
 
 import Foundation
+import SwiftDose
 
 class FavoriteRepoService {
-    let repoRepository: FavoriteRepoRepository
-    
-    init(repoRepository: FavoriteRepoRepository) {
-        self.repoRepository = repoRepository
-    }
+    @Dose(\.favoriteRepoRepository) var repoRepository: FavoriteRepoRepository
     
     var favorites: [RepoFavorite] {
         repoRepository.getFavorites()

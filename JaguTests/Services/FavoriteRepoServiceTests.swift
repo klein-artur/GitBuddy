@@ -9,6 +9,7 @@
 
 import XCTest
 import Cuckoo
+import SwiftDose
 
 final class FavoriteRepoServiceTests: XCTestCase {
     var sut: FavoriteRepoService!
@@ -16,7 +17,9 @@ final class FavoriteRepoServiceTests: XCTestCase {
     let mockFavoriteRepoRepository = MockFavoriteRepoRepository()
 
     override func setUpWithError() throws {
-        self.sut = FavoriteRepoService(repoRepository: mockFavoriteRepoRepository)
+        DoseValues[FavoriteRepoRepositoryProvider.self] = mockFavoriteRepoRepository
+        
+        self.sut = FavoriteRepoService()
         
         stub(mockFavoriteRepoRepository) { stub in
             when(stub).getFavorites().thenReturn(["test/one", "test/two"])

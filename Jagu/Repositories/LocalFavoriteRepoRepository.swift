@@ -6,16 +6,13 @@
 //
 
 import Foundation
+import SwiftDose
 
 class LocalFavoriteRepoRepository: FavoriteRepoRepository, UserDefaultsRepo {
     
     static let defaultsKey: String = "LOCAL_FAVORITE_REPOSITORIES_KEY"
     
-    let userDefaults: UserDefaults
-    
-    init(userDefaults: UserDefaults) {
-        self.userDefaults = userDefaults
-    }
+    @Dose(\.userDefaults) var userDefaults
     
     func setAsFavorite(path: String) {
         var currentList = Set(getFavorites())
@@ -29,7 +26,7 @@ class LocalFavoriteRepoRepository: FavoriteRepoRepository, UserDefaultsRepo {
     }
     
     func deleteFavorite(path: String) {
-        var currentList = getFavorites().filter { $0 != path }
+        let currentList = getFavorites().filter { $0 != path }
         userDefaults.set(Array(currentList), forKey: Self.defaultsKey)
         userDefaults.synchronize()
     }

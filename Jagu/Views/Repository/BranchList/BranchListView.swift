@@ -7,6 +7,7 @@
 
 import SwiftUI
 import GitCaller
+import SwiftDose
 
 struct BranchListView: View {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
@@ -189,10 +190,14 @@ extension BranchTreeItem: Identifiable {
 }
 
 struct BranchListView_Previews: PreviewProvider {
+    
+    init() {
+        DoseValues[RepositoryProvider.self] = PreviewRepo()
+    }
+    
     static var previews: some View {
         BranchListView(
             viewModel: BranchListViewModel(
-                repository: PreviewRepo(),
                 keyValueRepo: PreviewKeyValueRepo()
             )
         )

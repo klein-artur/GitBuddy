@@ -7,6 +7,7 @@
 
 import SwiftUI
 import GitCaller
+import SwiftDose
 
 struct CommitListView: View {
     @StateObject var commitListViewModel: CommitListViewModel
@@ -18,7 +19,6 @@ struct CommitListView: View {
                     HStack {
                         BranchElementView(
                             viewModel: BranchElementViewModel(
-                                repository: GitRepo.standard,
                                 branch: branch,
                                 status: nil,
                                 showLogButton: false
@@ -82,10 +82,14 @@ struct CommitListView: View {
 }
 
 struct CommitListView_Previews: PreviewProvider {
+    
+    init() {
+        DoseValues[RepositoryProvider.self] = PreviewRepo()
+    }
+    
     static var previews: some View {
         CommitListView(
             commitListViewModel: CommitListViewModel(
-                repository: PreviewRepo(),
                 branch: StatusResult.getTestStatus().branch
             )
         )

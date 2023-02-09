@@ -1,4 +1,4 @@
-// MARK: - Mocks generated from file: Jagu/Repositories/FavoriteRepoRepository.swift at 2023-02-08 23:25:00 +0000
+// MARK: - Mocks generated from file: Jagu/Repositories/FavoriteRepoRepository.swift at 2023-02-09 16:07:35 +0000
 
 //
 //  FavoriteRepoRepository.swift
@@ -234,7 +234,7 @@ import Foundation
 
 
 
-// MARK: - Mocks generated from file: Jagu/Services/FavoriteRepoService.swift at 2023-02-08 23:25:00 +0000
+// MARK: - Mocks generated from file: Jagu/Services/FavoriteRepoService.swift at 2023-02-09 16:07:35 +0000
 
 //
 //  FavoriteRepoService.swift
@@ -247,6 +247,7 @@ import Cuckoo
 @testable import Jagu
 
 import Foundation
+import SwiftDose
 
 
 
@@ -271,6 +272,32 @@ import Foundation
     }
     
 
+    
+    
+    
+    
+     override var repoRepository: FavoriteRepoRepository {
+        get {
+            return cuckoo_manager.getter("repoRepository",
+                superclassCall:
+                    
+                    super.repoRepository
+                    ,
+                defaultCall: __defaultImplStub!.repoRepository)
+        }
+        
+        set {
+            cuckoo_manager.setter("repoRepository",
+                value: newValue,
+                superclassCall:
+                    
+                    super.repoRepository = newValue
+                    ,
+                defaultCall: __defaultImplStub!.repoRepository = newValue)
+        }
+        
+    }
+    
     
     
     
@@ -312,6 +339,26 @@ import Foundation
     }
     
     
+    
+    
+    
+     override func deleteFavorite(path: String)  {
+        
+    return cuckoo_manager.call(
+    """
+    deleteFavorite(path: String)
+    """,
+            parameters: (path),
+            escapingParameters: (path),
+            superclassCall:
+                
+                super.deleteFavorite(path: path)
+                ,
+            defaultCall: __defaultImplStub!.deleteFavorite(path: path))
+        
+    }
+    
+    
 
      struct __StubbingProxy_FavoriteRepoService: Cuckoo.StubbingProxy {
         private let cuckoo_manager: Cuckoo.MockManager
@@ -319,6 +366,13 @@ import Foundation
          init(manager: Cuckoo.MockManager) {
             self.cuckoo_manager = manager
         }
+        
+        
+        
+        var repoRepository: Cuckoo.ClassToBeStubbedProperty<MockFavoriteRepoService, FavoriteRepoRepository> {
+            return .init(manager: cuckoo_manager, name: "repoRepository")
+        }
+        
         
         
         
@@ -339,6 +393,17 @@ import Foundation
         }
         
         
+        
+        
+        func deleteFavorite<M1: Cuckoo.Matchable>(path: M1) -> Cuckoo.ClassStubNoReturnFunction<(String)> where M1.MatchedType == String {
+            let matchers: [Cuckoo.ParameterMatcher<(String)>] = [wrap(matchable: path) { $0 }]
+            return .init(stub: cuckoo_manager.createStub(for: MockFavoriteRepoService.self, method:
+    """
+    deleteFavorite(path: String)
+    """, parameterMatchers: matchers))
+        }
+        
+        
     }
 
      struct __VerificationProxy_FavoriteRepoService: Cuckoo.VerificationProxy {
@@ -352,6 +417,13 @@ import Foundation
             self.sourceLocation = sourceLocation
         }
     
+        
+        
+        
+        var repoRepository: Cuckoo.VerifyProperty<FavoriteRepoRepository> {
+            return .init(manager: cuckoo_manager, name: "repoRepository", callMatcher: callMatcher, sourceLocation: sourceLocation)
+        }
+        
         
         
         
@@ -374,11 +446,36 @@ import Foundation
         }
         
         
+        
+        
+        @discardableResult
+        func deleteFavorite<M1: Cuckoo.Matchable>(path: M1) -> Cuckoo.__DoNotUse<(String), Void> where M1.MatchedType == String {
+            let matchers: [Cuckoo.ParameterMatcher<(String)>] = [wrap(matchable: path) { $0 }]
+            return cuckoo_manager.verify(
+    """
+    deleteFavorite(path: String)
+    """, callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+        }
+        
+        
     }
 }
 
 
  class FavoriteRepoServiceStub: FavoriteRepoService {
+    
+    
+    
+    
+     override var repoRepository: FavoriteRepoRepository {
+        get {
+            return DefaultValueRegistry.defaultValue(for: (FavoriteRepoRepository).self)
+        }
+        
+        set { }
+        
+    }
+    
     
     
     
@@ -403,13 +500,21 @@ import Foundation
     }
     
     
+    
+    
+    
+     override func deleteFavorite(path: String)   {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
+    
 }
 
 
 
 
 
-// MARK: - Mocks generated from file: Jagu/Services/FileService.swift at 2023-02-08 23:25:00 +0000
+// MARK: - Mocks generated from file: Jagu/Services/FileService.swift at 2023-02-09 16:07:35 +0000
 
 //
 //  FileService.swift
@@ -544,7 +649,7 @@ import GitCaller
 
 
 
-// MARK: - Mocks generated from file: Jagu/Views/Helper/PreviewHelper.swift at 2023-02-08 23:25:00 +0000
+// MARK: - Mocks generated from file: Jagu/Views/Helper/PreviewHelper.swift at 2023-02-09 16:07:35 +0000
 
 //
 //  PreviewHelper.swift
@@ -2209,7 +2314,7 @@ import GitCaller
 
 
 
-// MARK: - Mocks generated from file: JaguTests/Generalizations/FileManager.swift at 2023-02-08 23:25:00 +0000
+// MARK: - Mocks generated from file: JaguTests/Generalizations/FileManager.swift at 2023-02-09 16:07:35 +0000
 
 //
 //  FileManagerProtocol.swift
@@ -2343,7 +2448,7 @@ import Foundation
 
 
 
-// MARK: - Mocks generated from file: JaguTests/Generalizations/UserDefaults.swift at 2023-02-08 23:25:00 +0000
+// MARK: - Mocks generated from file: JaguTests/Generalizations/UserDefaults.swift at 2023-02-09 16:07:35 +0000
 
 //
 //  UserDefaults.swift

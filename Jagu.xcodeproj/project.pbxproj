@@ -11,6 +11,9 @@
 		F41A682C2983DBC600948C80 /* KeyAwareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41A682B2983DBC600948C80 /* KeyAwareView.swift */; };
 		F422AD1A29945018007A1B81 /* FavoritesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F422AD1929945018007A1B81 /* FavoritesViewModel.swift */; };
 		F422AD1F299456F4007A1B81 /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F422AD1E299456F4007A1B81 /* FavoritesView.swift */; };
+		F422AD2829951911007A1B81 /* DoseValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = F422AD2729951911007A1B81 /* DoseValues.swift */; };
+		F422AD2A29951926007A1B81 /* DoseProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F422AD2929951926007A1B81 /* DoseProvider.swift */; };
+		F422AD2D299554EC007A1B81 /* SwiftDose in Frameworks */ = {isa = PBXBuildFile; productRef = F422AD2C299554EC007A1B81 /* SwiftDose */; };
 		F4445A68295DE5A90053D9B0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4445A67295DE5A90053D9B0 /* AppDelegate.swift */; };
 		F4445A6B295DEB580053D9B0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F4445A6D295DEB580053D9B0 /* Localizable.strings */; };
 		F4445A8F295E52810053D9B0 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4445A8E295E52810053D9B0 /* String.swift */; };
@@ -86,6 +89,8 @@
 		F41A6851298B1A7E00948C80 /* GitCaller */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = GitCaller; path = ../GitCaller; sourceTree = "<group>"; };
 		F422AD1929945018007A1B81 /* FavoritesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewModel.swift; sourceTree = "<group>"; };
 		F422AD1E299456F4007A1B81 /* FavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
+		F422AD2729951911007A1B81 /* DoseValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoseValues.swift; sourceTree = "<group>"; };
+		F422AD2929951926007A1B81 /* DoseProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoseProvider.swift; sourceTree = "<group>"; };
 		F4445A67295DE5A90053D9B0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F4445A6C295DEB580053D9B0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F4445A8E295E52810053D9B0 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
@@ -160,6 +165,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F46DC541297E16FF001E357D /* GitCaller in Frameworks */,
+				F422AD2D299554EC007A1B81 /* SwiftDose in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -180,6 +186,15 @@
 			children = (
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		F422AD26299518FC007A1B81 /* DependencyInjection */ = {
+			isa = PBXGroup;
+			children = (
+				F422AD2729951911007A1B81 /* DoseValues.swift */,
+				F422AD2929951926007A1B81 /* DoseProvider.swift */,
+			);
+			path = DependencyInjection;
 			sourceTree = "<group>";
 		};
 		F4445A8D295E526E0053D9B0 /* Extensions */ = {
@@ -295,6 +310,7 @@
 		F47CB915295DD7AD00A47BA8 /* Jagu */ = {
 			isa = PBXGroup;
 			children = (
+				F422AD26299518FC007A1B81 /* DependencyInjection */,
 				F46DC542297E1853001E357D /* Services */,
 				F4D6E504296B59AF00C302C1 /* Repositories */,
 				F4B040A329666D22007AD99C /* Model */,
@@ -459,6 +475,7 @@
 			name = Jagu;
 			packageProductDependencies = (
 				F46DC540297E16FF001E357D /* GitCaller */,
+				F422AD2C299554EC007A1B81 /* SwiftDose */,
 			);
 			productName = GitBuddy;
 			productReference = F47CB913295DD7AD00A47BA8 /* Jagu.app */;
@@ -496,6 +513,7 @@
 			packageReferences = (
 				F46DC53F297E16FF001E357D /* XCRemoteSwiftPackageReference "GitCaller" */,
 				F490DCC3299399D20058F5D8 /* XCRemoteSwiftPackageReference "Cuckoo" */,
+				F422AD2B299554EC007A1B81 /* XCRemoteSwiftPackageReference "SwiftDose" */,
 			);
 			productRefGroup = F47CB914295DD7AD00A47BA8 /* Products */;
 			projectDirPath = "";
@@ -578,6 +596,7 @@
 				F4E664152978A989009E3898 /* Change+UI.swift in Sources */,
 				F41A682C2983DBC600948C80 /* KeyAwareView.swift in Sources */,
 				F4C2C72B29742F0500A8F745 /* BranchElementView.swift in Sources */,
+				F422AD2A29951926007A1B81 /* DoseProvider.swift in Sources */,
 				F4445A68295DE5A90053D9B0 /* AppDelegate.swift in Sources */,
 				F47CB919295DD7AD00A47BA8 /* RepoView.swift in Sources */,
 				F468ECEC297768A7005AA4E9 /* Status+Presentation.swift in Sources */,
@@ -587,6 +606,7 @@
 				F46DC544297E1861001E357D /* FileService.swift in Sources */,
 				F4D6E50C296B739900C302C1 /* ClearButton.swift in Sources */,
 				F4E76A862993E57900C16ADC /* RepoFavorite.swift in Sources */,
+				F422AD2829951911007A1B81 /* DoseValues.swift in Sources */,
 				F4A7E7852993BBA500768999 /* UserDefaultsRepo.swift in Sources */,
 				F4C2C72829740A0D00A8F745 /* CommitListViewSheet.swift in Sources */,
 				F4B0409E29665B0F007AD99C /* TagCloudView.swift in Sources */,
@@ -906,6 +926,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		F422AD2B299554EC007A1B81 /* XCRemoteSwiftPackageReference "SwiftDose" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/klein-artur/SwiftDose";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		F46DC53F297E16FF001E357D /* XCRemoteSwiftPackageReference "GitCaller" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/klein-artur/GitCaller";
@@ -925,6 +953,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		F422AD2C299554EC007A1B81 /* SwiftDose */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F422AD2B299554EC007A1B81 /* XCRemoteSwiftPackageReference "SwiftDose" */;
+			productName = SwiftDose;
+		};
 		F46DC540297E16FF001E357D /* GitCaller */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = F46DC53F297E16FF001E357D /* XCRemoteSwiftPackageReference "GitCaller" */;

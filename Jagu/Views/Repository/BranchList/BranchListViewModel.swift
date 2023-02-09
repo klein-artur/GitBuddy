@@ -29,11 +29,10 @@ class BranchListViewModel: BaseRepositoryViewModel {
     }
     
     init(
-        repository: some Repository,
         keyValueRepo: KeyValueRepository
     ) {
         self.keyValueRepo = keyValueRepo
-        super.init(repository: repository)
+        super.init()
         self.load()
     }
     

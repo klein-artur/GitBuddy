@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftDose
 
 struct CommandInputView: View {
     @StateObject var viewModel: CommandInputViewModel
@@ -63,9 +64,14 @@ struct CommandInputView: View {
 }
 
 struct CommandInputView_Previews: PreviewProvider {
+    
+    init() {
+        DoseValues[RepositoryProvider.self] = PreviewRepo()
+    }
+    
     static var previews: some View {
         CommandInputView(
-            viewModel: CommandInputViewModel(repository: PreviewRepo())
+            viewModel: CommandInputViewModel()
         )
     }
 }

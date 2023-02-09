@@ -17,7 +17,6 @@ struct CommitListViewSheet: ViewModifier {
         content.sheet(item: $branch) { branch in
             CommitListView(
                 commitListViewModel: CommitListViewModel(
-                    repository: GitRepo.standard,
                     branch: branch
                 )
             )
@@ -25,7 +24,6 @@ struct CommitListViewSheet: ViewModifier {
         }.sheet(isPresented: $shown) {
             CommitListView(
                 commitListViewModel: CommitListViewModel(
-                    repository: GitRepo.standard,
                     branch: nil
                 )
             )

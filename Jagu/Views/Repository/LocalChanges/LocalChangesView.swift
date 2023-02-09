@@ -7,6 +7,7 @@
 
 import SwiftUI
 import GitCaller
+import SwiftDose
 
 struct LocalChangesView: View {
     @StateObject var viewModel: LocalChangesViewModel
@@ -62,7 +63,7 @@ struct LocalChangesView: View {
         }
         .loading(loadingCount: $viewModel.loadingCount)
         .sheet(item: $localChangesFilePath) { path in
-            DiffView(viewModel: DiffViewModel(repository: viewModel.repository, leftFile: path.change.leftItem.change.path, staged: path.staged))
+            DiffView(viewModel: DiffViewModel(leftFile: path.change.leftItem.change.path, staged: path.staged))
                 .background(
                     KeyAwareView { event in
                         var newElement: DiffChange? = nil
@@ -233,10 +234,14 @@ struct LocalChangeItem: View {
 }
 
 struct LocalChangesView_Previews: PreviewProvider {
+    
+    init() {
+        DoseValues[RepositoryProvider.self] = PreviewRepo()
+    }
+    
     static var previews: some View {
         LocalChangesView(
             viewModel: LocalChangesViewModel(
-                repository: PreviewRepo(),
                 status: StatusResult.getTestStatus()
             )
         )

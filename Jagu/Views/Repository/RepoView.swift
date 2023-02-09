@@ -8,6 +8,7 @@
 import SwiftUI
 import Combine
 import GitCaller
+import SwiftDose
 
 struct RepoView: View {
     @StateObject var viewModel: RepoViewModel
@@ -56,7 +57,6 @@ struct RepoView: View {
         VStack(alignment: .leading) {
             BranchElementView(
                 viewModel: BranchElementViewModel(
-                    repository: GitRepo.standard,
                     branch: status.branch,
                     status: status,
                     showLogButton: true
@@ -72,7 +72,6 @@ struct RepoView: View {
                 if let status = viewModel.gitStatus, status.status != .clean || status.isMerging {
                     LocalChangesView(
                         viewModel: LocalChangesViewModel(
-                            repository: GitRepo.standard,
                             status: status
                         )
                     )
@@ -87,7 +86,6 @@ struct RepoView: View {
     private var branchListView: some View {
         BranchListView(
             viewModel: BranchListViewModel(
-                repository: GitRepo.standard,
                 keyValueRepo: LocalKeyValueRepository()
             )
         )
@@ -102,11 +100,15 @@ extension StatusResult {
 }
 
 struct ContentView_Previews: PreviewProvider {
+    
+    init() {
+        DoseValues[RepositoryProvider.self] = PreviewRepo()
+    }
+    
     static var previews: some View {
         Group {
             RepoView(
                 viewModel: RepoViewModel(
-                    repository: GitRepo.standard,
                     repoPath: "",
                     appDelegate: AppDelegate()
                 )
@@ -115,7 +117,6 @@ struct ContentView_Previews: PreviewProvider {
             
             RepoView(
                 viewModel: RepoViewModel(
-                    repository: GitRepo.standard,
                     repoPath: "",
                     appDelegate: AppDelegate(),
                     gitStatus: StatusResult.getTestStatus()

@@ -9,15 +9,14 @@ import Foundation
 import SwiftUI
 import Combine
 import GitCaller
+import SwiftDose
 
 @MainActor
 class JaguAppMainViewModel: BaseRepositoryViewModel {
     
     @Published var status: StatusResult?
     
-    let favoritesService = FavoriteRepoService(
-        repoRepository: LocalFavoriteRepoRepository(userDefaults: UserDefaults.standard)
-    )
+    @Dose(\.favoriteRepoService) var favoritesService: FavoriteRepoService
     
     private var innerUpdate = false
     @Published var newBranchName: String = "" {
