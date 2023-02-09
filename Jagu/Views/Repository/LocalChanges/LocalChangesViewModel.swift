@@ -84,15 +84,15 @@ class LocalChangesViewModel: BaseRepositoryViewModel {
         }
     }
     
-    func stage(change: Change) {
+    func stage(change: Change?) {
         defaultTask { [weak self] in
-            _ = try await self?.repository.stage(file: change.path)
+            _ = try await self?.repository.stage(file: change?.path)
         }
     }
     
-    func unstage(change: Change) {
+    func unstage(change: Change?) {
         defaultTask { [weak self] in
-            _ = try await self?.repository.unstage(file: change.path)
+            _ = try await self?.repository.unstage(file: change?.path)
         }
     }
     

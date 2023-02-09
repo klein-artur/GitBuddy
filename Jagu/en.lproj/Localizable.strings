@@ -45,6 +45,8 @@
 "unstaged changes" = "Unstaged Changes";
 "stage" = "Stage";
 "unstage" = "Unstage";
+"stage all" = "Stage All";
+"unstage all" = "Unstage All";
 "stage lines" = "Stage Lines";
 "unstage lines" = "Unstage Lines";
 "commit" = "Commit";

@@ -98,11 +98,24 @@ struct LocalChangesView: View {
             left.leftItem.change.path < right.leftItem.change.path
         }
         if !changes.isEmpty {
-            GroupBox(staged ? "staged changes" : "unstaged changes") {
+            GroupBox {
                 LazyVStack (alignment: .leading) {
                     ForEach(changeList, id: \.leftItem.change.path) { change in
                         LocalChangeItem(viewModel: viewModel, change: change, staged: staged, localChangesFilePath: $localChangesFilePath)
                     }
+                }
+            } label: {
+                HStack {
+                    Text(staged ? "staged changes" : "unstaged changes")
+                    Spacer()
+                    Button(staged ? "unstage all" : "stage all") {
+                        if staged {
+                            viewModel.unstage(change: nil)
+                        } else {
+                            viewModel.stage(change: nil)
+                        }
+                    }
+                    .buttonStyle(LinkButtonStyle())
                 }
             }
         }
