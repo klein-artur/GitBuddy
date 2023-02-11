@@ -93,6 +93,12 @@ class BranchListViewModel: BaseRepositoryViewModel {
         }
     }
     
+    func rebase(onto item: Branch) {
+        self.defaultTask { [weak self] in
+            try await self?.repository.rebase(onto: item.name)
+        }
+    }
+    
 }
 
 extension BranchTreeItem {

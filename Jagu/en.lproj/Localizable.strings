@@ -94,6 +94,11 @@
 "Using their message" = "Resolve the merge conflict by using their changes";
 "select" = "Select";
 "No Mergeissues" = "No Issues";
+"rebase onto " = "Rebase onto %@";
+"rebase this onto that" = "Rebase %@ onto %@";
+
+"in middle of rebase" = "Ongoing Rebase (%d/%d)";
+"abort rebase" = "Abort Rebase";
 
 "delete file" = "Delete";
 "delete file message" = "Do you really want to delete the file?";

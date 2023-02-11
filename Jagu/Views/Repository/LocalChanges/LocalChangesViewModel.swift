@@ -78,8 +78,10 @@ class LocalChangesViewModel: BaseRepositoryViewModel {
         defaultTask { [weak self] in
             self?.status = try await self?.repository.getStatus()
             
-            if self?.status?.status == .merging && self?.commitMessage.isEmpty == true {
-                self?.commitMessage = try await self?.repository.getMergeCommitMessage() ?? ""
+            if (self?.status?.status == .merging || self?.status?.status == .rebasing) && self?.commitMessage.isEmpty == true {
+                let mergeCommitMessage = try await self?.repository.getMergeCommitMessage()
+                let rebaseCommitMessage = try await self?.repository.getRebaseCommitMessage()
+                self?.commitMessage = mergeCommitMessage ?? rebaseCommitMessage ?? ""
             }
         }
     }
@@ -100,12 +102,19 @@ class LocalChangesViewModel: BaseRepositoryViewModel {
         defaultTask { [weak self] in
             _ = try await self?.repository.commit(message: self?.commitMessage ?? "")
             self?.commitMessage = ""
+            if self?.status?.status == .rebasing {
+                try await self?.repository.continueRebase()
+            }
         }
     }
     
     func abort() {
         defaultTask { [weak self] in
-            try await self?.repository.abortMerge()
+            if self?.status?.status == .merging {
+                try await self?.repository.abortMerge()
+            } else {
+                try await self?.repository.abortRebase()
+            }
         }
     }
     
@@ -208,6 +217,21 @@ class LocalChangesViewModel: BaseRepositoryViewModel {
         self.status?.canContinue ?? false
     }
     
+    var viewTitle: String {
+        guard let status = self.status else {
+            return ""
+        }
+        
+        switch status.status {
+        case .merging, .rebasing:
+            return "continue"
+        case .unclean:
+            return "commit"
+        default:
+            return ""
+        }
+    }
+    
     func getChangeFor(item: ChangeLine, staged: Bool, offset: Int) -> DiffChange? {
         guard item.rightItem == nil && item.leftItem.change.kind.canShowDetails else {
             return nil
@@ -266,10 +290,24 @@ class LocalChangesViewModel: BaseRepositoryViewModel {
             }
         }
     }
+    
+    var mergeOrRebaseInfo: String {
+        guard let status = self.status else {
+            return ""
+        }
+        switch status.status {
+        case .merging:
+            return "in middle of merge"
+        case .rebasing:
+            return "in middle of rebase".localized.formatted(status.rebasingStepsDone, status.numberObRebaseSteps)
+        default:
+            return ""
+        }
+    }
 }
 
 extension StatusResult {
     var canContinue: Bool {
-        isMerging && combinedUnstagedChanges.isEmpty && stagedChanges.isEmpty
+        (isMerging || isRebasing) && combinedUnstagedChanges.isEmpty && stagedChanges.isEmpty
     }
 }

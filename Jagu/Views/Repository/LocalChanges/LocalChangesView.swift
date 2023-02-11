@@ -19,9 +19,11 @@ struct LocalChangesView: View {
             ScrollView {
                 if viewModel.status != nil {
                     VStack {
-                        if viewModel.status?.status == .merging {
+                        if viewModel.status?.status == .merging || viewModel.status?.status == .rebasing {
                             HStack {
-                                Text("in middle of merge")
+                                Text(
+                                    viewModel.mergeOrRebaseInfo
+                                )
                                 if viewModel.canContinue {
                                     Text("No Mergeissues")
                                 }
@@ -29,7 +31,9 @@ struct LocalChangesView: View {
                                 Button {
                                     viewModel.abort()
                                 } label: {
-                                    Text("abort merge")
+                                    Text(
+                                        viewModel.status?.status == .merging ? "abort merge" : "abort rebase"
+                                    )
                                 }
                             }
                         }
@@ -47,7 +51,7 @@ struct LocalChangesView: View {
                     Button {
                         viewModel.commit()
                     } label: {
-                        Text(status.status == .merging ? "continue" : "commit")
+                        Text(status.status == .merging || status.status == .rebasing ? "continue" : "commit")
                     }
                 }
                 .padding()
@@ -59,7 +63,7 @@ struct LocalChangesView: View {
         .gitErrorAlert(gitError: $viewModel.gitError)
         .generalAlert(item: $viewModel.alertItem)
         .tabItem {
-            Text(viewModel.status?.status == .unclean ? "Local Changes" : "Merging")
+            Text(viewModel.viewTitle)
         }
         .loading(loadingCount: $viewModel.loadingCount)
         .sheet(item: $localChangesFilePath) { path in

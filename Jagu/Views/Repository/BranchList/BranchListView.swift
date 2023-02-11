@@ -92,6 +92,7 @@ struct BranchItemView: View {
     @State var buttonsVisible: Bool = false
     
     @State var mergeDecissionShown: Bool = false
+    @State var rebaseDecissionShown: Bool = false
     @State var noFastForwardMerge: Bool = false
     
     var body: some View {
@@ -121,6 +122,11 @@ struct BranchItemView: View {
                                 Text("merge into ".localized.formatted(status.branch.name))
                             }
                         }
+                        Button {
+                            rebaseDecissionShown = true
+                        } label: {
+                            Text("rebase onto ".localized.formatted(branch.name))
+                        }
                     }
                 }
             }
@@ -129,13 +135,21 @@ struct BranchItemView: View {
             }
             .ifLet(viewModel.status) { view, status in
                 view.decision(
-                        showDecision: $mergeDecissionShown,
-                        title: "merge into ".localized.formatted(status.branch.name),
-                        message: "merging this into that".localized.formatted(branch.name, status.branch.name)) {
-                            viewModel.mergeBranch(for: branch, noFF: noFastForwardMerge)
-                        } content: {
-                            Toggle("no fast forward merge", isOn: $noFastForwardMerge)
-                        }
+                    showDecision: $mergeDecissionShown,
+                    title: "merge into ".localized.formatted(status.branch.name),
+                    message: "merging this into that".localized.formatted(branch.name, status.branch.name)
+                ) {
+                    viewModel.mergeBranch(for: branch, noFF: noFastForwardMerge)
+                } content: {
+                    Toggle("no fast forward merge", isOn: $noFastForwardMerge)
+                }
+                .decision(
+                    showDecision: $rebaseDecissionShown,
+                    title: "rebase onto ".localized.formatted(branch.name),
+                    message: "rebase this onto that".localized.formatted(status.branch.name, branch.name)
+                ) {
+                    viewModel.rebase(onto: branch)
+                } content: { }
             }
             .decision(
                 item: $viewModel.toDeleteBranch,
