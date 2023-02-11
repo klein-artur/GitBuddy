@@ -97,7 +97,7 @@
 "rebase onto " = "Rebase onto %@";
 "rebase this onto that" = "Rebase %@ onto %@";
 
-"in middle of rebase" = "Ongoing Rebase (%d/%d)";
+"in middle of rebase" = "Ongoing Rebase (Done: %d, Remaining: %d)";
 "abort rebase" = "Abort Rebase";
 
 "delete file" = "Delete";

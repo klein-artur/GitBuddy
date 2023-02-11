@@ -299,7 +299,7 @@ class LocalChangesViewModel: BaseRepositoryViewModel {
         case .merging:
             return "in middle of merge"
         case .rebasing:
-            return "in middle of rebase".localized.formatted(status.rebasingStepsDone, status.numberObRebaseSteps)
+            return "in middle of rebase".localized.formatted(status.rebasingStepsDone, status.rebasingStepsRemaining)
         default:
             return ""
         }
