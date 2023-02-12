@@ -11,6 +11,7 @@ import SwiftDose
 
 struct CommitListView: View {
     @StateObject var commitListViewModel: CommitListViewModel
+    @State var selectedCommitHash: String?
     
     var body: some View {
         if let commitList = commitListViewModel.commitList {
@@ -35,21 +36,15 @@ struct CommitListView: View {
                     Divider()
                         .padding(.horizontal, 16)
                 }
-                ScrollView {
-                    LazyVStack {
-                        ForEach(commitList, id: \.commit.objectHash) { commitInfo in
-                            CommitItemView(commitInfo: commitInfo)
-                                .padding(0)
-                                .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
-                                .contentShape(Rectangle())  
-                                .contextMenu {
-                                    Button("create tag title") {
-                                        commitListViewModel.tagCreationCommit = commitInfo.commit
-                                    }
-                                }
-                        }
+                
+                NavigationSplitView {
+                    listView(commitList)
+                } detail: {
+                    if let selectedCommitHash = selectedCommitHash, let selectedCommit = commitList[selectedCommitHash] {
+                        Text(selectedCommit.commit.message)
+                    } else {
+                        Text("some")
                     }
-                    .padding(16)
                 }
             }
             .gitErrorAlert(gitError: $commitListViewModel.gitError)
@@ -71,12 +66,28 @@ struct CommitListView: View {
                         .opacity(commitListViewModel.hasTagMessage ? 1.0 : 0.0)
                 }
             }
-
         } else {
             ProgressView()
                 .progressViewStyle(.circular)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .gitErrorAlert(gitError: $commitListViewModel.gitError)
+        }
+    }
+    
+    func listView(_ commitList: CommitList) -> some View {
+        ScrollView {
+            List(commitList, id: \.commit.objectHash, selection: $selectedCommitHash) { commitInfo in
+                CommitItemView(commitInfo: commitInfo)
+                    .padding(0)
+                    .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
+                    .contentShape(Rectangle())
+                    .contextMenu {
+                        Button("create tag title") {
+                            commitListViewModel.tagCreationCommit = commitInfo.commit
+                        }
+                    }
+            }
+            .padding(16)
         }
     }
 }

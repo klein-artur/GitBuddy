@@ -1,4 +1,4 @@
-// MARK: - Mocks generated from file: Jagu/Repositories/FavoriteRepoRepository.swift at 2023-02-09 16:07:35 +0000
+// MARK: - Mocks generated from file: Jagu/Repositories/FavoriteRepoRepository.swift at 2023-02-12 12:11:42 +0000
 
 //
 //  FavoriteRepoRepository.swift
@@ -234,7 +234,7 @@ import Foundation
 
 
 
-// MARK: - Mocks generated from file: Jagu/Services/FavoriteRepoService.swift at 2023-02-09 16:07:35 +0000
+// MARK: - Mocks generated from file: Jagu/Services/FavoriteRepoService.swift at 2023-02-12 12:11:42 +0000
 
 //
 //  FavoriteRepoService.swift
@@ -514,7 +514,7 @@ import SwiftDose
 
 
 
-// MARK: - Mocks generated from file: Jagu/Services/FileService.swift at 2023-02-09 16:07:35 +0000
+// MARK: - Mocks generated from file: Jagu/Services/FileService.swift at 2023-02-12 12:11:42 +0000
 
 //
 //  FileService.swift
@@ -649,7 +649,7 @@ import GitCaller
 
 
 
-// MARK: - Mocks generated from file: Jagu/Views/Helper/PreviewHelper.swift at 2023-02-09 16:07:35 +0000
+// MARK: - Mocks generated from file: Jagu/Views/Helper/PreviewHelper.swift at 2023-02-12 12:11:42 +0000
 
 //
 //  PreviewHelper.swift
@@ -691,6 +691,86 @@ import GitCaller
 
     
 
+    
+    
+    
+    
+     override func rebase(onto branch: String) async throws {
+        
+    return try await cuckoo_manager.callThrows(
+    """
+    rebase(onto: String) async throws
+    """,
+            parameters: (branch),
+            escapingParameters: (branch),
+            superclassCall:
+                
+                await super.rebase(onto: branch)
+                ,
+            defaultCall: await __defaultImplStub!.rebase(onto: branch))
+        
+    }
+    
+    
+    
+    
+    
+     override func abortRebase() async throws {
+        
+    return try await cuckoo_manager.callThrows(
+    """
+    abortRebase() async throws
+    """,
+            parameters: (),
+            escapingParameters: (),
+            superclassCall:
+                
+                await super.abortRebase()
+                ,
+            defaultCall: await __defaultImplStub!.abortRebase())
+        
+    }
+    
+    
+    
+    
+    
+     override func continueRebase() async throws {
+        
+    return try await cuckoo_manager.callThrows(
+    """
+    continueRebase() async throws
+    """,
+            parameters: (),
+            escapingParameters: (),
+            superclassCall:
+                
+                await super.continueRebase()
+                ,
+            defaultCall: await __defaultImplStub!.continueRebase())
+        
+    }
+    
+    
+    
+    
+    
+     override func getRebaseCommitMessage() async throws -> String {
+        
+    return try await cuckoo_manager.callThrows(
+    """
+    getRebaseCommitMessage() async throws -> String
+    """,
+            parameters: (),
+            escapingParameters: (),
+            superclassCall:
+                
+                await super.getRebaseCommitMessage()
+                ,
+            defaultCall: await __defaultImplStub!.getRebaseCommitMessage())
+        
+    }
+    
     
     
     
@@ -1323,6 +1403,50 @@ import GitCaller
         
         
         
+        func rebase<M1: Cuckoo.Matchable>(onto branch: M1) -> Cuckoo.ClassStubNoReturnThrowingFunction<(String)> where M1.MatchedType == String {
+            let matchers: [Cuckoo.ParameterMatcher<(String)>] = [wrap(matchable: branch) { $0 }]
+            return .init(stub: cuckoo_manager.createStub(for: MockPreviewRepo.self, method:
+    """
+    rebase(onto: String) async throws
+    """, parameterMatchers: matchers))
+        }
+        
+        
+        
+        
+        func abortRebase() -> Cuckoo.ClassStubNoReturnThrowingFunction<()> {
+            let matchers: [Cuckoo.ParameterMatcher<Void>] = []
+            return .init(stub: cuckoo_manager.createStub(for: MockPreviewRepo.self, method:
+    """
+    abortRebase() async throws
+    """, parameterMatchers: matchers))
+        }
+        
+        
+        
+        
+        func continueRebase() -> Cuckoo.ClassStubNoReturnThrowingFunction<()> {
+            let matchers: [Cuckoo.ParameterMatcher<Void>] = []
+            return .init(stub: cuckoo_manager.createStub(for: MockPreviewRepo.self, method:
+    """
+    continueRebase() async throws
+    """, parameterMatchers: matchers))
+        }
+        
+        
+        
+        
+        func getRebaseCommitMessage() -> Cuckoo.ClassStubThrowingFunction<(), String> {
+            let matchers: [Cuckoo.ParameterMatcher<Void>] = []
+            return .init(stub: cuckoo_manager.createStub(for: MockPreviewRepo.self, method:
+    """
+    getRebaseCommitMessage() async throws -> String
+    """, parameterMatchers: matchers))
+        }
+        
+        
+        
+        
         func pushTags() -> Cuckoo.ClassStubNoReturnThrowingFunction<()> {
             let matchers: [Cuckoo.ParameterMatcher<Void>] = []
             return .init(stub: cuckoo_manager.createStub(for: MockPreviewRepo.self, method:
@@ -1677,6 +1801,54 @@ import GitCaller
     
         
     
+        
+        
+        
+        @discardableResult
+        func rebase<M1: Cuckoo.Matchable>(onto branch: M1) -> Cuckoo.__DoNotUse<(String), Void> where M1.MatchedType == String {
+            let matchers: [Cuckoo.ParameterMatcher<(String)>] = [wrap(matchable: branch) { $0 }]
+            return cuckoo_manager.verify(
+    """
+    rebase(onto: String) async throws
+    """, callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+        }
+        
+        
+        
+        
+        @discardableResult
+        func abortRebase() -> Cuckoo.__DoNotUse<(), Void> {
+            let matchers: [Cuckoo.ParameterMatcher<Void>] = []
+            return cuckoo_manager.verify(
+    """
+    abortRebase() async throws
+    """, callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+        }
+        
+        
+        
+        
+        @discardableResult
+        func continueRebase() -> Cuckoo.__DoNotUse<(), Void> {
+            let matchers: [Cuckoo.ParameterMatcher<Void>] = []
+            return cuckoo_manager.verify(
+    """
+    continueRebase() async throws
+    """, callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+        }
+        
+        
+        
+        
+        @discardableResult
+        func getRebaseCommitMessage() -> Cuckoo.__DoNotUse<(), String> {
+            let matchers: [Cuckoo.ParameterMatcher<Void>] = []
+            return cuckoo_manager.verify(
+    """
+    getRebaseCommitMessage() async throws -> String
+    """, callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+        }
+        
         
         
         
@@ -2063,6 +2235,38 @@ import GitCaller
     
     
     
+     override func rebase(onto branch: String) async throws  {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
+    
+    
+    
+    
+     override func abortRebase() async throws  {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
+    
+    
+    
+    
+     override func continueRebase() async throws  {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
+    
+    
+    
+    
+     override func getRebaseCommitMessage() async throws -> String  {
+        return DefaultValueRegistry.defaultValue(for: (String).self)
+    }
+    
+    
+    
+    
+    
      override func pushTags() async throws  {
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
@@ -2314,7 +2518,7 @@ import GitCaller
 
 
 
-// MARK: - Mocks generated from file: JaguTests/Generalizations/FileManager.swift at 2023-02-09 16:07:35 +0000
+// MARK: - Mocks generated from file: JaguTests/Generalizations/FileManager.swift at 2023-02-12 12:11:42 +0000
 
 //
 //  FileManagerProtocol.swift
@@ -2448,7 +2652,7 @@ import Foundation
 
 
 
-// MARK: - Mocks generated from file: JaguTests/Generalizations/UserDefaults.swift at 2023-02-09 16:07:35 +0000
+// MARK: - Mocks generated from file: JaguTests/Generalizations/UserDefaults.swift at 2023-02-12 12:11:42 +0000
 
 //
 //  UserDefaults.swift

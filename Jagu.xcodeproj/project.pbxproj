@@ -136,6 +136,7 @@
 		F4C2C72729740A0D00A8F745 /* CommitListViewSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommitListViewSheet.swift; sourceTree = "<group>"; };
 		F4C2C72A29742F0500A8F745 /* BranchElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BranchElementView.swift; sourceTree = "<group>"; };
 		F4C2C72D297480E700A8F745 /* PreviewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewHelper.swift; sourceTree = "<group>"; };
+		F4CB2C7829990F3D00296BF7 /* SwiftDose */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SwiftDose; path = ../SwiftDose; sourceTree = "<group>"; };
 		F4D6E500296B30C900C302C1 /* BranchListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BranchListView.swift; sourceTree = "<group>"; };
 		F4D6E502296B30D700C302C1 /* BranchListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BranchListViewModel.swift; sourceTree = "<group>"; };
 		F4D6E505296B59C600C302C1 /* KeyValueRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyValueRepository.swift; sourceTree = "<group>"; };
@@ -289,6 +290,7 @@
 		F47CB90A295DD7AD00A47BA8 = {
 			isa = PBXGroup;
 			children = (
+				F4CB2C7829990F3D00296BF7 /* SwiftDose */,
 				F41A6851298B1A7E00948C80 /* GitCaller */,
 				F46DC532297CA710001E357D /* README.md */,
 				F47CB915295DD7AD00A47BA8 /* Jagu */,
