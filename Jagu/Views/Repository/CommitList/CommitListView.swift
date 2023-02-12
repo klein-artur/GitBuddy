@@ -93,17 +93,15 @@ struct CommitListView: View {
 }
 
 struct CommitListView_Previews: PreviewProvider {
-    
-    init() {
-        DoseValues[RepositoryProvider.self] = PreviewRepo()
-    }
-    
     static var previews: some View {
         CommitListView(
             commitListViewModel: CommitListViewModel(
                 branch: StatusResult.getTestStatus().branch
             )
         )
+        .onAppear {
+            DoseValues[RepositoryProvider.self] = PreviewRepo()
+        }
     }
 }
 

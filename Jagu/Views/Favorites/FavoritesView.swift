@@ -46,17 +46,15 @@ struct FavoritesView: View {
 }
 
 struct FavoritesView_Previews: PreviewProvider {
-    
-    init() {
-        DoseValues[FavoriteRepoServiceProvider.self] = PreviewFavoriteRepoService()
-    }
-    
     static var previews: some View {
         FavoritesView(
             viewModel: FavoritesViewModel(
                 favoriteRepoService: PreviewFavoriteRepoService()
             )
         )
+        .onAppear {
+            DoseValues[FavoriteRepoServiceProvider.self] = PreviewFavoriteRepoService()
+        }
     }
 }
 

@@ -238,16 +238,14 @@ struct LocalChangeItem: View {
 }
 
 struct LocalChangesView_Previews: PreviewProvider {
-    
-    init() {
-        DoseValues[RepositoryProvider.self] = PreviewRepo()
-    }
-    
     static var previews: some View {
         LocalChangesView(
             viewModel: LocalChangesViewModel(
                 status: StatusResult.getTestStatus()
             )
         )
+        .onAppear {
+            DoseValues[RepositoryProvider.self] = PreviewRepo()
+        }
     }
 }

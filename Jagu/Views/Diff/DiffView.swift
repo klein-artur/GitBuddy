@@ -165,11 +165,6 @@ struct DiffView: View {
 }
 
 struct DiffView_Previews: PreviewProvider {
-    
-    init() {
-        DoseValues[RepositoryProvider.self] = PreviewRepo()
-    }
-    
     static var previews: some View {
         DiffView(
             viewModel: DiffViewModel(
@@ -178,5 +173,8 @@ struct DiffView_Previews: PreviewProvider {
                 staged: false
             )
         )
+        .onAppear {
+            DoseValues[RepositoryProvider.self] = PreviewRepo()
+        }
     }
 }

@@ -100,11 +100,6 @@ extension StatusResult {
 }
 
 struct ContentView_Previews: PreviewProvider {
-    
-    init() {
-        DoseValues[RepositoryProvider.self] = PreviewRepo()
-    }
-    
     static var previews: some View {
         Group {
             RepoView(
@@ -113,6 +108,9 @@ struct ContentView_Previews: PreviewProvider {
                     appDelegate: AppDelegate()
                 )
             )
+            .onAppear {
+                DoseValues[RepositoryProvider.self] = PreviewRepo()
+            }
             .previewDisplayName("No Repo")
             
             RepoView(
@@ -122,6 +120,9 @@ struct ContentView_Previews: PreviewProvider {
                     gitStatus: StatusResult.getTestStatus()
                 )
             )
+            .onAppear {
+                DoseValues[RepositoryProvider.self] = PreviewRepo()
+            }
             .previewDisplayName("Default State")
         }
     }
