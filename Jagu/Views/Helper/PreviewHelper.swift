@@ -53,76 +53,78 @@ class PreviewRepo: Repository {
         fatalError("Preview and Test Repo implementation used in productive code!")
     }
     
+    static let previewCommits = [
+        Commit(
+            objectHash: "OneSomeHash",
+            shortHash: "OneSome",
+            subject: "Some Message",
+            message: "Some Message\nBut now with more text.",
+            author: Person(name: "John Doe", email: "john@doe.com"),
+            authorDate: .now,
+            committer: Person(name: "John Doe", email: "john@doe.com"),
+            committerDate: .now,
+            branches: ["main", "origin/main"],
+            tags: ["onetag", "seocndTag"],
+            parents: ["FourSomeHashFour", "TwoSomeHashTwo"]
+        ),
+        Commit(
+            objectHash: "TwoSomeHashTwo",
+            shortHash: "OneSome",
+            subject: "Some Message",
+            message: "Some Message",
+            author: Person(name: "John Doe", email: "john@doe.com"),
+            authorDate: .now,
+            committer: Person(name: "John Doe", email: "john@doe.com"),
+            committerDate: .now,
+            branches: ["main", "origin/main"],
+            tags: ["onetag", "seocndTag"],
+            parents: ["ThreeSomeHashThree"]
+        ),
+        Commit(
+            objectHash: "ThreeSomeHashThree",
+            shortHash: "OneSome",
+            subject: "Some Message",
+            message: "Some Message",
+            author: Person(name: "John Doe", email: "john@doe.com"),
+            authorDate: .now,
+            committer: Person(name: "John Doe", email: "john@doe.com"),
+            committerDate: .now,
+            branches: ["main", "origin/main"],
+            tags: ["onetag", "seocndTag"],
+            parents: ["FourSomeHashFour"]
+        ),
+        Commit(
+            objectHash: "FourSomeHashFour",
+            shortHash: "OneSome",
+            subject: "Some Message",
+            message: "Some Message",
+            author: Person(name: "John Doe", email: "john@doe.com"),
+            authorDate: .now,
+            committer: Person(name: "John Doe", email: "john@doe.com"),
+            committerDate: .now,
+            branches: ["main", "origin/main"],
+            tags: ["onetag", "seocndTag"],
+            parents: ["FiveSomeHashFive"]
+        ),
+        Commit(
+            objectHash: "FiveSomeHashFive",
+            shortHash: "OneSome",
+            subject: "Some Message",
+            message: "Some Message",
+            author: Person(name: "John Doe", email: "john@doe.com"),
+            authorDate: .now,
+            committer: Person(name: "John Doe", email: "john@doe.com"),
+            committerDate: .now,
+            branches: ["main", "origin/main"],
+            tags: ["onetag", "seocndTag"],
+            parents: []
+        )
+    ]
+    
     func getLog(branchNames: [String]) async throws -> GitCaller.LogResult {
         LogResult(
             originalOutput: "",
-            commits: [
-                Commit(
-                    objectHash: "OneSomeHash",
-                    shortHash: "OneSome",
-                    subject: "Some Message",
-                    message: "Some Message",
-                    author: Person(name: "John Doe", email: "john@doe.com"),
-                    authorDate: .now,
-                    committer: Person(name: "John Doe", email: "john@doe.com"),
-                    committerDate: .now,
-                    branches: ["main", "origin/main"],
-                    tags: ["onetag", "seocndTag"],
-                    parents: ["FourSomeHashFour", "TwoSomeHashTwo"]
-                ),
-                Commit(
-                    objectHash: "TwoSomeHashTwo",
-                    shortHash: "OneSome",
-                    subject: "Some Message",
-                    message: "Some Message",
-                    author: Person(name: "John Doe", email: "john@doe.com"),
-                    authorDate: .now,
-                    committer: Person(name: "John Doe", email: "john@doe.com"),
-                    committerDate: .now,
-                    branches: ["main", "origin/main"],
-                    tags: ["onetag", "seocndTag"],
-                    parents: ["ThreeSomeHashThree"]
-                ),
-                Commit(
-                    objectHash: "ThreeSomeHashThree",
-                    shortHash: "OneSome",
-                    subject: "Some Message",
-                    message: "Some Message",
-                    author: Person(name: "John Doe", email: "john@doe.com"),
-                    authorDate: .now,
-                    committer: Person(name: "John Doe", email: "john@doe.com"),
-                    committerDate: .now,
-                    branches: ["main", "origin/main"],
-                    tags: ["onetag", "seocndTag"],
-                    parents: ["FourSomeHashFour"]
-                ),
-                Commit(
-                    objectHash: "FourSomeHashFour",
-                    shortHash: "OneSome",
-                    subject: "Some Message",
-                    message: "Some Message",
-                    author: Person(name: "John Doe", email: "john@doe.com"),
-                    authorDate: .now,
-                    committer: Person(name: "John Doe", email: "john@doe.com"),
-                    committerDate: .now,
-                    branches: ["main", "origin/main"],
-                    tags: ["onetag", "seocndTag"],
-                    parents: ["FiveSomeHashFive"]
-                ),
-                Commit(
-                    objectHash: "FiveSomeHashFive",
-                    shortHash: "OneSome",
-                    subject: "Some Message",
-                    message: "Some Message",
-                    author: Person(name: "John Doe", email: "john@doe.com"),
-                    authorDate: .now,
-                    committer: Person(name: "John Doe", email: "john@doe.com"),
-                    committerDate: .now,
-                    branches: ["main", "origin/main"],
-                    tags: ["onetag", "seocndTag"],
-                    parents: []
-                )
-            ]
+            commits: Self.previewCommits
         )
     }
     

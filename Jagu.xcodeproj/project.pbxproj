@@ -58,6 +58,8 @@
 		F4C2C72829740A0D00A8F745 /* CommitListViewSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C2C72729740A0D00A8F745 /* CommitListViewSheet.swift */; };
 		F4C2C72B29742F0500A8F745 /* BranchElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C2C72A29742F0500A8F745 /* BranchElementView.swift */; };
 		F4C2C72E297480E700A8F745 /* PreviewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C2C72D297480E700A8F745 /* PreviewHelper.swift */; };
+		F4CB2C7B29999D4E00296BF7 /* CommitDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CB2C7A29999D4E00296BF7 /* CommitDetailsView.swift */; };
+		F4CB2C7D29999DB600296BF7 /* CommitDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CB2C7C29999DB600296BF7 /* CommitDetailsViewModel.swift */; };
 		F4D6E501296B30C900C302C1 /* BranchListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D6E500296B30C900C302C1 /* BranchListView.swift */; };
 		F4D6E503296B30D700C302C1 /* BranchListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D6E502296B30D700C302C1 /* BranchListViewModel.swift */; };
 		F4D6E506296B59C600C302C1 /* KeyValueRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D6E505296B59C600C302C1 /* KeyValueRepository.swift */; };
@@ -136,7 +138,8 @@
 		F4C2C72729740A0D00A8F745 /* CommitListViewSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommitListViewSheet.swift; sourceTree = "<group>"; };
 		F4C2C72A29742F0500A8F745 /* BranchElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BranchElementView.swift; sourceTree = "<group>"; };
 		F4C2C72D297480E700A8F745 /* PreviewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewHelper.swift; sourceTree = "<group>"; };
-		F4CB2C7829990F3D00296BF7 /* SwiftDose */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SwiftDose; path = ../SwiftDose; sourceTree = "<group>"; };
+		F4CB2C7A29999D4E00296BF7 /* CommitDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommitDetailsView.swift; sourceTree = "<group>"; };
+		F4CB2C7C29999DB600296BF7 /* CommitDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommitDetailsViewModel.swift; sourceTree = "<group>"; };
 		F4D6E500296B30C900C302C1 /* BranchListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BranchListView.swift; sourceTree = "<group>"; };
 		F4D6E502296B30D700C302C1 /* BranchListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BranchListViewModel.swift; sourceTree = "<group>"; };
 		F4D6E505296B59C600C302C1 /* KeyValueRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyValueRepository.swift; sourceTree = "<group>"; };
@@ -290,7 +293,6 @@
 		F47CB90A295DD7AD00A47BA8 = {
 			isa = PBXGroup;
 			children = (
-				F4CB2C7829990F3D00296BF7 /* SwiftDose */,
 				F41A6851298B1A7E00948C80 /* GitCaller */,
 				F46DC532297CA710001E357D /* README.md */,
 				F47CB915295DD7AD00A47BA8 /* Jagu */,
@@ -377,6 +379,8 @@
 				F4B0409929665452007AD99C /* CommitListViewModel.swift */,
 				F4B0409B29665561007AD99C /* CommitTreeItem+drawing.swift */,
 				F4B0409D29665B0F007AD99C /* TagCloudView.swift */,
+				F4CB2C7A29999D4E00296BF7 /* CommitDetailsView.swift */,
+				F4CB2C7C29999DB600296BF7 /* CommitDetailsViewModel.swift */,
 			);
 			path = CommitList;
 			sourceTree = "<group>";
@@ -599,6 +603,7 @@
 				F41A682C2983DBC600948C80 /* KeyAwareView.swift in Sources */,
 				F4C2C72B29742F0500A8F745 /* BranchElementView.swift in Sources */,
 				F422AD2A29951926007A1B81 /* DoseProvider.swift in Sources */,
+				F4CB2C7B29999D4E00296BF7 /* CommitDetailsView.swift in Sources */,
 				F4445A68295DE5A90053D9B0 /* AppDelegate.swift in Sources */,
 				F47CB919295DD7AD00A47BA8 /* RepoView.swift in Sources */,
 				F468ECEC297768A7005AA4E9 /* Status+Presentation.swift in Sources */,
@@ -609,6 +614,7 @@
 				F4D6E50C296B739900C302C1 /* ClearButton.swift in Sources */,
 				F4E76A862993E57900C16ADC /* RepoFavorite.swift in Sources */,
 				F422AD2829951911007A1B81 /* DoseValues.swift in Sources */,
+				F4CB2C7D29999DB600296BF7 /* CommitDetailsViewModel.swift in Sources */,
 				F4A7E7852993BBA500768999 /* UserDefaultsRepo.swift in Sources */,
 				F4C2C72829740A0D00A8F745 /* CommitListViewSheet.swift in Sources */,
 				F4B0409E29665B0F007AD99C /* TagCloudView.swift in Sources */,

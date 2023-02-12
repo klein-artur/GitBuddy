@@ -20,14 +20,12 @@ struct CommitListViewSheet: ViewModifier {
                     branch: branch
                 )
             )
-                .frame(minWidth: 600, idealWidth: 1000, minHeight: 500, idealHeight: 800)
         }.sheet(isPresented: $shown) {
             CommitListView(
                 commitListViewModel: CommitListViewModel(
                     branch: nil
                 )
             )
-                .frame(minWidth: 600, idealWidth: 1000, minHeight: 500, idealHeight: 800)
         }
     }
 }

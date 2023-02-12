@@ -41,9 +41,11 @@ struct CommitListView: View {
                     listView(commitList)
                 } detail: {
                     if let selectedCommitHash = selectedCommitHash, let selectedCommit = commitList[selectedCommitHash] {
-                        Text(selectedCommit.commit.message)
+                        CommitDetailsView(
+                            viewModel: CommitDetailsViewModel(commit: selectedCommit.commit)
+                        )
                     } else {
-                        Text("some")
+                        Text("select a commit")
                     }
                 }
             }
@@ -66,29 +68,43 @@ struct CommitListView: View {
                         .opacity(commitListViewModel.hasTagMessage ? 1.0 : 0.0)
                 }
             }
+            .frame(minWidth: 1000, idealWidth: 1100, minHeight: 500, idealHeight: 800)
         } else {
             ProgressView()
                 .progressViewStyle(.circular)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .gitErrorAlert(gitError: $commitListViewModel.gitError)
+                .frame(minWidth: 1000, idealWidth: 1100, minHeight: 500, idealHeight: 800)
         }
     }
     
     func listView(_ commitList: CommitList) -> some View {
         ScrollView {
-            List(commitList, id: \.commit.objectHash, selection: $selectedCommitHash) { commitInfo in
-                CommitItemView(commitInfo: commitInfo)
-                    .padding(0)
-                    .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
-                    .contentShape(Rectangle())
-                    .contextMenu {
-                        Button("create tag title") {
-                            commitListViewModel.tagCreationCommit = commitInfo.commit
+            LazyVStack {
+                ForEach(commitList, id: \.commit.objectHash) { commitInfo in
+                    CommitItemView(commitInfo: commitInfo)
+                        .padding(0)
+                        .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
+                        .contentShape(Rectangle())
+                        .contextMenu {
+                            Button("create tag title") {
+                                commitListViewModel.tagCreationCommit = commitInfo.commit
+                            }
                         }
-                    }
+                        .onTapGesture {
+                            selectedCommitHash = commitInfo.commit.objectHash
+                        }
+                        .if(commitInfo.commit.objectHash == selectedCommitHash) { view in
+                            view.background(
+                                RoundedRectangle(cornerRadius: 5)
+                                    .foregroundColor(Color.accentColor)
+                            )
+                        }
+                }
             }
-            .padding(16)
         }
+        .frame(minWidth: 500)
+        .padding(16)
     }
 }
 
@@ -97,8 +113,10 @@ struct CommitListView_Previews: PreviewProvider {
         CommitListView(
             commitListViewModel: CommitListViewModel(
                 branch: StatusResult.getTestStatus().branch
-            )
+            ),
+            selectedCommitHash: "OneSomeHash"
         )
+        .frame(width: 1000, height: 800)
         .onAppear {
             DoseValues[RepositoryProvider.self] = PreviewRepo()
         }

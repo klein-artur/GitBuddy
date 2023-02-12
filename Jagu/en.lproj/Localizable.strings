@@ -110,3 +110,6 @@
 "name" = "Name";
 "push tags" = "Push all Tags";
 
+"Author" = "Author:";
+"Committer" = "Committer:";
+"select a commit" = "Select a commit on the left side.";

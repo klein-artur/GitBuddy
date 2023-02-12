@@ -21,6 +21,7 @@ struct CommitItemView: View {
                     .font(Font.system(Font.TextStyle.body, design: Font.Design.monospaced))
                     .lineLimit(1)
                     .padding(.bottom, 3)
+                    .padding(.top, 8)
                     .textSelection(.enabled)
                 TagCloudView(tags: commitInfo.commit.tags.map {
                     TagElement(icon: Image("tag-solid"), text: $0) }, backgroundColor: Color(red: 0.87, green: 0.97, blue: 0.89), foregroundColor: .black)
@@ -43,7 +44,7 @@ struct CommitItemView: View {
             }
             .frame(maxWidth: .infinity)
         }
-        .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+        .padding(.horizontal, 16)
     }
 }
 
