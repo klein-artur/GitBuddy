@@ -64,15 +64,13 @@ struct CommandInputView: View {
 }
 
 struct CommandInputView_Previews: PreviewProvider {
-    
-    init() {
-        DoseValues[RepositoryProvider.self] = PreviewRepo()
-    }
-    
     static var previews: some View {
         CommandInputView(
             viewModel: CommandInputViewModel()
         )
+        .onAppear {
+            DoseValues[RepositoryProvider.self] = PreviewRepo()
+        }
     }
 }
 

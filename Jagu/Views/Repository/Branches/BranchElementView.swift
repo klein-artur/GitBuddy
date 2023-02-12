@@ -81,11 +81,6 @@ struct BranchElementView: View {
 }
 
 struct BranchElementView_Previews: PreviewProvider {
-    
-    init() {
-        DoseValues[RepositoryProvider.self] = PreviewRepo()
-    }
-    
     static var previews: some View {
         BranchElementView(
             viewModel: BranchElementViewModel(
@@ -94,5 +89,8 @@ struct BranchElementView_Previews: PreviewProvider {
                 showLogButton: true
             )
         )
+        .onAppear {
+            DoseValues[RepositoryProvider.self] = PreviewRepo()
+        }
     }
 }
