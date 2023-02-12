@@ -204,17 +204,15 @@ extension BranchTreeItem: Identifiable {
 }
 
 struct BranchListView_Previews: PreviewProvider {
-    
-    init() {
-        DoseValues[RepositoryProvider.self] = PreviewRepo()
-    }
-    
     static var previews: some View {
         BranchListView(
             viewModel: BranchListViewModel(
                 keyValueRepo: PreviewKeyValueRepo()
             )
         )
+        .onAppear {
+            DoseValues[RepositoryProvider.self] = PreviewRepo()
+        }
     }
 }
 
