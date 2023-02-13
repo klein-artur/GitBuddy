@@ -1,4 +1,190 @@
-// MARK: - Mocks generated from file: Jagu/Repositories/FavoriteRepoRepository.swift at 2023-02-12 12:11:42 +0000
+// MARK: - Mocks generated from file: Jagu/Generalizations/Pasteboard.swift at 2023-02-13 14:55:26 +0000
+
+//
+//  Pasteboard.swift
+//  Jagu
+//
+//  Created by Artur Hellmann on 13.02.23.
+//
+
+import Cuckoo
+@testable import Jagu
+
+import Cocoa
+import Foundation
+
+
+
+
+
+
+ class MockClipboard: Clipboard, Cuckoo.ProtocolMock {
+    
+     typealias MocksType = Clipboard
+    
+     typealias Stubbing = __StubbingProxy_Clipboard
+     typealias Verification = __VerificationProxy_Clipboard
+
+     let cuckoo_manager = Cuckoo.MockManager.preconfiguredManager ?? Cuckoo.MockManager(hasParent: false)
+
+    
+    private var __defaultImplStub: Clipboard?
+
+     func enableDefaultImplementation(_ stub: Clipboard) {
+        __defaultImplStub = stub
+        cuckoo_manager.enableDefaultStubImplementation()
+    }
+    
+
+    
+
+    
+
+    
+    
+    
+    
+     func declareTypes(_ newTypes: [NSPasteboard.PasteboardType], owner newOwner: Any?) -> Int {
+        
+    return cuckoo_manager.call(
+    """
+    declareTypes(_: [NSPasteboard.PasteboardType], owner: Any?) -> Int
+    """,
+            parameters: (newTypes, newOwner),
+            escapingParameters: (newTypes, newOwner),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.declareTypes(newTypes, owner: newOwner))
+        
+    }
+    
+    
+    
+    
+    
+     func setString(_ string: String, forType dataType: NSPasteboard.PasteboardType) -> Bool {
+        
+    return cuckoo_manager.call(
+    """
+    setString(_: String, forType: NSPasteboard.PasteboardType) -> Bool
+    """,
+            parameters: (string, dataType),
+            escapingParameters: (string, dataType),
+            superclassCall:
+                
+                Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                ,
+            defaultCall: __defaultImplStub!.setString(string, forType: dataType))
+        
+    }
+    
+    
+
+     struct __StubbingProxy_Clipboard: Cuckoo.StubbingProxy {
+        private let cuckoo_manager: Cuckoo.MockManager
+    
+         init(manager: Cuckoo.MockManager) {
+            self.cuckoo_manager = manager
+        }
+        
+        
+        
+        
+        func declareTypes<M1: Cuckoo.Matchable, M2: Cuckoo.OptionalMatchable>(_ newTypes: M1, owner newOwner: M2) -> Cuckoo.ProtocolStubFunction<([NSPasteboard.PasteboardType], Any?), Int> where M1.MatchedType == [NSPasteboard.PasteboardType], M2.OptionalMatchedType == Any {
+            let matchers: [Cuckoo.ParameterMatcher<([NSPasteboard.PasteboardType], Any?)>] = [wrap(matchable: newTypes) { $0.0 }, wrap(matchable: newOwner) { $0.1 }]
+            return .init(stub: cuckoo_manager.createStub(for: MockClipboard.self, method:
+    """
+    declareTypes(_: [NSPasteboard.PasteboardType], owner: Any?) -> Int
+    """, parameterMatchers: matchers))
+        }
+        
+        
+        
+        
+        func setString<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(_ string: M1, forType dataType: M2) -> Cuckoo.ProtocolStubFunction<(String, NSPasteboard.PasteboardType), Bool> where M1.MatchedType == String, M2.MatchedType == NSPasteboard.PasteboardType {
+            let matchers: [Cuckoo.ParameterMatcher<(String, NSPasteboard.PasteboardType)>] = [wrap(matchable: string) { $0.0 }, wrap(matchable: dataType) { $0.1 }]
+            return .init(stub: cuckoo_manager.createStub(for: MockClipboard.self, method:
+    """
+    setString(_: String, forType: NSPasteboard.PasteboardType) -> Bool
+    """, parameterMatchers: matchers))
+        }
+        
+        
+    }
+
+     struct __VerificationProxy_Clipboard: Cuckoo.VerificationProxy {
+        private let cuckoo_manager: Cuckoo.MockManager
+        private let callMatcher: Cuckoo.CallMatcher
+        private let sourceLocation: Cuckoo.SourceLocation
+    
+         init(manager: Cuckoo.MockManager, callMatcher: Cuckoo.CallMatcher, sourceLocation: Cuckoo.SourceLocation) {
+            self.cuckoo_manager = manager
+            self.callMatcher = callMatcher
+            self.sourceLocation = sourceLocation
+        }
+    
+        
+    
+        
+        
+        
+        @discardableResult
+        func declareTypes<M1: Cuckoo.Matchable, M2: Cuckoo.OptionalMatchable>(_ newTypes: M1, owner newOwner: M2) -> Cuckoo.__DoNotUse<([NSPasteboard.PasteboardType], Any?), Int> where M1.MatchedType == [NSPasteboard.PasteboardType], M2.OptionalMatchedType == Any {
+            let matchers: [Cuckoo.ParameterMatcher<([NSPasteboard.PasteboardType], Any?)>] = [wrap(matchable: newTypes) { $0.0 }, wrap(matchable: newOwner) { $0.1 }]
+            return cuckoo_manager.verify(
+    """
+    declareTypes(_: [NSPasteboard.PasteboardType], owner: Any?) -> Int
+    """, callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+        }
+        
+        
+        
+        
+        @discardableResult
+        func setString<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(_ string: M1, forType dataType: M2) -> Cuckoo.__DoNotUse<(String, NSPasteboard.PasteboardType), Bool> where M1.MatchedType == String, M2.MatchedType == NSPasteboard.PasteboardType {
+            let matchers: [Cuckoo.ParameterMatcher<(String, NSPasteboard.PasteboardType)>] = [wrap(matchable: string) { $0.0 }, wrap(matchable: dataType) { $0.1 }]
+            return cuckoo_manager.verify(
+    """
+    setString(_: String, forType: NSPasteboard.PasteboardType) -> Bool
+    """, callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+        }
+        
+        
+    }
+}
+
+
+ class ClipboardStub: Clipboard {
+    
+
+    
+
+    
+    
+    
+    
+     func declareTypes(_ newTypes: [NSPasteboard.PasteboardType], owner newOwner: Any?) -> Int  {
+        return DefaultValueRegistry.defaultValue(for: (Int).self)
+    }
+    
+    
+    
+    
+    
+     func setString(_ string: String, forType dataType: NSPasteboard.PasteboardType) -> Bool  {
+        return DefaultValueRegistry.defaultValue(for: (Bool).self)
+    }
+    
+    
+}
+
+
+
+
+
+// MARK: - Mocks generated from file: Jagu/Repositories/FavoriteRepoRepository.swift at 2023-02-13 14:55:26 +0000
 
 //
 //  FavoriteRepoRepository.swift
@@ -234,7 +420,7 @@ import Foundation
 
 
 
-// MARK: - Mocks generated from file: Jagu/Services/FavoriteRepoService.swift at 2023-02-12 12:11:42 +0000
+// MARK: - Mocks generated from file: Jagu/Services/FavoriteRepoService.swift at 2023-02-13 14:55:26 +0000
 
 //
 //  FavoriteRepoService.swift
@@ -514,7 +700,7 @@ import SwiftDose
 
 
 
-// MARK: - Mocks generated from file: Jagu/Services/FileService.swift at 2023-02-12 12:11:42 +0000
+// MARK: - Mocks generated from file: Jagu/Services/FileService.swift at 2023-02-13 14:55:26 +0000
 
 //
 //  FileService.swift
@@ -649,7 +835,7 @@ import GitCaller
 
 
 
-// MARK: - Mocks generated from file: Jagu/Views/Helper/PreviewHelper.swift at 2023-02-12 12:11:42 +0000
+// MARK: - Mocks generated from file: Jagu/Views/Helper/PreviewHelper.swift at 2023-02-13 14:55:26 +0000
 
 //
 //  PreviewHelper.swift
@@ -2518,7 +2704,7 @@ import GitCaller
 
 
 
-// MARK: - Mocks generated from file: JaguTests/Generalizations/FileManager.swift at 2023-02-12 12:11:42 +0000
+// MARK: - Mocks generated from file: JaguTests/Generalizations/FileManager.swift at 2023-02-13 14:55:26 +0000
 
 //
 //  FileManagerProtocol.swift
@@ -2652,7 +2838,7 @@ import Foundation
 
 
 
-// MARK: - Mocks generated from file: JaguTests/Generalizations/UserDefaults.swift at 2023-02-12 12:11:42 +0000
+// MARK: - Mocks generated from file: JaguTests/Generalizations/UserDefaults.swift at 2023-02-13 14:55:26 +0000
 
 //
 //  UserDefaults.swift

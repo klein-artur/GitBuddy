@@ -98,6 +98,9 @@ struct CommitListView: View {
                                 Button("create tag title") {
                                     commitListViewModel.tagCreationCommit = commitInfo.commit
                                 }
+                                Button("copy commit hash") {
+                                    commitListViewModel.copyCommitHash(for: commitInfo.commit)
+                                }
                             }
                             .onTapGesture {
                                 commitListViewModel.selectedCommit = commitInfo.commit

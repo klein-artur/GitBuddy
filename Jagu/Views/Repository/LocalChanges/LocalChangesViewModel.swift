@@ -224,9 +224,9 @@ class LocalChangesViewModel: BaseRepositoryViewModel {
         
         switch status.status {
         case .merging, .rebasing:
-            return "continue"
+            return "continue".localized
         case .unclean:
-            return "commit"
+            return "commit".localized
         default:
             return ""
         }

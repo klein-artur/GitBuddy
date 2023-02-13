@@ -7,9 +7,12 @@
 
 import Foundation
 import GitCaller
+import SwiftDose
 
 @MainActor
 class CommitListViewModel: BaseRepositoryViewModel {
+    
+    @Dose(\.pasteboardService) var pasteboardService
     
     var branch: Branch?
     @Published var commitList: CommitList? {
@@ -107,6 +110,10 @@ class CommitListViewModel: BaseRepositoryViewModel {
             return
         }
         self.selectedCommit = list[list.index(before: index)].commit
+    }
+    
+    func copyCommitHash(for commit: Commit) {
+        _ = pasteboardService.copy(string: commit.objectHash)
     }
     
 }
