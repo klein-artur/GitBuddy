@@ -98,11 +98,11 @@ struct CommitListView: View {
                                         .foregroundColor(Color.accentColor)
                                 )
                             }
+                            .padding(.horizontal, 8)
                     }
                 }
             }
         }
-        .padding(16)
         .frame(minWidth: 500)
     }
     

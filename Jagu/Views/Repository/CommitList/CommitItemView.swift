@@ -44,7 +44,7 @@ struct CommitItemView: View {
             }
             .frame(maxWidth: .infinity)
         }
-        .padding(.horizontal, 16)
+        .padding(.trailing, 16)
     }
 }
 
