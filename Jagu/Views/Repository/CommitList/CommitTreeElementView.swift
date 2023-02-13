@@ -113,7 +113,8 @@ struct CommitTreeElementView_Previews: PreviewProvider {
                     committerDateString: "Sun Feb 12 00:03:05 2023 +0100",
                     branches: ["main", "origin/main"],
                     tags: ["onetag", "seocndTag"],
-                    parents: []
+                    parents: [],
+                    diff: ""
                 )
             )
         )

@@ -15,7 +15,7 @@ class CommitListViewModel: BaseRepositoryViewModel {
     @Dose(\.pasteboardService) var pasteboardService
     
     var branch: Branch?
-    @Published var commitList: CommitList? {
+    @Published var commitList: CommitInfoList? {
         didSet {
             if selectedCommit == nil {
                 selectedCommit = commitList?.first?.commit

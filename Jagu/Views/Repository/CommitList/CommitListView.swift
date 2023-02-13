@@ -65,7 +65,7 @@ struct CommitListView: View {
         }
     }
     
-    func listView(_ commitList: CommitList) -> some View {
+    func listView(_ commitList: CommitInfoList) -> some View {
         VStack {
             if let branch = commitListViewModel.branch {
                 HStack {

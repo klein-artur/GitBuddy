@@ -65,7 +65,8 @@ class PreviewRepo: Repository {
             committerDateString: "Sun Feb 12 00:03:05 2023 +0100",
             branches: ["main", "origin/main"],
             tags: ["onetag", "seocndTag"],
-            parents: ["FourSomeHashFour", "TwoSomeHashTwo"]
+            parents: ["FourSomeHashFour", "TwoSomeHashTwo"],
+            diff: ""
         ),
         Commit(
             objectHash: "TwoSomeHashTwo",
@@ -78,7 +79,8 @@ class PreviewRepo: Repository {
             committerDateString: "Sun Feb 12 00:03:05 2023 +0100",
             branches: ["main", "origin/main"],
             tags: ["onetag", "seocndTag"],
-            parents: ["ThreeSomeHashThree"]
+            parents: ["ThreeSomeHashThree"],
+            diff: ""
         ),
         Commit(
             objectHash: "ThreeSomeHashThree",
@@ -91,7 +93,8 @@ class PreviewRepo: Repository {
             committerDateString: "Sun Feb 12 00:03:05 2023 +0100",
             branches: ["main", "origin/main"],
             tags: ["onetag", "seocndTag"],
-            parents: ["FourSomeHashFour"]
+            parents: ["FourSomeHashFour"],
+            diff: ""
         ),
         Commit(
             objectHash: "FourSomeHashFour",
@@ -104,7 +107,8 @@ class PreviewRepo: Repository {
             committerDateString: "Sun Feb 12 00:03:05 2023 +0100",
             branches: ["main", "origin/main"],
             tags: ["onetag", "seocndTag"],
-            parents: ["FiveSomeHashFive"]
+            parents: ["FiveSomeHashFive"],
+            diff: ""
         ),
         Commit(
             objectHash: "FiveSomeHashFive",
@@ -117,15 +121,13 @@ class PreviewRepo: Repository {
             committerDateString: "Sun Feb 12 00:03:05 2023 +0100",
             branches: ["main", "origin/main"],
             tags: ["onetag", "seocndTag"],
-            parents: []
+            parents: [],
+            diff: ""
         )
     ]
     
     func getLog(branchNames: [String]) async throws -> GitCaller.LogResult {
-        LogResult(
-            originalOutput: "",
-            commits: Self.previewCommits
-        )
+        try LogResultParser().parse(result: "").get()
     }
     
     func getLog(commitHash: String) async throws -> GitCaller.LogResult {
