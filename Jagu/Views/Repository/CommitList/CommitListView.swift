@@ -11,16 +11,15 @@ import SwiftDose
 
 struct CommitListView: View {
     @StateObject var commitListViewModel: CommitListViewModel
-    @State var selectedCommitHash: String?
     
     var body: some View {
         if let commitList = commitListViewModel.commitList {
             NavigationSplitView {
                 listView(commitList)
             } detail: {
-                if let selectedCommitHash = selectedCommitHash, let selectedCommit = commitList[selectedCommitHash] {
+                if let selectedCommit = commitListViewModel.selectedCommit {
                     CommitDetailsView(
-                        viewModel: CommitDetailsViewModel(commit: selectedCommit.commit)
+                        viewModel: CommitDetailsViewModel(commit: selectedCommit)
                     )
                 } else {
                     Text("select a commit")
@@ -46,6 +45,17 @@ struct CommitListView: View {
                 }
             }
             .frame(minWidth: 1000, idealWidth: 1100, minHeight: 500, idealHeight: 800)
+            .background(
+                KeyAwareView { event in
+                    switch event {
+                    case .upArrow:
+                        commitListViewModel.previousCommit()
+                    case .downArrow:
+                        commitListViewModel.nextCommit()
+                    default: break
+                    }
+                }
+            )
         } else {
             ProgressView()
                 .progressViewStyle(.circular)
@@ -90,9 +100,9 @@ struct CommitListView: View {
                                 }
                             }
                             .onTapGesture {
-                                selectedCommitHash = commitInfo.commit.objectHash
+                                commitListViewModel.selectedCommit = commitInfo.commit
                             }
-                            .if(commitInfo.commit.objectHash == selectedCommitHash) { view in
+                            .if(commitInfo.commit.objectHash == commitListViewModel.selectedCommit?.objectHash && commitListViewModel.selectedCommit != nil) { view in
                                 view.background(
                                     RoundedRectangle(cornerRadius: 5)
                                         .foregroundColor(Color.accentColor)
@@ -136,8 +146,7 @@ struct CommitListView_Previews: PreviewProvider {
         CommitListView(
             commitListViewModel: CommitListViewModel(
                 branch: StatusResult.getTestStatus().branch
-            ),
-            selectedCommitHash: "OneSomeHash"
+            )
         )
         .frame(width: 1000, height: 800)
         .onAppear {

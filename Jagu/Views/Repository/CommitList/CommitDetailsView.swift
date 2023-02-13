@@ -16,6 +16,7 @@ struct CommitDetailsView: View {
             VStack(alignment: .leading) {
                 Text(viewModel.commit.subject)
                     .multilineTextAlignment(.leading)
+                    .padding(.bottom, 8)
                     .textSelection(.enabled)
                     .font(.title)
                 Text(viewModel.commit.body)

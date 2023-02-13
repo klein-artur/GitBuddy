@@ -12,12 +12,19 @@ import GitCaller
 class CommitListViewModel: BaseRepositoryViewModel {
     
     var branch: Branch?
-    @Published var commitList: CommitList?
+    @Published var commitList: CommitList? {
+        didSet {
+            if selectedCommit == nil {
+                selectedCommit = commitList?.first?.commit
+            }
+        }
+    }
     
     @Published var tagCreationCommit: Commit? = nil
     @Published var tagName: String = ""
     @Published var hasTagMessage: Bool = false
     @Published var tagMessage: String = ""
+    @Published var selectedCommit: Commit?
     
     init(
         branch: Branch?
@@ -80,6 +87,26 @@ class CommitListViewModel: BaseRepositoryViewModel {
             self?.tagMessage = ""
             self?.hasTagMessage = false
         }
+    }
+    
+    func nextCommit() {
+        let index = self.commitList?.firstIndex(where: { info in
+            info.commit == self.selectedCommit
+        })
+        guard let index = index, let list = commitList, list.index(after: index) < list.count else {
+            return
+        }
+        self.selectedCommit = list[list.index(after: index)].commit
+    }
+    
+    func previousCommit() {
+        let index = self.commitList?.firstIndex(where: { info in
+            info.commit == self.selectedCommit
+        })
+        guard let index = index, let list = commitList, list.index(before: index) >= 0 else {
+            return
+        }
+        self.selectedCommit = list[list.index(before: index)].commit
     }
     
 }
