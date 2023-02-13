@@ -15,38 +15,15 @@ struct CommitListView: View {
     
     var body: some View {
         if let commitList = commitListViewModel.commitList {
-            VStack {
-                if let branch = commitListViewModel.branch {
-                    HStack {
-                        BranchElementView(
-                            viewModel: BranchElementViewModel(
-                                branch: branch,
-                                status: nil,
-                                showLogButton: false
-                            )
-                        )
-                        Spacer()
-                        if !branch.isCurrent {
-                            Button("Checkout") {
-                                commitListViewModel.checkoutBranch()
-                            }
-                        }
-                    }
-                    .padding([.horizontal, .top], 16)
-                    Divider()
-                        .padding(.horizontal, 16)
-                }
-                
-                NavigationSplitView {
-                    listView(commitList)
-                } detail: {
-                    if let selectedCommitHash = selectedCommitHash, let selectedCommit = commitList[selectedCommitHash] {
-                        CommitDetailsView(
-                            viewModel: CommitDetailsViewModel(commit: selectedCommit.commit)
-                        )
-                    } else {
-                        Text("select a commit")
-                    }
+            NavigationSplitView {
+                listView(commitList)
+            } detail: {
+                if let selectedCommitHash = selectedCommitHash, let selectedCommit = commitList[selectedCommitHash] {
+                    CommitDetailsView(
+                        viewModel: CommitDetailsViewModel(commit: selectedCommit.commit)
+                    )
+                } else {
+                    Text("select a commit")
                 }
             }
             .gitErrorAlert(gitError: $commitListViewModel.gitError)
@@ -79,32 +56,78 @@ struct CommitListView: View {
     }
     
     func listView(_ commitList: CommitList) -> some View {
-        ScrollView {
-            LazyVStack {
-                ForEach(commitList, id: \.commit.objectHash) { commitInfo in
-                    CommitItemView(commitInfo: commitInfo)
-                        .padding(0)
-                        .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
-                        .contentShape(Rectangle())
-                        .contextMenu {
-                            Button("create tag title") {
-                                commitListViewModel.tagCreationCommit = commitInfo.commit
+        VStack {
+            if let branch = commitListViewModel.branch {
+                HStack {
+                    BranchElementView(
+                        viewModel: BranchElementViewModel(
+                            branch: branch,
+                            status: nil,
+                            showLogButton: false
+                        )
+                    )
+                    Spacer()
+                    if !branch.isCurrent {
+                        Button("Checkout") {
+                            commitListViewModel.checkoutBranch()
+                        }
+                    }
+                }
+                .padding([.horizontal, .top], 16)
+                Divider()
+                    .padding(.horizontal, 16)
+            }
+            ScrollView {
+                LazyVStack {
+                    ForEach(commitList, id: \.commit.objectHash) { commitInfo in
+                        CommitItemView(commitInfo: commitInfo)
+                            .padding(0)
+                            .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
+                            .contentShape(Rectangle())
+                            .contextMenu {
+                                Button("create tag title") {
+                                    commitListViewModel.tagCreationCommit = commitInfo.commit
+                                }
                             }
-                        }
-                        .onTapGesture {
-                            selectedCommitHash = commitInfo.commit.objectHash
-                        }
-                        .if(commitInfo.commit.objectHash == selectedCommitHash) { view in
-                            view.background(
-                                RoundedRectangle(cornerRadius: 5)
-                                    .foregroundColor(Color.accentColor)
-                            )
-                        }
+                            .onTapGesture {
+                                selectedCommitHash = commitInfo.commit.objectHash
+                            }
+                            .if(commitInfo.commit.objectHash == selectedCommitHash) { view in
+                                view.background(
+                                    RoundedRectangle(cornerRadius: 5)
+                                        .foregroundColor(Color.accentColor)
+                                )
+                            }
+                    }
                 }
             }
         }
-        .frame(minWidth: 500)
         .padding(16)
+        .frame(minWidth: 500)
+    }
+    
+    @ViewBuilder
+    var branchHeader: some View {
+        if let branch = commitListViewModel.branch {
+            HStack {
+                BranchElementView(
+                    viewModel: BranchElementViewModel(
+                        branch: branch,
+                        status: nil,
+                        showLogButton: false
+                    )
+                )
+                Spacer()
+                if !branch.isCurrent {
+                    Button("Checkout") {
+                        commitListViewModel.checkoutBranch()
+                    }
+                }
+            }
+            .padding([.horizontal, .top], 16)
+            Divider()
+                .padding(.horizontal, 16)
+        }
     }
 }
 
