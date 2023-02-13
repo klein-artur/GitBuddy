@@ -31,4 +31,8 @@ class CommitDetailsViewModel: BaseRepositoryViewModel {
     var committerDate: String {
         self.commit.committerDate.localized
     }
+    
+    var parents: String {
+        self.commit.parents.joined(separator: ", ")
+    }
 }

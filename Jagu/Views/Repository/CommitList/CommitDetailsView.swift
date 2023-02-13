@@ -16,18 +16,22 @@ struct CommitDetailsView: View {
             VStack(alignment: .leading) {
                 Text(viewModel.commit.subject)
                     .multilineTextAlignment(.leading)
+                    .textSelection(.enabled)
                     .font(.title)
                 Text(viewModel.commit.body)
                     .padding(.bottom, 16)
+                    .textSelection(.enabled)
                     .multilineTextAlignment(.leading)
                 Divider()
                 HStack {
-                    Grid(alignment: .leading) {
+                    Grid(alignment: .leading, verticalSpacing: 8) {
                         infoLine(caption: "Author".localized, value: viewModel.authorInfo)
                         infoLine(caption: "", value: viewModel.authorDate)
                             .padding(.bottom, 8)
                         infoLine(caption: "Committer".localized, value: viewModel.committerInfo)
                         infoLine(caption: "", value: viewModel.authorDate)
+                        infoLine(caption: "Hash", value: viewModel.commit.objectHash)
+                        infoLine(caption: "Parents", value: viewModel.parents)
                     }
                     Spacer()
                 }
@@ -47,6 +51,8 @@ struct CommitDetailsView: View {
         GridRow {
             Text(caption)
             Text(value)
+                .textSelection(.enabled)
+                .monospaced(true)
         }
     }
 }
