@@ -58,9 +58,9 @@ struct CommitItemView_Previews: PreviewProvider {
                     subject: "Some Message",
                     message: "Some Message",
                     author: Person(name: "John Doe", email: "john@doe.com"),
-                    authorDate: .now,
+                    authorDateString: "Sun Feb 12 00:03:05 2023 +0100",
                     committer: Person(name: "John Doe", email: "john@doe.com"),
-                    committerDate: .now,
+                    committerDateString: "Sun Feb 12 00:03:05 2023 +0100",
                     branches: ["main", "origin/main"],
                     tags: ["onetag", "seocndTag"],
                     parents: []
@@ -103,9 +103,9 @@ struct CommitItemView_Previews: PreviewProvider {
                             subject: "Some Message",
                             message: "Some Message",
                             author: Person(name: "John Doe", email: "john@doe.com"),
-                            authorDate: .now,
+                            authorDateString: "Sun Feb 12 00:03:05 2023 +0100",
                             committer: Person(name: "John Doe", email: "john@doe.com"),
-                            committerDate: .now,
+                            committerDateString: "Sun Feb 12 00:03:05 2023 +0100",
                             branches: ["main", "origin/main"],
                             tags: ["onetag", "seocndTag"],
                             parents: []
