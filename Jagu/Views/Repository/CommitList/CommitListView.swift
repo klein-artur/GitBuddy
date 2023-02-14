@@ -45,17 +45,6 @@ struct CommitListView: View {
                 }
             }
             .frame(minWidth: 1400, minHeight: 800)
-            .background(
-                KeyAwareView { event in
-                    switch event {
-                    case .upArrow:
-                        commitListViewModel.previousCommit()
-                    case .downArrow:
-                        commitListViewModel.nextCommit()
-                    default: break
-                    }
-                }
-            )
         } else {
             ProgressView()
                 .progressViewStyle(.circular)
@@ -87,33 +76,52 @@ struct CommitListView: View {
                 Divider()
                     .padding(.horizontal, 16)
             }
-            ScrollView {
-                LazyVStack {
-                    ForEach(commitList, id: \.commit.objectHash) { commitInfo in
-                        CommitItemView(commitInfo: commitInfo)
-                            .padding(0)
-                            .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
-                            .contentShape(Rectangle())
-                            .contextMenu {
-                                Button("create tag title") {
-                                    commitListViewModel.tagCreationCommit = commitInfo.commit
+            ScrollViewReader { proxy in
+                ScrollView {
+                    LazyVStack {
+                        ForEach(commitList, id: \.commit.objectHash) { commitInfo in
+                            CommitItemView(commitInfo: commitInfo)
+                                .padding(0)
+                                .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
+                                .contentShape(Rectangle())
+                                .contextMenu {
+                                    Button("create tag title") {
+                                        commitListViewModel.tagCreationCommit = commitInfo.commit
+                                    }
+                                    Button("copy commit hash") {
+                                        commitListViewModel.copyCommitHash(for: commitInfo.commit)
+                                    }
                                 }
-                                Button("copy commit hash") {
-                                    commitListViewModel.copyCommitHash(for: commitInfo.commit)
+                                .onTapGesture {
+                                    commitListViewModel.selectedCommit = commitInfo.commit
                                 }
-                            }
-                            .onTapGesture {
-                                commitListViewModel.selectedCommit = commitInfo.commit
-                            }
-                            .if(commitInfo.commit.objectHash == commitListViewModel.selectedCommit?.objectHash && commitListViewModel.selectedCommit != nil) { view in
-                                view.background(
-                                    RoundedRectangle(cornerRadius: 5)
-                                        .foregroundColor(Color.accentColor)
-                                )
-                            }
-                            .padding(.horizontal, 8)
+                                .if(commitInfo.commit.objectHash == commitListViewModel.selectedCommit?.objectHash && commitListViewModel.selectedCommit != nil) { view in
+                                    view.background(
+                                        RoundedRectangle(cornerRadius: 5)
+                                            .foregroundColor(Color.accentColor)
+                                    )
+                                }
+                                .padding(.horizontal, 8)
+                                .id(commitInfo.commit.objectHash)
+                        }
                     }
                 }
+                .onChange(of: commitListViewModel.selectedCommit, perform: { newValue in
+                    withAnimation {
+                        proxy.scrollTo(newValue?.objectHash)
+                    }
+                })
+                .background(
+                    KeyAwareView { event in
+                        switch event {
+                        case .upArrow:
+                            commitListViewModel.previousCommit()
+                        case .downArrow:
+                            commitListViewModel.nextCommit()
+                        default: break
+                        }
+                    }
+                )
             }
         }
         .frame(minWidth: 500)
