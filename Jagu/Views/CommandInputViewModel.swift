@@ -9,7 +9,7 @@ import Foundation
 import GitCaller
 
 @MainActor
-class CommandInputViewModel: BaseViewModel {
+class CommandInputViewModel: BaseRepositoryViewModel {
     @Published var commandInput: String = "" {
         didSet {
             updateAutocompletion()
@@ -29,14 +29,17 @@ class CommandInputViewModel: BaseViewModel {
     
     func run() {
         setLoading()
-        Git(raw: commandInput).run()
+        let pipe = Pipe()
+        Git.raw(self.commandInput).run(inputPipe: pipe)
             .receive(on: RunLoop.main)
             .sink(receiveCompletion: { [weak self] completion in
+                print("command input: Done!")
                 if self?.commandOutput.isEmpty == true {
                     self?.commandOutput = "done"
                 }
                 self?.repository.needsUpdate()
             }, receiveValue: { [weak self] output in
+                print("command input: Update!")
                 self?.commandOutput = output
             })
             .store(in: &self.lifetimeCancellables)

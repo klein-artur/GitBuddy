@@ -7,35 +7,54 @@
 
 import Foundation
 import GitCaller
+import SwiftDose
 
 @MainActor
-class CommitListViewModel: BaseViewModel {
+class CommitListViewModel: BaseRepositoryViewModel {
     
-    let branch: Branch?
-    @Published var commitList: CommitList?
+    @Dose(\.pasteboardService) var pasteboardService
+    
+    var branch: Branch?
+    @Published var commitList: CommitInfoList? {
+        didSet {
+            if selectedCommit == nil {
+                selectedCommit = commitList?.first?.commit
+            }
+        }
+    }
+    
+    @Published var tagCreationCommit: Commit? = nil
+    @Published var tagName: String = ""
+    @Published var hasTagMessage: Bool = false
+    @Published var tagMessage: String = ""
+    @Published var selectedCommit: Commit?
     
     init(
-        repository: some Repository,
         branch: Branch?
     ) {
         self.branch = branch
         
-        super.init(repository: repository)
+        super.init()
         
         load()
-    
     }
     
     override func load() {
         defaultTask { [weak self] in
-            if let branch = self?.branch {
-                var branchName: String = ""
-                if let upstream = branch.upstream {
-                    branchName = "\(branch.name) \(upstream.name)"
-                } else {
-                    branchName = branch.name
+            if var branch = self?.branch {
+                
+                if let foundBranch = try await self?.repository.getBranches().branches?.first(where: { b in
+                    b.name == branch.name
+                }) {
+                    self?.branch = foundBranch
+                    branch = foundBranch
                 }
-                self?.commitList = try await self?.repository.getLog(branchName: branchName).commitPathTree
+                
+                var branchNames: [String] = [branch.name]
+                if let upstream = branch.upstream {
+                    branchNames.append(upstream.name)
+                }
+                self?.commitList = try await self?.repository.getLog(branchNames: branchNames).commitPathTree
             } else {
                 self?.commitList = try await self?.repository.getLog().commitPathTree
             }
@@ -52,6 +71,49 @@ class CommitListViewModel: BaseViewModel {
                 AppDelegate.shared?.reload()
             }
         }
+    }
+    
+    func creeateTag(commit: Commit) {
+        defaultTask { [weak self] in
+            guard let name = self?.tagName else {
+                return
+            }
+            
+            try await self?.repository.createTag(
+                name: name,
+                on: commit.objectHash,
+                message: self?.hasTagMessage == true ? self?.tagMessage : nil
+            )
+            
+            self?.tagCreationCommit = nil
+            self?.tagName = ""
+            self?.tagMessage = ""
+            self?.hasTagMessage = false
+        }
+    }
+    
+    func nextCommit() {
+        let index = self.commitList?.firstIndex(where: { info in
+            info.commit == self.selectedCommit
+        })
+        guard let index = index, let list = commitList, list.index(after: index) < list.count else {
+            return
+        }
+        self.selectedCommit = list[list.index(after: index)].commit
+    }
+    
+    func previousCommit() {
+        let index = self.commitList?.firstIndex(where: { info in
+            info.commit == self.selectedCommit
+        })
+        guard let index = index, let list = commitList, list.index(before: index) >= 0 else {
+            return
+        }
+        self.selectedCommit = list[list.index(before: index)].commit
+    }
+    
+    func copyCommitHash(for commit: Commit) {
+        _ = pasteboardService.copy(string: commit.objectHash)
     }
     
 }

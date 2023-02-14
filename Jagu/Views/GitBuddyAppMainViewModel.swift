@@ -9,11 +9,14 @@ import Foundation
 import SwiftUI
 import Combine
 import GitCaller
+import SwiftDose
 
 @MainActor
-class JaguAppMainViewModel: BaseViewModel {
+class JaguAppMainViewModel: BaseRepositoryViewModel {
     
     @Published var status: StatusResult?
+    
+    @Dose(\.favoriteRepoService) var favoritesService: FavoriteRepoService
     
     private var innerUpdate = false
     @Published var newBranchName: String = "" {
@@ -23,6 +26,12 @@ class JaguAppMainViewModel: BaseViewModel {
                 newBranchName = newBranchName.replacingOccurrences(of: " ", with: "-")
                 innerUpdate = false
             }
+        }
+    }
+    
+    var isFavorite: Bool {
+        favoritesService.favorites.contains { favorite in
+            favorite.path == self.repoPath
         }
     }
     
@@ -122,20 +131,24 @@ class JaguAppMainViewModel: BaseViewModel {
         )
     }
     
+    func pushTags() {
+        defaultTask { [weak self] in
+            try await self?.repository.pushTags()
+        }
+    }
+    
+    func addCurrentAsFavorite() {
+        guard let path = self.repoPath else {
+            return
+        }
+        favoritesService.saveFavorite(path: path)
+    }
+    
     override func shouldHandleError(parseError: ParseError) -> Bool {
         if parseError.type == .notARepository {
             return false
         } else {
             return super.shouldHandleError(parseError: parseError)
         }
-    }
-    
-    func test() {
-        Git().add.patch().minusMinus().path("testfile").run(predefinedInput: "n\ne\n")
-            .receive(on: RunLoop.main)
-            .sink { output in
-                print(output)
-            }
-            .store(in: &lifetimeCancellables)
     }
 }

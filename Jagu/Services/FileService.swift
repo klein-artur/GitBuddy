@@ -10,8 +10,16 @@ import GitCaller
 
 class FileService {
     
+    let fileManager: FileManager
+    let repository: any Repository
+    
+    init(fileManager: FileManager, repository: any Repository) {
+        self.fileManager = fileManager
+        self.repository = repository
+    }
+    
     func delete(file: String) throws {
-        try FileManager.default.removeItem(atPath: file)
-        GitRepo.standard.needsUpdate()
+        try fileManager.removeItem(atPath: file)
+        repository.needsUpdate()
     }
 }

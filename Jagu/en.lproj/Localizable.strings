@@ -9,6 +9,8 @@
 "File" = "File";
 "Open" = "Open";
 "Reload" = "Reload";
+"Favorites" = "Favorites";
+"Save favorite" = "Make Favorite";
 
 "choose repository title" = "Open Repository";
 
@@ -43,6 +45,10 @@
 "unstaged changes" = "Unstaged Changes";
 "stage" = "Stage";
 "unstage" = "Unstage";
+"stage all" = "Stage All";
+"unstage all" = "Unstage All";
+"stage lines" = "Stage Lines";
+"unstage lines" = "Unstage Lines";
 "commit" = "Commit";
 "revert" = "Revert";
 "revert alert title" = "Revert File";
@@ -60,6 +66,7 @@
 
 "New Branch" = "Create New Branch";
 "New Branch Name" = "Enter the name of the new Branch";
+"force delete" = "Force delete, ignore not synced changes.";
 
 "Push New Branch" = "Push New Branch (with upstream)";
 
@@ -87,7 +94,26 @@
 "Using their message" = "Resolve the merge conflict by using their changes";
 "select" = "Select";
 "No Mergeissues" = "No Issues";
+"rebase onto " = "Rebase onto %@";
+"rebase this onto that" = "Rebase %@ onto %@";
+
+"in middle of rebase" = "Ongoing Rebase (Done: %d, Remaining: %d)";
+"abort rebase" = "Abort Rebase";
 
 "delete file" = "Delete";
 "delete file message" = "Do you really want to delete the file?";
 
+"create tag title" = "New Tag";
+"create tag message" = "Create Tag.";
+"create tag with message" = "With message.";
+"message" = "Message";
+"name" = "Name";
+"push tags" = "Push all Tags";
+
+"Author" = "Author:";
+"Committer" = "Committer:";
+"select a commit" = "Select a commit on the left side.";
+"Hash" = "Hash:";
+"Parents" = "Parents:";
+
+"copy commit hash" = "Copy Commit Hash";

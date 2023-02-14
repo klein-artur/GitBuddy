@@ -17,19 +17,15 @@ struct CommitListViewSheet: ViewModifier {
         content.sheet(item: $branch) { branch in
             CommitListView(
                 commitListViewModel: CommitListViewModel(
-                    repository: GitRepo.standard,
                     branch: branch
                 )
             )
-                .frame(minWidth: 800, minHeight: 600)
         }.sheet(isPresented: $shown) {
             CommitListView(
                 commitListViewModel: CommitListViewModel(
-                    repository: GitRepo.standard,
                     branch: nil
                 )
             )
-                .frame(minWidth: 800, minHeight: 600)
         }
     }
 }

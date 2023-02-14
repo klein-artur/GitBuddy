@@ -7,39 +7,81 @@
 
 import Foundation
 import GitCaller
+import SwiftUI
 
 @MainActor
-class DiffViewModel: BaseViewModel {
+class DiffViewModel: BaseRepositoryViewModel {
     let leftFile: String?
     let rightFile: String?
     let staged: Bool?
     
     @Published var diff: DiffResult? = nil
+    @Published var selectedHunkLines: [Int: [Int]] = [:]
     
-    init(repository: some Repository, leftFile: String?, rightFile: String? = nil, staged: Bool? = nil) {
+    var dismiss: DismissAction? = nil
+    
+    init(leftFile: String?, rightFile: String? = nil, staged: Bool? = nil) {
         self.leftFile = leftFile
         self.rightFile = rightFile
         self.staged = staged
-        super.init(repository: repository)
-        
+        super.init()
+        self.load()
+    }
+    
+    init(diff: DiffResult) {
+        self.leftFile = nil
+        self.rightFile = nil
+        self.staged = nil
+        self.diff = diff
+        super.init()
     }
     
     override func load() {
+        guard let leftFile = leftFile else {
+            return
+        }
         self.defaultTask { [weak self] in
             guard let self = self else {
                 return
             }
-            self.diff = try await self.repository.diff(path: self.leftFile, staged: self.staged ?? false, rightPath: self.rightFile)
+            self.diff = try await self.repository.diff(path: leftFile, staged: self.staged ?? false, rightPath: self.rightFile)
+            
+            if self.diff == nil || self.diff?.diffs.isEmpty == true {
+                self.dismiss?()
+            }
         }
     }
     
-    func stage(_ hunkIndex: Int? = nil) {
+    override func shouldHandleError(parseError: ParseError) -> Bool {
+        print("")
+        return true
+    }
+    
+    func stage(_ hunkIndex: Int? = nil, lines: [Int]? = nil) {
         defaultTask { [weak self] in
             if let leftFile = self?.leftFile, self?.staged == true {
-                _ = try await self?.repository.unstage(file: leftFile, hunk: hunkIndex)
+                _ = try await self?.repository.unstage(file: leftFile, hunk: hunkIndex, lines: lines)
             } else {
-                _ = try await self?.repository.stage(file: self?.leftFile, hunk: hunkIndex)
+                _ = try await self?.repository.stage(file: self?.leftFile, hunk: hunkIndex, lines: lines)
             }
+        }
+    }
+    
+    func isSelected(in index: Int, line: Int) -> Bool {
+        selectedHunkLines[index]?.contains(line) ?? false
+    }
+    
+    func selectLine(in index: Int, line: Int, selected: Bool) {
+        var currentList = selectedHunkLines[index] ?? []
+        if selected {
+            currentList.append(line)
+        } else {
+            currentList = currentList.filter { $0 != line }
+        }
+        if currentList.isEmpty {
+            selectedHunkLines.removeValue(forKey: index)
+        } else {
+            selectedHunkLines[index] = currentList
         }
     }
 }
@@ -52,6 +94,10 @@ struct ViewHunkLine: Identifiable {
     let leftLine: String?
     let rightLine: String?
     let line: HunkLine
+    
+    var isDiff: Bool {
+        !line.content.hasPrefix(" ")
+    }
 }
 
 extension Hunk {

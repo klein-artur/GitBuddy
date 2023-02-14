@@ -21,6 +21,8 @@ struct CommitItemView: View {
                     .font(Font.system(Font.TextStyle.body, design: Font.Design.monospaced))
                     .lineLimit(1)
                     .padding(.bottom, 3)
+                    .padding(.top, 8)
+                    .textSelection(.enabled)
                 TagCloudView(tags: commitInfo.commit.tags.map {
                     TagElement(icon: Image("tag-solid"), text: $0) }, backgroundColor: Color(red: 0.87, green: 0.97, blue: 0.89), foregroundColor: .black)
                 TagCloudView(tags: commitInfo.commit.branches.map {
@@ -29,6 +31,7 @@ struct CommitItemView: View {
                 HStack {
                     Text(commitInfo.commit.shortHash)
                         .font(Font.system(Font.TextStyle.body, design: Font.Design.monospaced))
+                        .textSelection(.enabled)
                     Spacer()
                     Text(commitInfo.commit.author.name)
                         .font(Font.system(Font.TextStyle.body, design: Font.Design.monospaced))
@@ -41,7 +44,7 @@ struct CommitItemView: View {
             }
             .frame(maxWidth: .infinity)
         }
-        .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+        .padding(.trailing, 16)
     }
 }
 
@@ -55,12 +58,13 @@ struct CommitItemView_Previews: PreviewProvider {
                     subject: "Some Message",
                     message: "Some Message",
                     author: Person(name: "John Doe", email: "john@doe.com"),
-                    authorDate: .now,
+                    authorDateString: "Sun Feb 12 00:03:05 2023 +0100",
                     committer: Person(name: "John Doe", email: "john@doe.com"),
-                    committerDate: .now,
+                    committerDateString: "Sun Feb 12 00:03:05 2023 +0100",
                     branches: ["main", "origin/main"],
                     tags: ["onetag", "seocndTag"],
-                    parents: []
+                    parents: [],
+                    diff: ""
                 ),
                 treeItem:
                     CommitTreeItem(
@@ -100,12 +104,13 @@ struct CommitItemView_Previews: PreviewProvider {
                             subject: "Some Message",
                             message: "Some Message",
                             author: Person(name: "John Doe", email: "john@doe.com"),
-                            authorDate: .now,
+                            authorDateString: "Sun Feb 12 00:03:05 2023 +0100",
                             committer: Person(name: "John Doe", email: "john@doe.com"),
-                            committerDate: .now,
+                            committerDateString: "Sun Feb 12 00:03:05 2023 +0100",
                             branches: ["main", "origin/main"],
                             tags: ["onetag", "seocndTag"],
-                            parents: []
+                            parents: [],
+                            diff: ""
                         )
                     )
             )

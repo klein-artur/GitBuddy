@@ -8,6 +8,7 @@
 import SwiftUI
 import Combine
 import GitCaller
+import SwiftDose
 
 struct RepoView: View {
     @StateObject var viewModel: RepoViewModel
@@ -56,9 +57,8 @@ struct RepoView: View {
         VStack(alignment: .leading) {
             BranchElementView(
                 viewModel: BranchElementViewModel(
-                    repository: GitRepo.standard,
                     branch: status.branch,
-                    status: nil,
+                    status: status,
                     showLogButton: true
                 )
             )
@@ -72,7 +72,6 @@ struct RepoView: View {
                 if let status = viewModel.gitStatus, status.status != .clean || status.isMerging {
                     LocalChangesView(
                         viewModel: LocalChangesViewModel(
-                            repository: GitRepo.standard,
                             status: status
                         )
                     )
@@ -87,7 +86,6 @@ struct RepoView: View {
     private var branchListView: some View {
         BranchListView(
             viewModel: BranchListViewModel(
-                repository: GitRepo.standard,
                 keyValueRepo: LocalKeyValueRepository()
             )
         )
@@ -106,21 +104,25 @@ struct ContentView_Previews: PreviewProvider {
         Group {
             RepoView(
                 viewModel: RepoViewModel(
-                    repository: GitRepo.standard,
                     repoPath: "",
                     appDelegate: AppDelegate()
                 )
             )
+            .onAppear {
+                DoseValues[RepositoryProvider.self] = PreviewRepo()
+            }
             .previewDisplayName("No Repo")
             
             RepoView(
                 viewModel: RepoViewModel(
-                    repository: GitRepo.standard,
                     repoPath: "",
                     appDelegate: AppDelegate(),
                     gitStatus: StatusResult.getTestStatus()
                 )
             )
+            .onAppear {
+                DoseValues[RepositoryProvider.self] = PreviewRepo()
+            }
             .previewDisplayName("Default State")
         }
     }

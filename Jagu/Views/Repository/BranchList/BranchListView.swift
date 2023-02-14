@@ -7,6 +7,7 @@
 
 import SwiftUI
 import GitCaller
+import SwiftDose
 
 struct BranchListView: View {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
@@ -91,6 +92,7 @@ struct BranchItemView: View {
     @State var buttonsVisible: Bool = false
     
     @State var mergeDecissionShown: Bool = false
+    @State var rebaseDecissionShown: Bool = false
     @State var noFastForwardMerge: Bool = false
     
     var body: some View {
@@ -109,7 +111,7 @@ struct BranchItemView: View {
                     }
                     if branch.isLocal {
                         Button {
-                            viewModel.deleteBranch(for: branch)
+                            viewModel.toDeleteBranch = branch
                         } label: {
                             Text("Delete Branch")
                         }
@@ -120,6 +122,11 @@ struct BranchItemView: View {
                                 Text("merge into ".localized.formatted(status.branch.name))
                             }
                         }
+                        Button {
+                            rebaseDecissionShown = true
+                        } label: {
+                            Text("rebase onto ".localized.formatted(branch.name))
+                        }
                     }
                 }
             }
@@ -128,14 +135,33 @@ struct BranchItemView: View {
             }
             .ifLet(viewModel.status) { view, status in
                 view.decision(
-                        showDecision: $mergeDecissionShown,
-                        title: "merge into ".localized.formatted(status.branch.name),
-                        message: "merging this into that".localized.formatted(branch.name, status.branch.name)) {
-                            viewModel.mergeBranch(for: branch, noFF: noFastForwardMerge)
-                        } content: {
-                            Toggle("no fast forward merge", isOn: $noFastForwardMerge)
-                        }
+                    showDecision: $mergeDecissionShown,
+                    title: "merge into ".localized.formatted(status.branch.name),
+                    message: "merging this into that".localized.formatted(branch.name, status.branch.name)
+                ) {
+                    viewModel.mergeBranch(for: branch, noFF: noFastForwardMerge)
+                } content: {
+                    Toggle("no fast forward merge", isOn: $noFastForwardMerge)
+                }
+                .decision(
+                    showDecision: $rebaseDecissionShown,
+                    title: "rebase onto ".localized.formatted(branch.name),
+                    message: "rebase this onto that".localized.formatted(status.branch.name, branch.name)
+                ) {
+                    viewModel.rebase(onto: branch)
+                } content: { }
             }
+            .decision(
+                item: $viewModel.toDeleteBranch,
+              title: "Delete Branch",
+                message: "delete local branch message") { branch  in
+                    viewModel.deleteBranch(for: branch)
+                } content: {
+                    Toggle(isOn: $viewModel.shouldForce) {
+                        Text("force delete")
+                    }
+                }
+
 
     }
     
@@ -181,10 +207,12 @@ struct BranchListView_Previews: PreviewProvider {
     static var previews: some View {
         BranchListView(
             viewModel: BranchListViewModel(
-                repository: PreviewRepo(),
                 keyValueRepo: PreviewKeyValueRepo()
             )
         )
+        .onAppear {
+            DoseValues[RepositoryProvider.self] = PreviewRepo()
+        }
     }
 }
 

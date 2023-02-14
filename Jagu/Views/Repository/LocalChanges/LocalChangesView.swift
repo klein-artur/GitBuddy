@@ -7,18 +7,23 @@
 
 import SwiftUI
 import GitCaller
+import SwiftDose
 
 struct LocalChangesView: View {
     @StateObject var viewModel: LocalChangesViewModel
     
+    @State var localChangesFilePath: DiffChange?
+    
     var body: some View {
         VStack {
             ScrollView {
-                if let status = viewModel.status {
+                if viewModel.status != nil {
                     VStack {
-                        if viewModel.status?.status == .merging {
+                        if viewModel.status?.status == .merging || viewModel.status?.status == .rebasing {
                             HStack {
-                                Text("in middle of merge")
+                                Text(
+                                    viewModel.mergeOrRebaseInfo
+                                )
                                 if viewModel.canContinue {
                                     Text("No Mergeissues")
                                 }
@@ -26,7 +31,9 @@ struct LocalChangesView: View {
                                 Button {
                                     viewModel.abort()
                                 } label: {
-                                    Text("abort merge")
+                                    Text(
+                                        viewModel.status?.status == .merging ? "abort merge" : "abort rebase"
+                                    )
                                 }
                             }
                         }
@@ -44,7 +51,7 @@ struct LocalChangesView: View {
                     Button {
                         viewModel.commit()
                     } label: {
-                        Text(status.status == .merging ? "continue" : "commit")
+                        Text(status.status == .merging || status.status == .rebasing ? "continue" : "commit")
                     }
                 }
                 .padding()
@@ -56,9 +63,38 @@ struct LocalChangesView: View {
         .gitErrorAlert(gitError: $viewModel.gitError)
         .generalAlert(item: $viewModel.alertItem)
         .tabItem {
-            Text(viewModel.status?.status == .unclean ? "Local Changes" : "Merging")
+            Text(viewModel.viewTitle)
         }
         .loading(loadingCount: $viewModel.loadingCount)
+        .sheet(item: $localChangesFilePath) { path in
+            DiffView(viewModel: DiffViewModel(leftFile: path.change.leftItem.change.path, staged: path.staged))
+                .background(
+                    KeyAwareView { event in
+                        var newElement: DiffChange? = nil
+                        switch event {
+                        case .upArrow:
+                            newElement = viewModel.getChangeFor(item: path.change, staged: path.staged, offset: -1)
+                        case .downArrow:
+                            newElement = viewModel.getChangeFor(item: path.change, staged: path.staged, offset: 1)
+                        case .enter:
+                            if let element = viewModel.getChangeFor(item: path.change, staged: path.staged, offset: 1) ?? viewModel.getChangeFor(item: path.change, staged: path.staged, offset: -1) {
+                                newElement = element
+                            }
+                            if path.staged {
+                                viewModel.unstage(change: path.change.leftItem.change)
+                            } else {
+                                viewModel.stage(change: path.change.leftItem.change)
+                            }
+                        }
+                        if let newElement = newElement {
+                            localChangesFilePath = nil
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                self.localChangesFilePath = newElement
+                            }
+                        }
+                    }
+                )
+        }
     }
     
     @ViewBuilder
@@ -67,15 +103,36 @@ struct LocalChangesView: View {
             left.leftItem.change.path < right.leftItem.change.path
         }
         if !changes.isEmpty {
-            GroupBox(staged ? "staged changes" : "unstaged changes") {
+            GroupBox {
                 LazyVStack (alignment: .leading) {
                     ForEach(changeList, id: \.leftItem.change.path) { change in
-                        LocalChangeItem(viewModel: viewModel, change: change, staged: staged)
+                        LocalChangeItem(viewModel: viewModel, change: change, staged: staged, localChangesFilePath: $localChangesFilePath)
                     }
+                }
+            } label: {
+                HStack {
+                    Text(staged ? "staged changes" : "unstaged changes")
+                    Spacer()
+                    Button(staged ? "unstage all" : "stage all") {
+                        if staged {
+                            viewModel.unstage(change: nil)
+                        } else {
+                            viewModel.stage(change: nil)
+                        }
+                    }
+                    .buttonStyle(LinkButtonStyle())
                 }
             }
         }
     }
+}
+
+struct DiffChange: Identifiable {
+    var id: String {
+        "\(change.leftItem.change.path)---\(staged)"
+    }
+    let change: ChangeLine
+    let staged: Bool
 }
 
 struct LocalChangeItem: View {
@@ -84,7 +141,7 @@ struct LocalChangeItem: View {
     let staged: Bool
     @State var showButton: Bool = false
     
-    @State var localChangesFilePath: String?
+    @Binding var localChangesFilePath: DiffChange?
     
     var body: some View {
         HStack {
@@ -96,14 +153,13 @@ struct LocalChangeItem: View {
                     .padding(.leading, 8)
             }
             if showButton && change.rightItem == nil {
-                if change.leftItem.change.kind.canShowDetails {
+                if let diffChange = viewModel.getChangeFor(item: change, staged: staged, offset: 0) {
                     Spacer()
                     Button("Details") {
-                        localChangesFilePath = change.leftItem.change.path
+                        localChangesFilePath = diffChange
                     }
                 }
-                if change.leftItem.change.state != .staged && change.leftItem.changeKind != .newFile && change.leftItem.changeKind != .bothAdded {
-                    if change.leftItem.changeKind == .modified {
+                if change.leftItem.change.state != .staged && change.leftItem.changeKind.revertable {
                         if !change.leftItem.change.kind.canShowDetails {
                             Spacer()
                         }
@@ -111,7 +167,6 @@ struct LocalChangeItem: View {
                             viewModel.revert(change: change.leftItem.change)
                         }
                     }
-                }
             }
         }
             .padding(.vertical, 2)
@@ -134,9 +189,7 @@ struct LocalChangeItem: View {
                     }
                 }
             }
-            .popover(item: $localChangesFilePath) { path in
-                DiffView(viewModel: DiffViewModel(repository: viewModel.repository, leftFile: path, staged: staged))
-            }
+            
     }
     
     @ViewBuilder
@@ -149,7 +202,9 @@ struct LocalChangeItem: View {
                 Text(item.change.path.lastPathComponent ?? "")
                     .lineLimit(1)
                     .fontWeight(.bold)
-                Text(item.change.path.replacingOccurrences(of: "/\(item.change.path.lastPathComponent ?? "")", with: ""))
+                
+                // TODO: this is not a good idea.
+                Text(item.change.path.trimmingPrefix("/\(item.change.path.lastPathComponent ?? "")"))
                     .lineLimit(1)
                     .font(.caption)
             }
@@ -186,9 +241,11 @@ struct LocalChangesView_Previews: PreviewProvider {
     static var previews: some View {
         LocalChangesView(
             viewModel: LocalChangesViewModel(
-                repository: PreviewRepo(),
                 status: StatusResult.getTestStatus()
             )
         )
+        .onAppear {
+            DoseValues[RepositoryProvider.self] = PreviewRepo()
+        }
     }
 }

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftDose
 
 struct CommandInputView: View {
     @StateObject var viewModel: CommandInputViewModel
@@ -50,6 +51,7 @@ struct CommandInputView: View {
                 ScrollView {
                     Text(viewModel.commandOutput)
                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                        .textSelection(.enabled)
                 }
             }
         }
@@ -64,8 +66,11 @@ struct CommandInputView: View {
 struct CommandInputView_Previews: PreviewProvider {
     static var previews: some View {
         CommandInputView(
-            viewModel: CommandInputViewModel(repository: PreviewRepo())
+            viewModel: CommandInputViewModel()
         )
+        .onAppear {
+            DoseValues[RepositoryProvider.self] = PreviewRepo()
+        }
     }
 }
 

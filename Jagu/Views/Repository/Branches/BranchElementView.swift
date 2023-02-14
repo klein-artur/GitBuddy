@@ -7,6 +7,7 @@
 
 import SwiftUI
 import GitCaller
+import SwiftDose
 
 struct BranchElementView: View {
     
@@ -83,11 +84,13 @@ struct BranchElementView_Previews: PreviewProvider {
     static var previews: some View {
         BranchElementView(
             viewModel: BranchElementViewModel(
-                repository: PreviewRepo(),
                 branch: StatusResult.getTestStatus().branch,
                 status: StatusResult.getTestStatus(),
                 showLogButton: true
             )
         )
+        .onAppear {
+            DoseValues[RepositoryProvider.self] = PreviewRepo()
+        }
     }
 }

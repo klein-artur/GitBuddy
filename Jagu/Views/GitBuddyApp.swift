@@ -10,19 +10,21 @@ import GitCaller
 import Combine
 
 @main
-struct JaguApp: App {                                                                                                                                                                                                        
+struct
+JaguApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
-    @StateObject var mainViewModel: JaguAppMainViewModel = JaguAppMainViewModel(repository: GitRepo.standard)
+    @StateObject var mainViewModel: JaguAppMainViewModel = JaguAppMainViewModel()
     
     @State var showCommandView: Bool = false
     @State var showCommitList: Bool = false
+    @State var showFavorites: Bool = false
     
     var body: some Scene {
         WindowGroup {
             VStack {
                 if let repoPath = mainViewModel.repoPath {
-                    RepoView(viewModel: RepoViewModel(repository: GitRepo.standard, repoPath: repoPath, appDelegate: appDelegate))
+                    RepoView(viewModel: RepoViewModel(repoPath: repoPath, appDelegate: appDelegate))
                 } else {
                     NoPathSelectedView()
                         .frame(width: 500, height: 400)
@@ -36,8 +38,15 @@ struct JaguApp: App {
             .loading(loadingCount: $mainViewModel.loadingCount)
             .generalAlert(item: $mainViewModel.alertItem)
             .sheet(isPresented: $showCommandView) {
-                CommandInputView(viewModel: CommandInputViewModel(repository: mainViewModel.repository))
+                CommandInputView(viewModel: CommandInputViewModel())
             }
+            .sheet(isPresented: $showFavorites, content: {
+                FavoritesView(
+                    viewModel: FavoritesViewModel(
+                        favoriteRepoService: FavoriteRepoService()
+                    )
+                )
+            })
             .commitSheet(presented: $showCommitList)
         }
         .commands {
@@ -87,8 +96,13 @@ struct JaguApp: App {
                 }
                 .keyboardShortcut("b", modifiers: [.command, .shift])
                 .disabled(mainViewModel.status == nil)
+                Divider()
                 Button("Commits") {
                     showCommitList = true
+                }
+                Divider()
+                Button("push tags") {
+                    mainViewModel.pushTags()
                 }
             }
             CommandGroup(replacing: .newItem) {
@@ -98,6 +112,18 @@ struct JaguApp: App {
                     Text("Open")
                 }
                 .keyboardShortcut("o", modifiers: .command)
+                Button {
+                    self.showFavorites = true
+                } label: {
+                    Text("Favorites")
+                }
+                .keyboardShortcut("o", modifiers: [.command, .option])
+                Button {
+                    mainViewModel.addCurrentAsFavorite()
+                } label: {
+                    Text("Save favorite")
+                }
+                .disabled(mainViewModel.status == nil || mainViewModel.isFavorite)
                 Button {
                     GitRepo.standard.objectWillChange.send()
                 } label: {

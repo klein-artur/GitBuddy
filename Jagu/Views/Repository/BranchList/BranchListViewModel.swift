@@ -9,7 +9,7 @@ import Foundation
 import GitCaller
 
 @MainActor
-class BranchListViewModel: BaseViewModel {
+class BranchListViewModel: BaseRepositoryViewModel {
     
     let keyValueRepo: KeyValueRepository
     
@@ -19,6 +19,9 @@ class BranchListViewModel: BaseViewModel {
     
     @Published var branchResult: BranchResult? = nil
     
+    @Published var toDeleteBranch: Branch? = nil
+    @Published var shouldForce: Bool = false
+    
     var branchTree: [BranchTreeItem] {
         return branchResult?.tree?.flatten.filter({ item in
             isVisible(for: item)
@@ -26,11 +29,10 @@ class BranchListViewModel: BaseViewModel {
     }
     
     init(
-        repository: some Repository,
         keyValueRepo: KeyValueRepository
     ) {
         self.keyValueRepo = keyValueRepo
-        super.init(repository: repository)
+        super.init()
         self.load()
     }
     
@@ -80,26 +82,20 @@ class BranchListViewModel: BaseViewModel {
     }
     
     func deleteBranch(for item: Branch) {
-        self.alertItem = AlertItem(
-            title: "Delete Branch",
-            message: "delete local branch message",
-            actions: [
-                AlertButton(
-                    title: "Delete Branch",
-                    role: .destructive,
-                    action: { [weak self] in
-                        self?.defaultTask {
-                            _ = try await self?.repository.checkout(branch: item)
-                        }
-                    }
-                )
-            ]
-        )
+        defaultTask { [weak self] in
+            _ = try await self?.repository.delete(branch: item, force: self?.shouldForce ?? false)
+        }
     }
     
     func mergeBranch(for item: Branch, noFF: Bool) {
         self.defaultTask { [weak self] in
             try await self?.repository.merge(branch: item.name, noFF: noFF)
+        }
+    }
+    
+    func rebase(onto item: Branch) {
+        self.defaultTask { [weak self] in
+            try await self?.repository.rebase(onto: item.name)
         }
     }
     

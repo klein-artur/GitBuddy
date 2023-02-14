@@ -9,14 +9,13 @@ import Foundation
 import GitCaller
 
 @MainActor
-class BranchElementViewModel: BaseViewModel {
+class BranchElementViewModel: BaseRepositoryViewModel {
     
     let branch: Branch
     let status: StatusResult?
     let showLogButton: Bool
     
     init(
-        repository: some Repository,
         branch: Branch,
         status: StatusResult?,
         showLogButton: Bool
@@ -24,7 +23,7 @@ class BranchElementViewModel: BaseViewModel {
         self.branch = branch
         self.status = status
         self.showLogButton = showLogButton
-        super.init(repository: repository)
+        super.init()
     }
     
     @MainActor

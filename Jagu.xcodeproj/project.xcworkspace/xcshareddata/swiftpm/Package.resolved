@@ -1,12 +1,30 @@
 {
   "pins" : [
     {
+      "identity" : "cuckoo",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Brightify/Cuckoo.git",
+      "state" : {
+        "revision" : "64b1681e37444d998e9cff2df6537a75695ab638",
+        "version" : "1.9.1"
+      }
+    },
+    {
       "identity" : "gitcaller",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/klein-artur/GitCaller",
       "state" : {
         "branch" : "develop",
-        "revision" : "21b1a5c22aafb2b8d1fdf1393905f66306d3cf0f"
+        "revision" : "1cff76706b8267166529a610e7d50c8c9ba9195d"
+      }
+    },
+    {
+      "identity" : "swiftdose",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/klein-artur/SwiftDose",
+      "state" : {
+        "branch" : "main",
+        "revision" : "10388bb98625d8b99f15c71e21e6607d0dcaf13d"
       }
     }
   ],

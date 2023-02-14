@@ -22,7 +22,7 @@ struct ChangeLine {
 }
 
 @MainActor
-class LocalChangesViewModel: BaseViewModel {
+class LocalChangesViewModel: BaseRepositoryViewModel {
 
     @Published var status: StatusResult? {
         didSet {
@@ -69,30 +69,32 @@ class LocalChangesViewModel: BaseViewModel {
     @Published var stagedChanges: [ChangeLine] = []
     @Published var commitMessage: String = ""
     
-    init(repository: some Repository, status: StatusResult) {
+    init(status: StatusResult) {
         self.status = status
-        super.init(repository: repository)
+        super.init()
     }
     
     override func load() {
         defaultTask { [weak self] in
             self?.status = try await self?.repository.getStatus()
             
-            if self?.status?.status == .merging && self?.commitMessage.isEmpty == true {
-                self?.commitMessage = try await self?.repository.getMergeCommitMessage() ?? ""
+            if (self?.status?.status == .merging || self?.status?.status == .rebasing) && self?.commitMessage.isEmpty == true {
+                let mergeCommitMessage = try await self?.repository.getMergeCommitMessage()
+                let rebaseCommitMessage = try await self?.repository.getRebaseCommitMessage()
+                self?.commitMessage = mergeCommitMessage ?? rebaseCommitMessage ?? ""
             }
         }
     }
     
-    func stage(change: Change) {
+    func stage(change: Change?) {
         defaultTask { [weak self] in
-            _ = try await self?.repository.stage(file: change.path)
+            _ = try await self?.repository.stage(file: change?.path)
         }
     }
     
-    func unstage(change: Change) {
+    func unstage(change: Change?) {
         defaultTask { [weak self] in
-            _ = try await self?.repository.unstage(file: change.path)
+            _ = try await self?.repository.unstage(file: change?.path)
         }
     }
     
@@ -100,12 +102,19 @@ class LocalChangesViewModel: BaseViewModel {
         defaultTask { [weak self] in
             _ = try await self?.repository.commit(message: self?.commitMessage ?? "")
             self?.commitMessage = ""
+            if self?.status?.status == .rebasing {
+                try await self?.repository.continueRebase()
+            }
         }
     }
     
     func abort() {
         defaultTask { [weak self] in
-            try await self?.repository.abortMerge()
+            if self?.status?.status == .merging {
+                try await self?.repository.abortMerge()
+            } else {
+                try await self?.repository.abortRebase()
+            }
         }
     }
     
@@ -116,22 +125,27 @@ class LocalChangesViewModel: BaseViewModel {
     }
     
     func revert(change: Change) {
-        alertItem = AlertItem(
-            title: "revert alert title",
-            message: "revert alert message",
-            actions: [
-                AlertButton(
-                    title: "revert",
-                    role: .destructive,
-                    action: { [weak self] in
-                        self?.defaultTask {
-                            _ = try await self?.repository.revert(unstagedFile: change.path)
-                            self?.load()
+        if change.kind == .modified {
+            alertItem = AlertItem(
+                title: "revert alert title",
+                message: "revert alert message",
+                actions: [
+                    AlertButton(
+                        title: "revert",
+                        role: .destructive,
+                        action: { [weak self] in
+                            self?.defaultTask {
+                                _ = try await self?.repository.revert(unstagedFile: change.path)
+                            }
                         }
-                    }
-                )
-            ]
-        )
+                    )
+                ]
+            )
+        } else {
+            defaultTask { [weak self] in
+                try await self?.repository.revertDeleted(unstagedFile: change.path)
+            }
+        }
     }
     
     func delete(change: Change) {
@@ -144,7 +158,7 @@ class LocalChangesViewModel: BaseViewModel {
                     role: .destructive,
                     action: { [weak self] in
                         self?.defaultTask {
-                            try FileService().delete(file: change.path)
+                            try FileService(fileManager: FileManager.default, repository: GitRepo.standard).delete(file: change.path)
                         }
                     }
                 )
@@ -170,12 +184,12 @@ class LocalChangesViewModel: BaseViewModel {
                                 }
                             case .deletedByUs:
                                 if left {
-                                    try FileService().delete(file: item.change.path)
+                                    try FileService(fileManager: FileManager.default, repository: GitRepo.standard).delete(file: item.change.path)
                                 }
                                 _ = try await self?.repository.stage(file: item.change.path)
                             case .deletedByThem: 
                                 if !left {
-                                    try FileService().delete(file: item.change.path)
+                                    try FileService(fileManager: FileManager.default, repository: GitRepo.standard).delete(file: item.change.path)
                                 }
                                 _ = try await self?.repository.stage(file: item.change.path)
                             default: break
@@ -202,10 +216,98 @@ class LocalChangesViewModel: BaseViewModel {
     var canContinue: Bool {
         self.status?.canContinue ?? false
     }
+    
+    var viewTitle: String {
+        guard let status = self.status else {
+            return ""
+        }
+        
+        switch status.status {
+        case .merging, .rebasing:
+            return "continue".localized
+        case .unclean:
+            return "commit".localized
+        default:
+            return ""
+        }
+    }
+    
+    func getChangeFor(item: ChangeLine, staged: Bool, offset: Int) -> DiffChange? {
+        guard item.rightItem == nil && item.leftItem.change.kind.canShowDetails else {
+            return nil
+        }
+        if offset == 0 {
+            return DiffChange(change: item, staged: staged)
+        } else {
+            if staged {
+                guard let index = self.stagedChanges.firstIndex(where: { $0.leftItem.change.path == item.leftItem.change.path}) else {
+                    return nil
+                }
+                if offset < 0 {
+                    guard index > 0 else {
+                        return nil
+                    }
+                    for searchIndex in (0...(index - 1)).reversed() {
+                        if let checkItem = getChangeFor(item: self.stagedChanges[searchIndex], staged: staged, offset: 0) {
+                            return checkItem
+                        }
+                    }
+                } else {
+                    guard index < stagedChanges.count - 1 else {
+                        return nil
+                    }
+                    for searchIndex in (index + 1)..<unstagedChanges.endIndex {
+                        if let checkItem = getChangeFor(item: self.stagedChanges[searchIndex], staged: staged, offset: 0) {
+                            return checkItem
+                        }
+                    }
+                }
+                return nil
+            } else {
+                guard let index = self.unstagedChanges.firstIndex(where: { $0.leftItem.change.path == item.leftItem.change.path}) else {
+                    return nil
+                }
+                if offset < 0 {
+                    guard index > 0 else {
+                        return nil
+                    }
+                    for searchIndex in (0...(index - 1)).reversed() {
+                        if let checkItem = getChangeFor(item: self.unstagedChanges[searchIndex], staged: staged, offset: 0) {
+                            return checkItem
+                        }
+                    }
+                } else {
+                    guard index < unstagedChanges.count - 1 else {
+                        return nil
+                    }
+                    for searchIndex in (index + 1)..<unstagedChanges.endIndex {
+                        if let checkItem = getChangeFor(item: self.unstagedChanges[searchIndex], staged: staged, offset: 0) {
+                            return checkItem
+                        }
+                    }
+                }
+                return nil
+            }
+        }
+    }
+    
+    var mergeOrRebaseInfo: String {
+        guard let status = self.status else {
+            return ""
+        }
+        switch status.status {
+        case .merging:
+            return "in middle of merge"
+        case .rebasing:
+            return "in middle of rebase".localized.formatted(status.rebasingStepsDone, status.rebasingStepsRemaining)
+        default:
+            return ""
+        }
+    }
 }
 
 extension StatusResult {
     var canContinue: Bool {
-        isMerging && combinedUnstagedChanges.isEmpty && stagedChanges.isEmpty
+        (isMerging || isRebasing) && combinedUnstagedChanges.isEmpty && stagedChanges.isEmpty
     }
 }
