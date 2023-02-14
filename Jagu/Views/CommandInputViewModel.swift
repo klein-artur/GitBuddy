@@ -33,6 +33,7 @@ class CommandInputViewModel: BaseRepositoryViewModel {
         Git.raw(self.commandInput).run(inputPipe: pipe)
             .receive(on: RunLoop.main)
             .sink(receiveCompletion: { [weak self] completion in
+                self?.stopLoading()
                 print("command input: Done!")
                 if self?.commandOutput.isEmpty == true {
                     self?.commandOutput = "done"

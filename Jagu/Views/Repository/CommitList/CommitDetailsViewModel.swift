@@ -20,7 +20,7 @@ class CommitDetailsViewModel: BaseRepositoryViewModel {
     }
     
     override func load() {
-        defaultTask { [weak self] in
+        defaultTask(showLoader: false) { [weak self] in
             guard let self = self else {
                 return
             }

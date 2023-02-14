@@ -41,6 +41,9 @@ struct CommandInputView: View {
                         }
                 }
                 .defaultFocus($focus, "field")
+                .onAppear {
+                    focus = "field"
+                }
                 Button("Run") {
                     viewModel.run()
                 }

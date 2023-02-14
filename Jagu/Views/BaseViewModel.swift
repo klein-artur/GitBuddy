@@ -53,15 +53,17 @@ class BaseViewModel: ObservableObject {
         }
     }
     
-    func defaultTask(_ code: @escaping (() async throws -> Void)) {
-        setLoading()
+    func defaultTask(showLoader: Bool = true, _ code: @escaping (() async throws -> Void)) {
+        if showLoader {
+            setLoading()
+        }
         Task {
             do {
                 try await code()
             } catch {
                 handleError(error)
             }
-            await MainActor.run {
+            if showLoader {
                 stopLoading()
             }
         }
