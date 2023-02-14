@@ -91,7 +91,6 @@
 /* Begin PBXFileReference section */
 		F4075359296E15B700C35F3C /* GeneralAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralAlert.swift; sourceTree = "<group>"; };
 		F41A682B2983DBC600948C80 /* KeyAwareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyAwareView.swift; sourceTree = "<group>"; };
-		F41A6851298B1A7E00948C80 /* GitCaller */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = GitCaller; path = ../GitCaller; sourceTree = "<group>"; };
 		F422AD1929945018007A1B81 /* FavoritesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewModel.swift; sourceTree = "<group>"; };
 		F422AD1E299456F4007A1B81 /* FavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
 		F422AD2729951911007A1B81 /* DoseValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoseValues.swift; sourceTree = "<group>"; };
@@ -300,7 +299,6 @@
 		F47CB90A295DD7AD00A47BA8 = {
 			isa = PBXGroup;
 			children = (
-				F41A6851298B1A7E00948C80 /* GitCaller */,
 				F46DC532297CA710001E357D /* README.md */,
 				F47CB915295DD7AD00A47BA8 /* Jagu */,
 				F4445A97295E58790053D9B0 /* JaguTests */,
@@ -881,7 +879,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = "Alpha 0.1.6";
+				MARKETING_VERSION = "Alpha 0.1.7";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hellmann.Jagu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -913,7 +911,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = "Alpha 0.1.6";
+				MARKETING_VERSION = "Alpha 0.1.7";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hellmann.Jagu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
