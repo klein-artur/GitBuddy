@@ -65,7 +65,6 @@ struct LocalChangesView: View {
         .tabItem {
             Text(viewModel.viewTitle)
         }
-        .loading(loadingCount: $viewModel.loadingCount)
         .sheet(item: $localChangesFilePath) { path in
             DiffView(viewModel: DiffViewModel(leftFile: path.change.leftItem.change.path, staged: path.staged))
                 .background(

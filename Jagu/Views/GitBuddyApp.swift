@@ -35,7 +35,7 @@ JaguApp: App {
             .onAppear {
                 self.mainViewModel.repoPathPublisher = appDelegate.$currentRepoDir
             }
-            .loading(loadingCount: $mainViewModel.loadingCount)
+            .loading(isLoading: $mainViewModel.isLoading)
             .generalAlert(item: $mainViewModel.alertItem)
             .sheet(isPresented: $showCommandView) {
                 CommandInputView(viewModel: CommandInputViewModel())

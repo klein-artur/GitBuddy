@@ -55,12 +55,13 @@ class RepoViewModel: BaseRepositoryViewModel {
     }
     
     func cloneRepository() {
-        setLoading()
-        Task {
-            let result = try! await repository.clone(url: self.cloneRepoUrl)
-            stopLoading()
+        defaultTask { [weak self] in
+            guard let self = self else {
+                return
+            }
+            let result = try await self.repository.clone(url: self.cloneRepoUrl)
             if let name = result.outputDir {
-                appDelegate.changePath(into: name)
+                self.appDelegate.changePath(into: name)
             } else {
                 self.gitError = result.originalOutput
             }

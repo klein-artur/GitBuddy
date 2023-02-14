@@ -62,7 +62,6 @@ struct BranchElementView: View {
                 }
             }
         }
-        .loading(loadingCount: $viewModel.loadingCount)
         .generalAlert(item: $viewModel.alertItem)
     }
     

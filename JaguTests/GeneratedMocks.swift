@@ -1,4 +1,4 @@
-// MARK: - Mocks generated from file: Jagu/Generalizations/Pasteboard.swift at 2023-02-13 14:55:26 +0000
+// MARK: - Mocks generated from file: Jagu/Generalizations/Pasteboard.swift at 2023-02-14 11:41:08 +0000
 
 //
 //  Pasteboard.swift
@@ -184,7 +184,7 @@ import Foundation
 
 
 
-// MARK: - Mocks generated from file: Jagu/Repositories/FavoriteRepoRepository.swift at 2023-02-13 14:55:26 +0000
+// MARK: - Mocks generated from file: Jagu/Repositories/FavoriteRepoRepository.swift at 2023-02-14 11:41:08 +0000
 
 //
 //  FavoriteRepoRepository.swift
@@ -420,7 +420,7 @@ import Foundation
 
 
 
-// MARK: - Mocks generated from file: Jagu/Services/FavoriteRepoService.swift at 2023-02-13 14:55:26 +0000
+// MARK: - Mocks generated from file: Jagu/Services/FavoriteRepoService.swift at 2023-02-14 11:41:08 +0000
 
 //
 //  FavoriteRepoService.swift
@@ -700,7 +700,7 @@ import SwiftDose
 
 
 
-// MARK: - Mocks generated from file: Jagu/Services/FileService.swift at 2023-02-13 14:55:26 +0000
+// MARK: - Mocks generated from file: Jagu/Services/FileService.swift at 2023-02-14 11:41:08 +0000
 
 //
 //  FileService.swift
@@ -835,7 +835,7 @@ import GitCaller
 
 
 
-// MARK: - Mocks generated from file: Jagu/Views/Helper/PreviewHelper.swift at 2023-02-13 14:55:26 +0000
+// MARK: - Mocks generated from file: Jagu/Views/Helper/PreviewHelper.swift at 2023-02-14 11:41:08 +0000
 
 //
 //  PreviewHelper.swift
@@ -1094,6 +1094,26 @@ import GitCaller
                 await super.clone(url: url)
                 ,
             defaultCall: await __defaultImplStub!.clone(url: url))
+        
+    }
+    
+    
+    
+    
+    
+     override func show(commitHash: String) async throws -> LogResult {
+        
+    return try await cuckoo_manager.callThrows(
+    """
+    show(commitHash: String) async throws -> LogResult
+    """,
+            parameters: (commitHash),
+            escapingParameters: (commitHash),
+            superclassCall:
+                
+                await super.show(commitHash: commitHash)
+                ,
+            defaultCall: await __defaultImplStub!.show(commitHash: commitHash))
         
     }
     
@@ -1710,6 +1730,17 @@ import GitCaller
         
         
         
+        func show<M1: Cuckoo.Matchable>(commitHash: M1) -> Cuckoo.ClassStubThrowingFunction<(String), LogResult> where M1.MatchedType == String {
+            let matchers: [Cuckoo.ParameterMatcher<(String)>] = [wrap(matchable: commitHash) { $0 }]
+            return .init(stub: cuckoo_manager.createStub(for: MockPreviewRepo.self, method:
+    """
+    show(commitHash: String) async throws -> LogResult
+    """, parameterMatchers: matchers))
+        }
+        
+        
+        
+        
         func getLog<M1: Cuckoo.Matchable>(branchNames: M1) -> Cuckoo.ClassStubThrowingFunction<([String]), GitCaller.LogResult> where M1.MatchedType == [String] {
             let matchers: [Cuckoo.ParameterMatcher<([String])>] = [wrap(matchable: branchNames) { $0 }]
             return .init(stub: cuckoo_manager.createStub(for: MockPreviewRepo.self, method:
@@ -2123,6 +2154,18 @@ import GitCaller
         
         
         @discardableResult
+        func show<M1: Cuckoo.Matchable>(commitHash: M1) -> Cuckoo.__DoNotUse<(String), LogResult> where M1.MatchedType == String {
+            let matchers: [Cuckoo.ParameterMatcher<(String)>] = [wrap(matchable: commitHash) { $0 }]
+            return cuckoo_manager.verify(
+    """
+    show(commitHash: String) async throws -> LogResult
+    """, callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+        }
+        
+        
+        
+        
+        @discardableResult
         func getLog<M1: Cuckoo.Matchable>(branchNames: M1) -> Cuckoo.__DoNotUse<([String]), GitCaller.LogResult> where M1.MatchedType == [String] {
             let matchers: [Cuckoo.ParameterMatcher<([String])>] = [wrap(matchable: branchNames) { $0 }]
             return cuckoo_manager.verify(
@@ -2509,6 +2552,14 @@ import GitCaller
     
     
     
+     override func show(commitHash: String) async throws -> LogResult  {
+        return DefaultValueRegistry.defaultValue(for: (LogResult).self)
+    }
+    
+    
+    
+    
+    
      override func getLog(branchNames: [String]) async throws -> GitCaller.LogResult  {
         return DefaultValueRegistry.defaultValue(for: (GitCaller.LogResult).self)
     }
@@ -2704,7 +2755,7 @@ import GitCaller
 
 
 
-// MARK: - Mocks generated from file: JaguTests/Generalizations/FileManager.swift at 2023-02-13 14:55:26 +0000
+// MARK: - Mocks generated from file: JaguTests/Generalizations/FileManager.swift at 2023-02-14 11:41:08 +0000
 
 //
 //  FileManagerProtocol.swift
@@ -2838,7 +2889,7 @@ import Foundation
 
 
 
-// MARK: - Mocks generated from file: JaguTests/Generalizations/UserDefaults.swift at 2023-02-13 14:55:26 +0000
+// MARK: - Mocks generated from file: JaguTests/Generalizations/UserDefaults.swift at 2023-02-14 11:41:08 +0000
 
 //
 //  UserDefaults.swift

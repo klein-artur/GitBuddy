@@ -26,7 +26,6 @@ struct RepoView: View {
             }
         }
         .frame(minWidth: 600, maxWidth: .infinity, minHeight: 450, maxHeight: .infinity)
-        .loading(loadingCount: $viewModel.loadingCount)
         .alert("clone repo alert title", isPresented: $showCloneAlert, actions: {
             TextField("clone url placeholder", text: $viewModel.cloneRepoUrl)
                 .frame(width: 800)

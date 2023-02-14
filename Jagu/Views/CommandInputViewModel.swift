@@ -46,7 +46,7 @@ class CommandInputViewModel: BaseRepositoryViewModel {
     }
     
     private func updateAutocompletion() {
-        guard loadingCount <= 0 else {
+        guard !isLoading else {
             autocompletionList = nil
             return
         }

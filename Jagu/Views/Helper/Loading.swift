@@ -8,29 +8,31 @@
 import SwiftUI
 
 struct LoadingModifier: ViewModifier {
-    @Binding var loadingCount: Int
+    @Binding var isLoading: Bool
     
     func body(content: Content) -> some View {
         content
             .overlay {
-                if loadingCount > 0 {
+                if isLoading {
                     VStack(alignment: .center) {
                         HStack(alignment: .center) {
                             ProgressView()
                                 .padding(32)
                         }
-                        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 8))
+                        .background(.thickMaterial, in: RoundedRectangle(cornerRadius: 8))
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .ignoresSafeArea()
                     .allowsHitTesting(true)
+                    .contentShape(Rectangle())
+                    .background(.ultraThinMaterial)
                 }
             }
     }
 }
 
 extension View {
-    func loading(loadingCount: Binding<Int>) -> some View {
-        modifier(LoadingModifier(loadingCount: loadingCount))
+    func loading(isLoading: Binding<Bool>) -> some View {
+        modifier(LoadingModifier(isLoading: isLoading))
     }
 }

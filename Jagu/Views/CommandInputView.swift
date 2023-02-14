@@ -19,7 +19,7 @@ struct CommandInputView: View {
                 Form {
                     TextField("git", text: $viewModel.commandInput)
                         .focused($focus, equals: "field")
-                        .disabled(viewModel.loadingCount > 0)
+                        .disabled(viewModel.isLoading)
                         .popover(item: $viewModel.autocompletionList, arrowEdge: .bottom) { list in
                             ScrollView {
                                 LazyVStack(alignment: .leading) {
@@ -44,7 +44,7 @@ struct CommandInputView: View {
                 Button("Run") {
                     viewModel.run()
                 }
-                    .disabled(viewModel.loadingCount > 0)
+                    .disabled(viewModel.isLoading)
                     .keyboardShortcut(.defaultAction)
             }
             GroupBox {

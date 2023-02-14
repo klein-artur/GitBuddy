@@ -14,6 +14,7 @@ private var userDefaultsProvider = UserDefaultsProvider()
 private var pasteboardProvider = PasteboardProvider()
 private var favoriteRepoRepositoryProvider = FavoriteRepoRepositoryProvider()
 private var favoriteRepoServiceProvider = FavoriteRepoServiceProvider()
+private var loadingIndicatorServiceProvider = LoadingIndicatorServiceProvider()
 private var pasteboardServiceProvider = PasteboardServiceProvider()
 
 extension DoseValues {
@@ -32,6 +33,10 @@ extension DoseValues {
     var favoriteRepoService: FavoriteRepoServiceProvider {
         get { favoriteRepoServiceProvider }
         set { favoriteRepoServiceProvider = newValue }
+    }
+    var loadingIndicatorService: LoadingIndicatorServiceProvider {
+        get { loadingIndicatorServiceProvider }
+        set { loadingIndicatorServiceProvider = newValue }
     }
     var pasteboard: PasteboardProvider {
         get { pasteboardProvider }

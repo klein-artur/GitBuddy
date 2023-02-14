@@ -45,7 +45,6 @@ struct BranchListView: View {
         .generalAlert(item: $viewModel.alertItem)
         .gitErrorAlert(gitError: $viewModel.gitError)
         .commitSheet(for: $viewModel.gitLogBranch)
-        .loading(loadingCount: $viewModel.loadingCount)
     }
     
     @ViewBuilder

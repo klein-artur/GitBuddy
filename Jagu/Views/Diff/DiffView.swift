@@ -29,7 +29,6 @@ struct DiffView: View {
             }
         }
         .frame(minWidth: 800, minHeight: 600, alignment: .topLeading)
-        .loading(loadingCount: $viewModel.loadingCount)
         .gitErrorAlert(gitError: $viewModel.gitError)
         .onAppear {
             viewModel.dismiss = _dismiss.wrappedValue

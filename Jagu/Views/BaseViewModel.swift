@@ -15,19 +15,32 @@ import SwiftDose
 class BaseViewModel: ObservableObject {
     
     @Published var notARepo: Bool = false
-    
     @Published var alertItem: AlertItem? = nil
+    @Published var isLoading: Bool = false
     
-    @MainActor @Published var loadingCount: Int = 0
-    
-    var isLoading: Bool {
-        loadingCount > 0
-    }
+    @Dose(\.loadingIndicatorService) var loadingIndicatorService
     
     var lifetimeCancellables: [AnyCancellable] = []
     
+    init() {
+        loadingIndicatorService.$isLoading
+            .receive(on: RunLoop.main)
+            .sink { [weak self] isLoading in
+                self?.isLoading = isLoading
+            }
+            .store(in: &lifetimeCancellables)
+    }
+    
     open func load() {
         
+    }
+    
+    func setLoading() {
+        loadingIndicatorService.setLoading()
+    }
+    
+    func stopLoading() {
+        loadingIndicatorService.stopLoading()
     }
     
     func handleError(_ error: Error) {
@@ -37,17 +50,6 @@ class BaseViewModel: ObservableObject {
                 message: localized.localizedDescription,
                 actions: []
             )
-        }
-    }
-    
-    func setLoading() {
-        loadingCount += 1
-    }
-    
-    func stopLoading() {
-        loadingCount -= 1
-        if loadingCount < 0 {
-            loadingCount = 0
         }
     }
     

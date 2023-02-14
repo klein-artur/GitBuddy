@@ -30,6 +30,10 @@ struct PasteboardProvider: SingletonProvider {
     static var value: Clipboard = NSPasteboard.general
 }
 
+struct LoadingIndicatorServiceProvider: SingletonProvider {
+    static var value: LoadingIndicatorService = LoadingIndicatorService()
+}
+
 struct FavoriteRepoServiceProvider: InstanceProvider {
     static var savedValue: FavoriteRepoService?
     static func provide() -> FavoriteRepoService {
