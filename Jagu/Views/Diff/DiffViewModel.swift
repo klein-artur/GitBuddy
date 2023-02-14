@@ -28,12 +28,23 @@ class DiffViewModel: BaseRepositoryViewModel {
         self.load()
     }
     
+    init(diff: DiffResult) {
+        self.leftFile = nil
+        self.rightFile = nil
+        self.staged = nil
+        self.diff = diff
+        super.init()
+    }
+    
     override func load() {
+        guard let leftFile = leftFile else {
+            return
+        }
         self.defaultTask { [weak self] in
             guard let self = self else {
                 return
             }
-            self.diff = try await self.repository.diff(path: self.leftFile, staged: self.staged ?? false, rightPath: self.rightFile)
+            self.diff = try await self.repository.diff(path: leftFile, staged: self.staged ?? false, rightPath: self.rightFile)
             
             if self.diff == nil || self.diff?.diffs.isEmpty == true {
                 self.dismiss?()

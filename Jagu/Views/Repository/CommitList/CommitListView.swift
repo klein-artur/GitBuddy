@@ -19,7 +19,7 @@ struct CommitListView: View {
             } detail: {
                 if let selectedCommit = commitListViewModel.selectedCommit {
                     CommitDetailsView(
-                        viewModel: CommitDetailsViewModel(commit: selectedCommit)
+                        viewModel: CommitDetailsViewModel(commitHash: selectedCommit.objectHash)
                     )
                 } else {
                     Text("select a commit")
@@ -44,7 +44,7 @@ struct CommitListView: View {
                         .opacity(commitListViewModel.hasTagMessage ? 1.0 : 0.0)
                 }
             }
-            .frame(minWidth: 1000, idealWidth: 1100, minHeight: 500, idealHeight: 800)
+            .frame(minWidth: 1400, minHeight: 800)
             .background(
                 KeyAwareView { event in
                     switch event {
@@ -61,7 +61,7 @@ struct CommitListView: View {
                 .progressViewStyle(.circular)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .gitErrorAlert(gitError: $commitListViewModel.gitError)
-                .frame(minWidth: 1000, idealWidth: 1100, minHeight: 500, idealHeight: 800)
+                .frame(minWidth: 1400, minHeight: 800)
         }
     }
     

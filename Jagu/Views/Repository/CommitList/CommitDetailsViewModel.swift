@@ -9,30 +9,60 @@ import Foundation
 import GitCaller
 
 class CommitDetailsViewModel: BaseRepositoryViewModel {
-    let commit: Commit
+    @Published var commit: Commit? = nil
     
-    init(commit: Commit) {
-        self.commit = commit
+    private let commitHash: String
+    
+    init(commitHash: String) {
+        self.commitHash = commitHash
         super.init()
+        self.load()
+    }
+    
+    override func load() {
+        defaultTask { [weak self] in
+            guard let self = self else {
+                return
+            }
+            self.commit = try await self.repository
+                .show(commitHash: self.commitHash)
+                .commits?
+                .first
+        }
     }
     
     var authorInfo: String {
-        "\(self.commit.author.name) <\(self.commit.author.email)>"
+        guard let commit = self.commit else {
+            return ""
+        }
+        return "\(commit.author.name) <\(commit.author.email)>"
     }
     
     var committerInfo: String {
-        "\(self.commit.committer.name) <\(self.commit.committer.email)>"
+        guard let commit = self.commit else {
+            return ""
+        }
+        return "\(commit.committer.name) <\(commit.committer.email)>"
     }
     
     var authorDate: String {
-        self.commit.authorDate.localized
+        guard let commit = self.commit else {
+            return ""
+        }
+        return commit.authorDate.localized
     }
     
     var committerDate: String {
-        self.commit.committerDate.localized
+        guard let commit = self.commit else {
+            return ""
+        }
+        return commit.committerDate.localized
     }
     
     var parents: String {
-        self.commit.parents.joined(separator: ", ")
+        guard let commit = self.commit else {
+            return ""
+        }
+        return commit.parents.joined(separator: ", ")
     }
 }

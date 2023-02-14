@@ -102,14 +102,19 @@ struct DiffView: View {
                                 .onHover { isHovering in
                                     currentLineButton = isHovering && line.element.isDiff ? "\(index) \(line.offset)" : nil
                                 }
-                                .padding(.leading, 20)
-                        }.overlay(alignment: .leading) {
-                            Toggle(isOn: Binding(get: {
-                                viewModel.isSelected(in: index, line: line.offset)
-                            }, set: { newValue, _ in
-                                viewModel.selectLine(in: index, line: line.offset, selected: newValue)
-                            })) { }
-                                .opacity(line.element.isDiff ? 1 : 0)
+                                .if(viewModel.staged != nil) { view in
+                                    view.padding(.leading, 20)
+                                }
+                        }
+                        .if(viewModel.staged != nil) { view in
+                            view.overlay(alignment: .leading) {
+                                Toggle(isOn: Binding(get: {
+                                    viewModel.isSelected(in: index, line: line.offset)
+                                }, set: { newValue, _ in
+                                    viewModel.selectLine(in: index, line: line.offset, selected: newValue)
+                                })) { }
+                                    .opacity(line.element.isDiff ? 1 : 0)
+                            }
                         }
                         
 //                            .overlay(alignment: .trailing) {
