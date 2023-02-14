@@ -11,8 +11,10 @@ import GitCaller
 
 private var repositoryProvider = RepositoryProvider()
 private var userDefaultsProvider = UserDefaultsProvider()
+private var pasteboardProvider = PasteboardProvider()
 private var favoriteRepoRepositoryProvider = FavoriteRepoRepositoryProvider()
 private var favoriteRepoServiceProvider = FavoriteRepoServiceProvider()
+private var pasteboardServiceProvider = PasteboardServiceProvider()
 
 extension DoseValues {
     var repository: RepositoryProvider {
@@ -30,5 +32,13 @@ extension DoseValues {
     var favoriteRepoService: FavoriteRepoServiceProvider {
         get { favoriteRepoServiceProvider }
         set { favoriteRepoServiceProvider = newValue }
+    }
+    var pasteboard: PasteboardProvider {
+        get { pasteboardProvider }
+        set { pasteboardProvider = newValue }
+    }
+    var pasteboardService: PasteboardServiceProvider {
+        get { pasteboardServiceProvider }
+        set { pasteboardServiceProvider = newValue }
     }
 }

@@ -14,42 +14,15 @@ struct CommitListView: View {
     
     var body: some View {
         if let commitList = commitListViewModel.commitList {
-            VStack {
-                if let branch = commitListViewModel.branch {
-                    HStack {
-                        BranchElementView(
-                            viewModel: BranchElementViewModel(
-                                branch: branch,
-                                status: nil,
-                                showLogButton: false
-                            )
-                        )
-                        Spacer()
-                        if !branch.isCurrent {
-                            Button("Checkout") {
-                                commitListViewModel.checkoutBranch()
-                            }
-                        }
-                    }
-                    .padding([.horizontal, .top], 16)
-                    Divider()
-                        .padding(.horizontal, 16)
-                }
-                ScrollView {
-                    LazyVStack {
-                        ForEach(commitList, id: \.commit.objectHash) { commitInfo in
-                            CommitItemView(commitInfo: commitInfo)
-                                .padding(0)
-                                .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
-                                .contentShape(Rectangle())  
-                                .contextMenu {
-                                    Button("create tag title") {
-                                        commitListViewModel.tagCreationCommit = commitInfo.commit
-                                    }
-                                }
-                        }
-                    }
-                    .padding(16)
+            NavigationSplitView {
+                listView(commitList)
+            } detail: {
+                if let selectedCommit = commitListViewModel.selectedCommit {
+                    CommitDetailsView(
+                        viewModel: CommitDetailsViewModel(commitHash: selectedCommit.objectHash)
+                    )
+                } else {
+                    Text("select a commit")
                 }
             }
             .gitErrorAlert(gitError: $commitListViewModel.gitError)
@@ -71,12 +44,102 @@ struct CommitListView: View {
                         .opacity(commitListViewModel.hasTagMessage ? 1.0 : 0.0)
                 }
             }
-
+            .frame(minWidth: 1400, minHeight: 800)
+            .background(
+                KeyAwareView { event in
+                    switch event {
+                    case .upArrow:
+                        commitListViewModel.previousCommit()
+                    case .downArrow:
+                        commitListViewModel.nextCommit()
+                    default: break
+                    }
+                }
+            )
         } else {
             ProgressView()
                 .progressViewStyle(.circular)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .gitErrorAlert(gitError: $commitListViewModel.gitError)
+                .frame(minWidth: 1400, minHeight: 800)
+        }
+    }
+    
+    func listView(_ commitList: CommitInfoList) -> some View {
+        VStack {
+            if let branch = commitListViewModel.branch {
+                HStack {
+                    BranchElementView(
+                        viewModel: BranchElementViewModel(
+                            branch: branch,
+                            status: nil,
+                            showLogButton: false
+                        )
+                    )
+                    Spacer()
+                    if !branch.isCurrent {
+                        Button("Checkout") {
+                            commitListViewModel.checkoutBranch()
+                        }
+                    }
+                }
+                .padding([.horizontal, .top], 16)
+                Divider()
+                    .padding(.horizontal, 16)
+            }
+            ScrollView {
+                LazyVStack {
+                    ForEach(commitList, id: \.commit.objectHash) { commitInfo in
+                        CommitItemView(commitInfo: commitInfo)
+                            .padding(0)
+                            .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
+                            .contentShape(Rectangle())
+                            .contextMenu {
+                                Button("create tag title") {
+                                    commitListViewModel.tagCreationCommit = commitInfo.commit
+                                }
+                                Button("copy commit hash") {
+                                    commitListViewModel.copyCommitHash(for: commitInfo.commit)
+                                }
+                            }
+                            .onTapGesture {
+                                commitListViewModel.selectedCommit = commitInfo.commit
+                            }
+                            .if(commitInfo.commit.objectHash == commitListViewModel.selectedCommit?.objectHash && commitListViewModel.selectedCommit != nil) { view in
+                                view.background(
+                                    RoundedRectangle(cornerRadius: 5)
+                                        .foregroundColor(Color.accentColor)
+                                )
+                            }
+                            .padding(.horizontal, 8)
+                    }
+                }
+            }
+        }
+        .frame(minWidth: 500)
+    }
+    
+    @ViewBuilder
+    var branchHeader: some View {
+        if let branch = commitListViewModel.branch {
+            HStack {
+                BranchElementView(
+                    viewModel: BranchElementViewModel(
+                        branch: branch,
+                        status: nil,
+                        showLogButton: false
+                    )
+                )
+                Spacer()
+                if !branch.isCurrent {
+                    Button("Checkout") {
+                        commitListViewModel.checkoutBranch()
+                    }
+                }
+            }
+            .padding([.horizontal, .top], 16)
+            Divider()
+                .padding(.horizontal, 16)
         }
     }
 }
@@ -88,6 +151,7 @@ struct CommitListView_Previews: PreviewProvider {
                 branch: StatusResult.getTestStatus().branch
             )
         )
+        .frame(width: 1000, height: 800)
         .onAppear {
             DoseValues[RepositoryProvider.self] = PreviewRepo()
         }

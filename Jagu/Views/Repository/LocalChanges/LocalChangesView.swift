@@ -204,7 +204,7 @@ struct LocalChangeItem: View {
                     .fontWeight(.bold)
                 
                 // TODO: this is not a good idea.
-                Text(item.change.path.replacingOccurrences(of: "/\(item.change.path.lastPathComponent ?? "")", with: ""))
+                Text(item.change.path.trimmingPrefix("/\(item.change.path.lastPathComponent ?? "")"))
                     .lineLimit(1)
                     .font(.caption)
             }
