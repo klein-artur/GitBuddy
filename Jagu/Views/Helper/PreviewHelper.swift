@@ -9,6 +9,14 @@ import Foundation
 import GitCaller
 
 class PreviewRepo: Repository {
+    func stage(files paths: [String]) async throws {
+        fatalError("Preview and Test Repo implementation used in productive code!")
+    }
+    
+    func unstage(files paths: [String]) async throws {
+        fatalError("Preview and Test Repo implementation used in productive code!")
+    }
+    
     func rebase(onto branch: String) async throws {
         fatalError("Preview and Test Repo implementation used in productive code!")
     }
@@ -199,21 +207,28 @@ class PreviewRepo: Repository {
     
     func getStatus() async throws -> GitCaller.StatusResult {
         let input = """
-        interactive rebase in progress; onto cce8677
-        Last command done (1 command done):
-           pick 785d8c2 test
-        No commands remaining.
-        You are currently rebasing branch 'this-is-a-test' on 'cce8677'.
-          (fix conflicts and then run "git rebase --continue")
-          (use "git rebase --skip" to skip this patch)
-          (use "git rebase --abort" to check out the original branch)
+        On branch main
+        Your branch is ahead of 'origin/main' by 1 commit.
+          (use "git push" to publish your local commits)
 
-        Unmerged paths:
+        Changes to be committed:
           (use "git restore --staged <file>..." to unstage)
-          (use "git add <file>..." to mark resolution)
-            both modified:   testfile
+            modified:   shared/ContentView.swift
+            deleted:    shared/DeviceDetail/EditDevicePrioView.swift
+            new file:   shared/DeviceDetail/Test2.swift
+            renamed:    test/testfile -> test/testfileNew
 
-        no changes added to commit (use "git add" and/or "git commit -a")
+        Changes not staged for commit:
+          (use "git add/rm <file>..." to update what will be committed)
+          (use "git restore <file>..." to discard changes in working directory)
+            modified:   Home.xcodeproj/project.pbxproj
+            modified:   shared/DataRepository.swift
+            deleted:    shared/DeviceDetail/DeviceDetailView.swift
+
+        Untracked files:
+          (use "git add <file>..." to include in what will be committed)
+            shared/DeviceDetail/Test.swift
+            shared/DeviceDetail/Test2.swift
         """
         return try! StatusParser().parse(result: input).get()
     }
@@ -247,6 +262,10 @@ class PreviewRepo: Repository {
     }
     
     func revert(unstagedFile path: String) async throws -> RestoreResult {
+        fatalError("Preview and Test Repo implementation used in productive code!")
+    }
+    
+    func revert(unstagedFiles paths: [String]) async throws {
         fatalError("Preview and Test Repo implementation used in productive code!")
     }
     

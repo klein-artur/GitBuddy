@@ -10,15 +10,6 @@
       }
     },
     {
-      "identity" : "gitcaller",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/klein-artur/GitCaller",
-      "state" : {
-        "branch" : "develop",
-        "revision" : "5fc788cb3a26588a9db314aeb45ead5c36d9cf07"
-      }
-    },
-    {
       "identity" : "swiftdose",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/klein-artur/SwiftDose",

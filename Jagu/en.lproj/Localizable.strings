@@ -47,12 +47,16 @@
 "unstage" = "Unstage";
 "stage all" = "Stage All";
 "unstage all" = "Unstage All";
+"revert all" = "Revert All";
+"stage selected" = "Stage Selected";
+"unstage selected" = "Unstage Selected";
+"revert selected" = "Revert Selected";
 "stage lines" = "Stage Lines";
 "unstage lines" = "Unstage Lines";
 "commit" = "Commit";
 "revert" = "Revert";
 "revert alert title" = "Revert File";
-"revert alert message" = "Do you really want to revert this changes? This cannot be undone";
+"revert alert message" = "Do you really want to revert this changes or this changes? This cannot be undone";
 
 "Repository" = "Repository";
 "Fetch" = "Fetch";

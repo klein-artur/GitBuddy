@@ -16,50 +16,69 @@ struct ChangeItem {
     }
 }
 
-struct ChangeLine {
+class ChangeLine: ObservableObject {
     let leftItem: ChangeItem
     let rightItem: ChangeItem?
+    let onSelected: () -> Void
+    
+    init(leftItem: ChangeItem, rightItem: ChangeItem?, onSelected: @escaping () -> Void) {
+        self.leftItem = leftItem
+        self.rightItem = rightItem
+        self.onSelected = onSelected
+    }
+    
+    @Published var selected: Bool = false {
+        didSet {
+            self.onSelected()
+        }
+    }
 }
 
-@MainActor
 class LocalChangesViewModel: BaseRepositoryViewModel {
 
     @Published var status: StatusResult? {
         didSet {
             if let status = self.status {
+                let changed = { self.objectWillChange.send() }
                 self.unstagedChanges = status.combinedUnstagedChanges.map({ change in
                     switch change.kind {
                     case .modified, .renamed, .newFile, .deleted:
                         return ChangeLine(
                             leftItem: ChangeItem(change: change, otherKind: nil),
-                            rightItem: nil
+                            rightItem: nil,
+                            onSelected: changed
                         )
                     case .bothModified:
                         return ChangeLine(
                             leftItem: ChangeItem(change: change, otherKind: .modified),
-                            rightItem: ChangeItem(change: change, otherKind: .modified)
+                            rightItem: ChangeItem(change: change, otherKind: .modified),
+                            onSelected: changed
                         )
                     case .bothAdded:
                         return ChangeLine(
                             leftItem: ChangeItem(change: change, otherKind: .newFile),
-                            rightItem: ChangeItem(change: change, otherKind: .newFile)
+                            rightItem: ChangeItem(change: change, otherKind: .newFile),
+                            onSelected: changed
                         )
                     case .deletedByUs:
                         return ChangeLine(
                             leftItem: ChangeItem(change: change, otherKind: .deleted),
-                            rightItem: ChangeItem(change: change, otherKind: .modified)
+                            rightItem: ChangeItem(change: change, otherKind: .modified),
+                            onSelected: changed
                         )
                     case .deletedByThem:
                         return ChangeLine(
                             leftItem: ChangeItem(change: change, otherKind: .modified),
-                            rightItem: ChangeItem(change: change, otherKind: .deleted)
+                            rightItem: ChangeItem(change: change, otherKind: .deleted),
+                            onSelected: changed
                         )
                     }
                 })
                 self.stagedChanges = status.stagedChanges.map({ change in
                     ChangeLine(
                         leftItem: ChangeItem(change: change, otherKind: nil),
-                        rightItem: nil
+                        rightItem: nil,
+                        onSelected: changed
                     )
                 })
             }
@@ -68,6 +87,13 @@ class LocalChangesViewModel: BaseRepositoryViewModel {
     @Published var unstagedChanges: [ChangeLine] = []
     @Published var stagedChanges: [ChangeLine] = []
     @Published var commitMessage: String = ""
+    
+    var selectedUnstagedChanges: [ChangeLine] {
+        self.unstagedChanges.filter { $0.selected }
+    }
+    var selectedStagedChanges: [ChangeLine] {
+        self.stagedChanges.filter { $0.selected }
+    }
     
     init(status: StatusResult) {
         self.status = status
@@ -88,13 +114,37 @@ class LocalChangesViewModel: BaseRepositoryViewModel {
     
     func stage(change: Change?) {
         defaultTask { [weak self] in
-            _ = try await self?.repository.stage(file: change?.path)
+            guard let self = self else {
+                return
+            }
+            if let change = change {
+                _ = try await self.repository.stage(file: change.path)
+            } else if !self.selectedUnstagedChanges.isEmpty {
+                try await self.repository.stage(files: self.selectedUnstagedChanges.map { $0.leftItem.change.path })
+            } else {
+                _ = try await self.repository.stage(file: change?.path)
+            }
+            if self.selectedUnstagedChanges.isEmpty {
+                _ = try await self.repository.stage(file: nil)
+            }
         }
     }
     
     func unstage(change: Change?) {
         defaultTask { [weak self] in
-            _ = try await self?.repository.unstage(file: change?.path)
+            guard let self = self else {
+                return
+            }
+            if let change = change {
+                _ = try await self.repository.unstage(file: change.path)
+            } else if !self.selectedStagedChanges.isEmpty {
+                try await self.repository.unstage(files: self.selectedStagedChanges.map { $0.leftItem.change.path })
+            } else {
+                _ = try await self.repository.unstage(file: change?.path)
+            }
+            if self.selectedStagedChanges.isEmpty {
+                _ = try await self.repository.unstage(file: nil)
+            }
         }
     }
     
@@ -146,6 +196,27 @@ class LocalChangesViewModel: BaseRepositoryViewModel {
                 try await self?.repository.revertDeleted(unstagedFile: change.path)
             }
         }
+    }
+    
+    func revertSelectedCanges() {
+        alertItem = AlertItem(
+            title: "revert alert title",
+            message: "revert alert message",
+            actions: [
+                AlertButton(
+                    title: "revert",
+                    role: .destructive,
+                    action: { [weak self] in
+                        guard let self = self else {
+                            return
+                        }
+                        self.defaultTask {
+                            try await self.repository.revert(unstagedFiles: self.selectedUnstagedChanges.map { $0.leftItem.change.path })
+                        }
+                    }
+                )
+            ]
+        )
     }
     
     func delete(change: Change) {
@@ -232,6 +303,18 @@ class LocalChangesViewModel: BaseRepositoryViewModel {
         }
     }
     
+    func stageButtonText(staged: Bool) -> String {
+        if staged {
+            return (selectedStagedChanges.isEmpty ? "unstage all" : "unstage selected").localized
+        } else {
+            return (selectedUnstagedChanges.isEmpty ? "stage all" : "stage selected").localized
+        }
+    }
+    
+    func revertButtonText() -> String {
+        (selectedUnstagedChanges.isEmpty ? "revert all" : "revert selected").localized
+    }
+    
     func getChangeFor(item: ChangeLine, staged: Bool, offset: Int) -> DiffChange? {
         guard item.rightItem == nil && item.leftItem.change.kind.canShowDetails else {
             return nil
@@ -297,7 +380,7 @@ class LocalChangesViewModel: BaseRepositoryViewModel {
         }
         switch status.status {
         case .merging:
-            return "in middle of merge"
+            return "in middle of merge".localized
         case .rebasing:
             return "in middle of rebase".localized.formatted(status.rebasingStepsDone, status.rebasingStepsRemaining)
         default:
@@ -309,5 +392,11 @@ class LocalChangesViewModel: BaseRepositoryViewModel {
 extension StatusResult {
     var canContinue: Bool {
         (isMerging || isRebasing) && combinedUnstagedChanges.isEmpty && stagedChanges.isEmpty
+    }
+}
+
+extension Change: Equatable {
+    public static func == (lhs: Change, rhs: Change) -> Bool {
+        lhs.path == rhs.path
     }
 }

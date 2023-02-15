@@ -109,10 +109,16 @@ struct LocalChangesView: View {
                     }
                 }
             } label: {
-                HStack {
+                HStack(spacing: 16) {
                     Text(staged ? "staged changes" : "unstaged changes")
                     Spacer()
-                    Button(staged ? "unstage all" : "stage all") {
+                    if !staged {
+                        Button(viewModel.revertButtonText()) {
+                            viewModel.revertSelectedCanges()
+                        }
+                        .buttonStyle(LinkButtonStyle())
+                    }
+                    Button(viewModel.stageButtonText(staged: staged)) {
                         if staged {
                             viewModel.unstage(change: nil)
                         } else {
@@ -136,7 +142,7 @@ struct DiffChange: Identifiable {
 
 struct LocalChangeItem: View {
     let viewModel: LocalChangesViewModel
-    let change: ChangeLine
+    @ObservedObject var change: ChangeLine
     let staged: Bool
     @State var showButton: Bool = false
     
@@ -144,10 +150,16 @@ struct LocalChangeItem: View {
     
     var body: some View {
         HStack {
-            itemView(for: change.leftItem, isLeft: true, change: change)
+            if change.rightItem == nil {
+                Toggle(
+                    "",
+                    isOn: $change.selected
+                )
+            }
+            itemView(for: change.leftItem, isLeft: true, change: change, staged: staged)
                 .frame(maxWidth: .infinity, alignment: .leading)
             if let rightItem = change.rightItem {
-                itemView(for: rightItem, isLeft: false, change: change)
+                itemView(for: rightItem, isLeft: false, change: change, staged: staged)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.leading, 8)
             }
@@ -192,7 +204,7 @@ struct LocalChangeItem: View {
     }
     
     @ViewBuilder
-    func itemView(for item: ChangeItem, isLeft: Bool, change: ChangeLine) -> some View {
+    func itemView(for item: ChangeItem, isLeft: Bool, change: ChangeLine, staged: Bool) -> some View {
         HStack {
             Text(item.changeKind.infoString)
                 .font(Font.system(size: 12).monospaced())
