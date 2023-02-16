@@ -1,4 +1,4 @@
-// MARK: - Mocks generated from file: Jagu/Generalizations/Pasteboard.swift at 2023-02-14 11:41:08 +0000
+// MARK: - Mocks generated from file: Jagu/Generalizations/Pasteboard.swift at 2023-02-16 10:38:31 +0000
 
 //
 //  Pasteboard.swift
@@ -184,7 +184,7 @@ import Foundation
 
 
 
-// MARK: - Mocks generated from file: Jagu/Repositories/FavoriteRepoRepository.swift at 2023-02-14 11:41:08 +0000
+// MARK: - Mocks generated from file: Jagu/Repositories/FavoriteRepoRepository.swift at 2023-02-16 10:38:31 +0000
 
 //
 //  FavoriteRepoRepository.swift
@@ -420,7 +420,7 @@ import Foundation
 
 
 
-// MARK: - Mocks generated from file: Jagu/Services/FavoriteRepoService.swift at 2023-02-14 11:41:08 +0000
+// MARK: - Mocks generated from file: Jagu/Services/FavoriteRepoService.swift at 2023-02-16 10:38:31 +0000
 
 //
 //  FavoriteRepoService.swift
@@ -700,7 +700,7 @@ import SwiftDose
 
 
 
-// MARK: - Mocks generated from file: Jagu/Services/FileService.swift at 2023-02-14 11:41:08 +0000
+// MARK: - Mocks generated from file: Jagu/Services/FileService.swift at 2023-02-16 10:38:31 +0000
 
 //
 //  FileService.swift
@@ -835,7 +835,7 @@ import GitCaller
 
 
 
-// MARK: - Mocks generated from file: Jagu/Views/Helper/PreviewHelper.swift at 2023-02-14 11:41:08 +0000
+// MARK: - Mocks generated from file: Jagu/Views/Helper/PreviewHelper.swift at 2023-02-16 10:38:31 +0000
 
 //
 //  PreviewHelper.swift
@@ -877,6 +877,46 @@ import GitCaller
 
     
 
+    
+    
+    
+    
+     override func stage(files paths: [String]) async throws {
+        
+    return try await cuckoo_manager.callThrows(
+    """
+    stage(files: [String]) async throws
+    """,
+            parameters: (paths),
+            escapingParameters: (paths),
+            superclassCall:
+                
+                await super.stage(files: paths)
+                ,
+            defaultCall: await __defaultImplStub!.stage(files: paths))
+        
+    }
+    
+    
+    
+    
+    
+     override func unstage(files paths: [String]) async throws {
+        
+    return try await cuckoo_manager.callThrows(
+    """
+    unstage(files: [String]) async throws
+    """,
+            parameters: (paths),
+            escapingParameters: (paths),
+            superclassCall:
+                
+                await super.unstage(files: paths)
+                ,
+            defaultCall: await __defaultImplStub!.unstage(files: paths))
+        
+    }
+    
     
     
     
@@ -1321,6 +1361,26 @@ import GitCaller
     
     
     
+     override func revert(unstagedFiles paths: [String]) async throws {
+        
+    return try await cuckoo_manager.callThrows(
+    """
+    revert(unstagedFiles: [String]) async throws
+    """,
+            parameters: (paths),
+            escapingParameters: (paths),
+            superclassCall:
+                
+                await super.revert(unstagedFiles: paths)
+                ,
+            defaultCall: await __defaultImplStub!.revert(unstagedFiles: paths))
+        
+    }
+    
+    
+    
+    
+    
      override func revertDeleted(unstagedFile path: String) async throws {
         
     return try await cuckoo_manager.callThrows(
@@ -1609,6 +1669,28 @@ import GitCaller
         
         
         
+        func stage<M1: Cuckoo.Matchable>(files paths: M1) -> Cuckoo.ClassStubNoReturnThrowingFunction<([String])> where M1.MatchedType == [String] {
+            let matchers: [Cuckoo.ParameterMatcher<([String])>] = [wrap(matchable: paths) { $0 }]
+            return .init(stub: cuckoo_manager.createStub(for: MockPreviewRepo.self, method:
+    """
+    stage(files: [String]) async throws
+    """, parameterMatchers: matchers))
+        }
+        
+        
+        
+        
+        func unstage<M1: Cuckoo.Matchable>(files paths: M1) -> Cuckoo.ClassStubNoReturnThrowingFunction<([String])> where M1.MatchedType == [String] {
+            let matchers: [Cuckoo.ParameterMatcher<([String])>] = [wrap(matchable: paths) { $0 }]
+            return .init(stub: cuckoo_manager.createStub(for: MockPreviewRepo.self, method:
+    """
+    unstage(files: [String]) async throws
+    """, parameterMatchers: matchers))
+        }
+        
+        
+        
+        
         func rebase<M1: Cuckoo.Matchable>(onto branch: M1) -> Cuckoo.ClassStubNoReturnThrowingFunction<(String)> where M1.MatchedType == String {
             let matchers: [Cuckoo.ParameterMatcher<(String)>] = [wrap(matchable: branch) { $0 }]
             return .init(stub: cuckoo_manager.createStub(for: MockPreviewRepo.self, method:
@@ -1851,6 +1933,17 @@ import GitCaller
         
         
         
+        func revert<M1: Cuckoo.Matchable>(unstagedFiles paths: M1) -> Cuckoo.ClassStubNoReturnThrowingFunction<([String])> where M1.MatchedType == [String] {
+            let matchers: [Cuckoo.ParameterMatcher<([String])>] = [wrap(matchable: paths) { $0 }]
+            return .init(stub: cuckoo_manager.createStub(for: MockPreviewRepo.self, method:
+    """
+    revert(unstagedFiles: [String]) async throws
+    """, parameterMatchers: matchers))
+        }
+        
+        
+        
+        
         func revertDeleted<M1: Cuckoo.Matchable>(unstagedFile path: M1) -> Cuckoo.ClassStubNoReturnThrowingFunction<(String)> where M1.MatchedType == String {
             let matchers: [Cuckoo.ParameterMatcher<(String)>] = [wrap(matchable: path) { $0 }]
             return .init(stub: cuckoo_manager.createStub(for: MockPreviewRepo.self, method:
@@ -2018,6 +2111,30 @@ import GitCaller
     
         
     
+        
+        
+        
+        @discardableResult
+        func stage<M1: Cuckoo.Matchable>(files paths: M1) -> Cuckoo.__DoNotUse<([String]), Void> where M1.MatchedType == [String] {
+            let matchers: [Cuckoo.ParameterMatcher<([String])>] = [wrap(matchable: paths) { $0 }]
+            return cuckoo_manager.verify(
+    """
+    stage(files: [String]) async throws
+    """, callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+        }
+        
+        
+        
+        
+        @discardableResult
+        func unstage<M1: Cuckoo.Matchable>(files paths: M1) -> Cuckoo.__DoNotUse<([String]), Void> where M1.MatchedType == [String] {
+            let matchers: [Cuckoo.ParameterMatcher<([String])>] = [wrap(matchable: paths) { $0 }]
+            return cuckoo_manager.verify(
+    """
+    unstage(files: [String]) async throws
+    """, callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+        }
+        
         
         
         
@@ -2286,6 +2403,18 @@ import GitCaller
         
         
         @discardableResult
+        func revert<M1: Cuckoo.Matchable>(unstagedFiles paths: M1) -> Cuckoo.__DoNotUse<([String]), Void> where M1.MatchedType == [String] {
+            let matchers: [Cuckoo.ParameterMatcher<([String])>] = [wrap(matchable: paths) { $0 }]
+            return cuckoo_manager.verify(
+    """
+    revert(unstagedFiles: [String]) async throws
+    """, callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+        }
+        
+        
+        
+        
+        @discardableResult
         func revertDeleted<M1: Cuckoo.Matchable>(unstagedFile path: M1) -> Cuckoo.__DoNotUse<(String), Void> where M1.MatchedType == String {
             let matchers: [Cuckoo.ParameterMatcher<(String)>] = [wrap(matchable: path) { $0 }]
             return cuckoo_manager.verify(
@@ -2460,6 +2589,22 @@ import GitCaller
 
     
 
+    
+    
+    
+    
+     override func stage(files paths: [String]) async throws  {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
+    
+    
+    
+    
+     override func unstage(files paths: [String]) async throws  {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
     
     
     
@@ -2640,6 +2785,14 @@ import GitCaller
     
     
     
+     override func revert(unstagedFiles paths: [String]) async throws  {
+        return DefaultValueRegistry.defaultValue(for: (Void).self)
+    }
+    
+    
+    
+    
+    
      override func revertDeleted(unstagedFile path: String) async throws  {
         return DefaultValueRegistry.defaultValue(for: (Void).self)
     }
@@ -2755,7 +2908,7 @@ import GitCaller
 
 
 
-// MARK: - Mocks generated from file: JaguTests/Generalizations/FileManager.swift at 2023-02-14 11:41:08 +0000
+// MARK: - Mocks generated from file: JaguTests/Generalizations/FileManager.swift at 2023-02-16 10:38:31 +0000
 
 //
 //  FileManagerProtocol.swift
@@ -2889,7 +3042,7 @@ import Foundation
 
 
 
-// MARK: - Mocks generated from file: JaguTests/Generalizations/UserDefaults.swift at 2023-02-14 11:41:08 +0000
+// MARK: - Mocks generated from file: JaguTests/Generalizations/UserDefaults.swift at 2023-02-16 10:38:31 +0000
 
 //
 //  UserDefaults.swift

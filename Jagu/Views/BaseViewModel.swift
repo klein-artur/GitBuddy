@@ -35,12 +35,12 @@ class BaseViewModel: ObservableObject {
         
     }
     
-    func setLoading() {
-        loadingIndicatorService.setLoading()
+    func setLoading(text: String) -> UUID {
+        loadingIndicatorService.setLoading(text: text)
     }
     
-    func stopLoading() {
-        loadingIndicatorService.stopLoading()
+    func stopLoading(uuid: UUID) {
+        loadingIndicatorService.stopLoading(uuid: uuid)
     }
     
     func handleError(_ error: Error) {
@@ -53,9 +53,12 @@ class BaseViewModel: ObservableObject {
         }
     }
     
-    func defaultTask(showLoader: Bool = true, _ code: @escaping (() async throws -> Void)) {
+    func defaultTask(showLoader: Bool = true, infoText: String = "", _ code: @escaping (() async throws -> Void)) {
+        let uuid: UUID?
         if showLoader {
-            setLoading()
+            uuid = setLoading(text: infoText)
+        } else {
+            uuid = nil
         }
         Task {
             do {
@@ -63,8 +66,8 @@ class BaseViewModel: ObservableObject {
             } catch {
                 handleError(error)
             }
-            if showLoader {
-                stopLoading()
+            if let uuid = uuid {
+                stopLoading(uuid: uuid)
             }
         }
     }

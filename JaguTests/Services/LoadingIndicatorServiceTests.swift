@@ -19,25 +19,34 @@ final class LoadingIndicatorServiceTests: XCTestCase {
         sut = nil
     }
 
-    func testShouldEmitTrue() {
+    func testShouldEmitTrueAfter500ms() {
         // when
-        sut.setLoading()
+        let currentTime = Date.now.timeIntervalSince1970 * 1000
+        _ = sut.setLoading(text: "")
+        
+        var isFirst = true
         
         // then
         let expectation = expectation(description: "should emit")
         let subscription = sut.$isLoading
             .sink { loading in
-                XCTAssertTrue(loading)
-                expectation.fulfill()
+                if isFirst {
+                    isFirst.toggle()
+                } else {
+                    XCTAssertTrue(loading)
+                    expectation.fulfill()
+                }
             }
         
         wait(for: [expectation], timeout: 1)
+        XCTAssertTrue(sut.currentTexts.isEmpty)
+        XCTAssertGreaterThan((Date.now.timeIntervalSince1970 * 1000) - currentTime, 500)
     }
     
     func testShouldEmitFalse() {
         // when
-        sut.setLoading()
-        sut.stopLoading()
+        let uuid = sut.setLoading(text: "")
+        sut.stopLoading(uuid: uuid)
         
         // then
         let expectation = expectation(description: "should emit")
@@ -50,11 +59,33 @@ final class LoadingIndicatorServiceTests: XCTestCase {
         wait(for: [expectation], timeout: 1)
     }
     
+    func testShouldNotEmitFalse() {
+        // when
+        let uuid = sut.setLoading(text: "")
+        sut.stopLoading(uuid: UUID())
+        
+        var isFirst = true
+        
+        // then
+        let expectation = expectation(description: "should emit")
+        let subscription = sut.$isLoading
+            .sink { loading in
+                if isFirst {
+                    isFirst.toggle()
+                } else {
+                    XCTAssertTrue(loading)
+                    expectation.fulfill()
+                }
+            }
+        
+        wait(for: [expectation], timeout: 1)
+    }
+    
     func testShouldEmitTrueAsNotEnoughStopped() {
         // when
-        sut.setLoading()
-        sut.setLoading()
-        sut.stopLoading()
+        let firstUUID = sut.setLoading(text: "first")
+        let secondUUID = sut.setLoading(text: "second")
+        sut.stopLoading(uuid: firstUUID)
         
         // then
         let expectation = expectation(description: "should emit")
@@ -65,5 +96,8 @@ final class LoadingIndicatorServiceTests: XCTestCase {
             }
         
         wait(for: [expectation], timeout: 1)
+        
+        XCTAssertEqual(sut.currentTexts.first, "second")
+        
     }
 }

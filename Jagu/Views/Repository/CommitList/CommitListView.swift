@@ -45,12 +45,6 @@ struct CommitListView: View {
                 }
             }
             .frame(minWidth: 1400, minHeight: 800)
-        } else {
-            ProgressView()
-                .progressViewStyle(.circular)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .gitErrorAlert(gitError: $commitListViewModel.gitError)
-                .frame(minWidth: 1400, minHeight: 800)
         }
     }
     

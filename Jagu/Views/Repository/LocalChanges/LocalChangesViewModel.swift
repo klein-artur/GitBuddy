@@ -122,10 +122,13 @@ class LocalChangesViewModel: BaseRepositoryViewModel {
             } else if !self.selectedUnstagedChanges.isEmpty {
                 try await self.repository.stage(files: self.selectedUnstagedChanges.map { $0.leftItem.change.path })
             } else {
-                _ = try await self.repository.stage(file: change?.path)
-            }
-            if self.selectedUnstagedChanges.isEmpty {
                 _ = try await self.repository.stage(file: nil)
+            }
+            self.stagedChanges.forEach { line in
+                line.selected = false
+            }
+            self.unstagedChanges.forEach { line in
+                line.selected = false
             }
         }
     }
@@ -140,10 +143,13 @@ class LocalChangesViewModel: BaseRepositoryViewModel {
             } else if !self.selectedStagedChanges.isEmpty {
                 try await self.repository.unstage(files: self.selectedStagedChanges.map { $0.leftItem.change.path })
             } else {
-                _ = try await self.repository.unstage(file: change?.path)
-            }
-            if self.selectedStagedChanges.isEmpty {
                 _ = try await self.repository.unstage(file: nil)
+            }
+            self.stagedChanges.forEach { line in
+                line.selected = false
+            }
+            self.unstagedChanges.forEach { line in
+                line.selected = false
             }
         }
     }
@@ -211,7 +217,13 @@ class LocalChangesViewModel: BaseRepositoryViewModel {
                             return
                         }
                         self.defaultTask {
-                            try await self.repository.revert(unstagedFiles: self.selectedUnstagedChanges.map { $0.leftItem.change.path })
+                            try await self.repository.revert(unstagedFiles: self.selectedUnstagedChanges.map { $0.leftItem.change.path })
+                            self.stagedChanges.forEach { line in
+                                line.selected = false
+                            }
+                            self.unstagedChanges.forEach { line in
+                                line.selected = false
+                            }
                         }
                     }
                 )

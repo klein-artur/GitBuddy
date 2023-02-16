@@ -28,12 +28,12 @@ class CommandInputViewModel: BaseRepositoryViewModel {
     }
     
     func run() {
-        setLoading()
+        let uuid = setLoading(text: "")
         let pipe = Pipe()
         Git.raw(self.commandInput).run(inputPipe: pipe)
             .receive(on: RunLoop.main)
             .sink(receiveCompletion: { [weak self] completion in
-                self?.stopLoading()
+                self?.stopLoading(uuid: uuid)
                 print("command input: Done!")
                 if self?.commandOutput.isEmpty == true {
                     self?.commandOutput = "done"

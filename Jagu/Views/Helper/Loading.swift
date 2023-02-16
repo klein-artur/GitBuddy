@@ -6,33 +6,37 @@
 //
 
 import SwiftUI
+import SwiftDose
+
+class LoadingViewModel: BaseViewModel { }
 
 struct LoadingModifier: ViewModifier {
-    @Binding var isLoading: Bool
+    
+    @ObservedObject var loadingViewModel = LoadingViewModel()
     
     func body(content: Content) -> some View {
-        content
-            .overlay {
-                if isLoading {
-                    VStack(alignment: .center) {
-                        HStack(alignment: .center) {
-                            ProgressView()
-                                .padding(32)
-                        }
-                        .background(.thickMaterial, in: RoundedRectangle(cornerRadius: 8))
+        content.overlay {
+            if loadingViewModel.isLoading {
+                VStack(alignment: .center) {
+                    HStack(alignment: .center) {
+                        ProgressView()
+                            .padding(32)
                     }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .ignoresSafeArea()
-                    .allowsHitTesting(true)
-                    .contentShape(Rectangle())
-                    .background(.ultraThinMaterial)
+                    .background(.thickMaterial, in: RoundedRectangle(cornerRadius: 8))
+                    Text(loadingViewModel.loadingIndicatorService.currentTexts.joined(separator: "\n"))
                 }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .ignoresSafeArea()
+                .allowsHitTesting(true)
+                .contentShape(Rectangle())
+                .background(.ultraThinMaterial)
             }
+        }
     }
 }
 
 extension View {
-    func loading(isLoading: Binding<Bool>) -> some View {
-        modifier(LoadingModifier(isLoading: isLoading))
+    func showLoadingIndicator() -> some View {
+        modifier(LoadingModifier())
     }
 }

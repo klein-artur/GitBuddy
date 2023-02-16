@@ -35,7 +35,7 @@ JaguApp: App {
             .onAppear {
                 self.mainViewModel.repoPathPublisher = appDelegate.$currentRepoDir
             }
-            .loading(isLoading: $mainViewModel.isLoading)
+            .showLoadingIndicator()
             .generalAlert(item: $mainViewModel.alertItem)
             .sheet(isPresented: $showCommandView) {
                 CommandInputView(viewModel: CommandInputViewModel())
@@ -59,7 +59,7 @@ JaguApp: App {
             }
             CommandMenu("Repository") {
                 Button("Fetch") {
-                    mainViewModel.defaultTask {
+                    mainViewModel.defaultTask(infoText: "Fetching new data".localized) {
                         try await GitRepo.standard.fetch()
                     }
                 }
