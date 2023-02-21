@@ -112,8 +112,8 @@ struct LocalChangesView: View {
                 HStack(spacing: 16) {
                     Text(staged ? "staged changes" : "unstaged changes")
                     Spacer()
-                    if !staged {
-                        Button(viewModel.revertButtonText()) {
+                    if let text = viewModel.revertButtonText(), !staged {
+                        Button(text) {
                             viewModel.revertSelectedCanges()
                         }
                         .buttonStyle(LinkButtonStyle())

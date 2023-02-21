@@ -323,8 +323,11 @@ class LocalChangesViewModel: BaseRepositoryViewModel {
         }
     }
     
-    func revertButtonText() -> String {
-        (selectedUnstagedChanges.isEmpty ? "revert all" : "revert selected").localized
+    func revertButtonText() -> String? {
+        guard let status = status, !status.isMerging && !status.isRebasing else {
+            return nil
+        }
+        return (selectedUnstagedChanges.isEmpty ? "revert all" : "revert selected").localized
     }
     
     func getChangeFor(item: ChangeLine, staged: Bool, offset: Int) -> DiffChange? {

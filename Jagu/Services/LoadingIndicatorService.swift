@@ -20,12 +20,13 @@ class LoadingIndicatorService {
     var loadingIndicators: [UUID: String] = [:]
     
     func setLoading(text: String) -> UUID {
+        print("loading: set loading")
         if loadingIndicators.isEmpty {
-            timerCancellable = Timer.publish(every: 0.5, on: .main, in: .default)
+            timerCancellable = Timer.publish(every: 1, on: .main, in: .default)
                 .autoconnect()
                 .first()
                 .sink(receiveValue: { tick in
-                    self.updateLoading()
+                    self.updateLoading(to: true)
                 })
         }
         let newUUID = UUID()
@@ -34,15 +35,22 @@ class LoadingIndicatorService {
     }
     
     func stopLoading(uuid: UUID) {
+        print("loading: stop loading")
         loadingIndicators.removeValue(forKey: uuid)
-        updateLoading()
+        updateLoading(to: false)
         if loadingIndicators.isEmpty {
+            print("loading: cancelling timer")
             timerCancellable?.cancel()
             timerCancellable = nil
         }
     }
     
-    private func updateLoading() {
-        isLoading = !loadingIndicators.isEmpty
+    private func updateLoading(to loading: Bool) {
+        let newValue = !loadingIndicators.isEmpty
+        
+        if isLoading != newValue && newValue == loading {
+            print("loading: will update loading to \(newValue)")
+            isLoading = newValue
+        }
     }
 }

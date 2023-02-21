@@ -38,9 +38,9 @@ final class LoadingIndicatorServiceTests: XCTestCase {
                 }
             }
         
-        wait(for: [expectation], timeout: 1)
+        wait(for: [expectation], timeout: 2)
         XCTAssertTrue(sut.currentTexts.isEmpty)
-        XCTAssertGreaterThan((Date.now.timeIntervalSince1970 * 1000) - currentTime, 500)
+        XCTAssertGreaterThan((Date.now.timeIntervalSince1970 * 1000) - currentTime, 1000)
     }
     
     func testShouldEmitFalse() {
