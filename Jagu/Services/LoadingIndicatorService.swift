@@ -22,7 +22,7 @@ class LoadingIndicatorService {
     func setLoading(text: String) -> UUID {
         print("loading: set loading")
         if loadingIndicators.isEmpty {
-            timerCancellable = Timer.publish(every: 1, on: .main, in: .default)
+            timerCancellable = Timer.publish(every: 0.5, on: .main, in: .default)
                 .autoconnect()
                 .first()
                 .sink(receiveValue: { tick in

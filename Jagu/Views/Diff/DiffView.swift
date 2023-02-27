@@ -33,11 +33,12 @@ struct DiffView: View {
         .onAppear {
             viewModel.dismiss = _dismiss.wrappedValue
         }
+        .showLoadingIndicator()
     }
     
     @ViewBuilder
     private func diffView(diff: Diff, isStaged: Bool?) -> some View {
-        LazyVStack {
+        VStack {
             GroupBox {
                 HStack {
                     VStack(alignment: .leading) {
@@ -76,7 +77,7 @@ struct DiffView: View {
     @ViewBuilder
     private func hunkView(hunk: Hunk, index: Int, isStaged: Bool?) -> some View {
         GroupBox {
-            LazyVStack(alignment: .leading) {
+            VStack(alignment: .leading) {
                 Text("Hunk Nr. \(index + 1)")
                     .frame(maxWidth: .infinity)
                     .overlay(alignment: .topTrailing) {
@@ -94,7 +95,7 @@ struct DiffView: View {
                             }
                         }
                     }
-                LazyVStack {
+                VStack {
                     ForEach(Array(hunk.viewHunkLines.enumerated()), id: \.element.id) { line in
                         HStack {
                             lineView(line: line.element)
@@ -149,19 +150,19 @@ struct DiffView: View {
                 .font(Font.system(size: 10).monospaced())
                 .frame(width: 25, alignment: .leading)
                 .padding(.trailing, 4)
-                .foregroundColor(.secondary)
+                .foregroundColor(.gray)
             Text(line.rightLine ?? "")
                 .font(Font.system(size: 10).monospaced())
                 .frame(width: 25, alignment: .leading)
                 .padding(.trailing, 8)
-                .foregroundColor(.secondary)
+                .foregroundColor(.gray)
             Text(line.line.content.prefix(1))
                 .font(Font.system(size: 12).monospaced())
-                .foregroundColor(.secondary)
+                .foregroundColor(.gray)
             Text(line.line.cleanedContent)
                 .font(Font.system(size: 12).monospaced())
                 .background(color)
-                .foregroundColor(.primary)
+                .foregroundColor(.white)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(color)
