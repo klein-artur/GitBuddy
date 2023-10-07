@@ -7,8 +7,16 @@
 
 import Foundation
 import GitCaller
+import Combine
 
 class PreviewRepo: Repository {
+    var repositoryUpdated = PassthroughSubject<Void, Never>()
+
+    var listOfSubmodules: SubmoduleResult {
+        get async throws {
+            fatalError("Preview and Test Repo implementation used in productive code!")
+        }
+    }
     func stage(files paths: [String]) async throws {
         fatalError("Preview and Test Repo implementation used in productive code!")
     }

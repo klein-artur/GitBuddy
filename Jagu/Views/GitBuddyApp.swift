@@ -125,7 +125,7 @@ JaguApp: App {
                 }
                 .disabled(mainViewModel.status == nil || mainViewModel.isFavorite)
                 Button {
-                    GitRepo.standard.objectWillChange.send()
+                    GitRepo.standard.repositoryUpdated.send()
                 } label: {
                     Text("Reload")
                 }

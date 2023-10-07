@@ -163,6 +163,7 @@
 		F4E76A852993E57900C16ADC /* RepoFavorite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoFavorite.swift; sourceTree = "<group>"; };
 		F4E76A872993E80300C16ADC /* FavoriteRepoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteRepoService.swift; sourceTree = "<group>"; };
 		F4E76A892993EC1C00C16ADC /* FavoriteRepoServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteRepoServiceTests.swift; sourceTree = "<group>"; };
+		FE5692B42ACEE70A00BEEC54 /* GitCaller */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = GitCaller; path = ../GitCaller; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -975,8 +976,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/klein-artur/GitCaller";
 			requirement = {
-				branch = develop;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.0;
 			};
 		};
 		F490DCC3299399D20058F5D8 /* XCRemoteSwiftPackageReference "Cuckoo" */ = {

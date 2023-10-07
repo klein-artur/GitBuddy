@@ -210,7 +210,11 @@ struct LocalChangeItem: View {
                 .font(Font.system(size: 12).monospaced())
                 .foregroundColor(item.changeKind.infoColor)
             VStack(alignment: .leading) {
-                Text(item.change.path.lastPathComponent ?? "")
+                Text(
+                    item.change.additionals.isEmpty ?
+                    (item.change.path.lastPathComponent ?? "") :
+                        (item.change.path.lastPathComponent ?? "") + " (\(item.change.additionals))"
+                )
                     .lineLimit(1)
                     .fontWeight(.bold)
                 

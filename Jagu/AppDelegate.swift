@@ -16,7 +16,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @Published var currentRepoDir: String? = nil {
         didSet {
             print("this was set to \(currentRepoDir).")
-            GitRepo.standard.objectWillChange.send()
+            GitRepo.standard.repositoryUpdated.send()
         }
     }
     

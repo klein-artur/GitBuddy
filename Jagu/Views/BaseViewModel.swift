@@ -88,7 +88,7 @@ class BaseRepositoryViewModel: BaseViewModel {
     override init() {
         super.init()
         
-        (repository as? GitRepo)?.objectWillChange
+        (repository as? GitRepo)?.repositoryUpdated
             .receive(on: RunLoop.main)
             .sink(
                 receiveCompletion: { _ in },

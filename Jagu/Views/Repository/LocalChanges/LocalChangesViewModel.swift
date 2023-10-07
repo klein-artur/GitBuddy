@@ -19,11 +19,13 @@ struct ChangeItem {
 class ChangeLine: ObservableObject {
     let leftItem: ChangeItem
     let rightItem: ChangeItem?
+    let isSubmodule: Bool
     let onSelected: () -> Void
     
-    init(leftItem: ChangeItem, rightItem: ChangeItem?, onSelected: @escaping () -> Void) {
+    init(leftItem: ChangeItem, rightItem: ChangeItem?, isSubmodule: Bool, onSelected: @escaping () -> Void) {
         self.leftItem = leftItem
         self.rightItem = rightItem
+        self.isSubmodule = isSubmodule
         self.onSelected = onSelected
     }
     
@@ -36,7 +38,7 @@ class ChangeLine: ObservableObject {
 
 class LocalChangesViewModel: BaseRepositoryViewModel {
 
-    @Published var status: StatusResult? {
+    var status: StatusResult? {
         didSet {
             if let status = self.status {
                 let changed = { self.objectWillChange.send() }
@@ -46,30 +48,35 @@ class LocalChangesViewModel: BaseRepositoryViewModel {
                         return ChangeLine(
                             leftItem: ChangeItem(change: change, otherKind: nil),
                             rightItem: nil,
+                            isSubmodule: self.submodules.contains { $0.path == change.path },
                             onSelected: changed
                         )
                     case .bothModified:
                         return ChangeLine(
                             leftItem: ChangeItem(change: change, otherKind: .modified),
                             rightItem: ChangeItem(change: change, otherKind: .modified),
+                            isSubmodule: false,
                             onSelected: changed
                         )
                     case .bothAdded:
                         return ChangeLine(
                             leftItem: ChangeItem(change: change, otherKind: .newFile),
                             rightItem: ChangeItem(change: change, otherKind: .newFile),
+                            isSubmodule: false,
                             onSelected: changed
                         )
                     case .deletedByUs:
                         return ChangeLine(
                             leftItem: ChangeItem(change: change, otherKind: .deleted),
                             rightItem: ChangeItem(change: change, otherKind: .modified),
+                            isSubmodule: false,
                             onSelected: changed
                         )
                     case .deletedByThem:
                         return ChangeLine(
                             leftItem: ChangeItem(change: change, otherKind: .modified),
                             rightItem: ChangeItem(change: change, otherKind: .deleted),
+                            isSubmodule: false,
                             onSelected: changed
                         )
                     }
@@ -78,6 +85,7 @@ class LocalChangesViewModel: BaseRepositoryViewModel {
                     ChangeLine(
                         leftItem: ChangeItem(change: change, otherKind: nil),
                         rightItem: nil,
+                        isSubmodule: false,
                         onSelected: changed
                     )
                 })
@@ -87,6 +95,7 @@ class LocalChangesViewModel: BaseRepositoryViewModel {
     @Published var unstagedChanges: [ChangeLine] = []
     @Published var stagedChanges: [ChangeLine] = []
     @Published var commitMessage: String = ""
+    @Published var submodules: [SubmoduleResult.Submodule] = []
     
     var selectedUnstagedChanges: [ChangeLine] {
         self.unstagedChanges.filter { $0.selected }
@@ -102,12 +111,24 @@ class LocalChangesViewModel: BaseRepositoryViewModel {
     
     override func load() {
         defaultTask { [weak self] in
-            self?.status = try await self?.repository.getStatus()
+            guard let self = self else { return }
             
-            if (self?.status?.status == .merging || self?.status?.status == .rebasing) && self?.commitMessage.isEmpty == true {
-                let mergeCommitMessage = try await self?.repository.getMergeCommitMessage()
-                let rebaseCommitMessage = try await self?.repository.getRebaseCommitMessage()
-                self?.commitMessage = mergeCommitMessage ?? rebaseCommitMessage ?? ""
+            async let status = self.repository.getStatus()
+            async let submodules = self.repository.listOfSubmodules.submodules
+            
+            self.submodules = try await submodules
+            self.status = try await status
+            
+            if (self.status?.status == .merging || self.status?.status == .rebasing) && self.commitMessage.isEmpty == true {
+                let mergeCommitMessage = try await self.repository.getMergeCommitMessage()
+                let rebaseCommitMessage = try await self.repository.getRebaseCommitMessage()
+                if !mergeCommitMessage.isEmpty {
+                    self.commitMessage = mergeCommitMessage
+                } else if !rebaseCommitMessage.isEmpty {
+                    self.commitMessage = rebaseCommitMessage
+                } else {
+                    self.commitMessage = ""
+                }
             }
         }
     }
