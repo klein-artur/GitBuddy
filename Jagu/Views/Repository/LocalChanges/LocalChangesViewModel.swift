@@ -19,13 +19,13 @@ struct ChangeItem {
 class ChangeLine: ObservableObject {
     let leftItem: ChangeItem
     let rightItem: ChangeItem?
-    let isSubmodule: Bool
+    let submoduleInfo: SubmoduleInfo
     let onSelected: () -> Void
     
-    init(leftItem: ChangeItem, rightItem: ChangeItem?, isSubmodule: Bool, onSelected: @escaping () -> Void) {
+    init(leftItem: ChangeItem, rightItem: ChangeItem?, submoduleInfo: SubmoduleInfo, onSelected: @escaping () -> Void) {
         self.leftItem = leftItem
         self.rightItem = rightItem
-        self.isSubmodule = isSubmodule
+        self.submoduleInfo = submoduleInfo
         self.onSelected = onSelected
     }
     
@@ -33,6 +33,13 @@ class ChangeLine: ObservableObject {
         didSet {
             self.onSelected()
         }
+    }
+    
+    enum SubmoduleInfo {
+        case notSubmodule
+        case modified
+        case missing
+        case conflicted
     }
 }
 
@@ -48,35 +55,35 @@ class LocalChangesViewModel: BaseRepositoryViewModel {
                         return ChangeLine(
                             leftItem: ChangeItem(change: change, otherKind: nil),
                             rightItem: nil,
-                            isSubmodule: self.submodules.contains { $0.path == change.path },
+                            submoduleInfo: self.submodules.first { $0.path == change.path }?.state.changeState ?? .notSubmodule,
                             onSelected: changed
                         )
                     case .bothModified:
                         return ChangeLine(
                             leftItem: ChangeItem(change: change, otherKind: .modified),
                             rightItem: ChangeItem(change: change, otherKind: .modified),
-                            isSubmodule: false,
+                            submoduleInfo: .notSubmodule,
                             onSelected: changed
                         )
                     case .bothAdded:
                         return ChangeLine(
                             leftItem: ChangeItem(change: change, otherKind: .newFile),
                             rightItem: ChangeItem(change: change, otherKind: .newFile),
-                            isSubmodule: false,
+                            submoduleInfo: .notSubmodule,
                             onSelected: changed
                         )
                     case .deletedByUs:
                         return ChangeLine(
                             leftItem: ChangeItem(change: change, otherKind: .deleted),
                             rightItem: ChangeItem(change: change, otherKind: .modified),
-                            isSubmodule: false,
+                            submoduleInfo: .notSubmodule,
                             onSelected: changed
                         )
                     case .deletedByThem:
                         return ChangeLine(
                             leftItem: ChangeItem(change: change, otherKind: .modified),
                             rightItem: ChangeItem(change: change, otherKind: .deleted),
-                            isSubmodule: false,
+                            submoduleInfo: .notSubmodule,
                             onSelected: changed
                         )
                     }
@@ -85,7 +92,7 @@ class LocalChangesViewModel: BaseRepositoryViewModel {
                     ChangeLine(
                         leftItem: ChangeItem(change: change, otherKind: nil),
                         rightItem: nil,
-                        isSubmodule: false,
+                        submoduleInfo: .notSubmodule,
                         onSelected: changed
                     )
                 })
@@ -423,6 +430,12 @@ class LocalChangesViewModel: BaseRepositoryViewModel {
             return ""
         }
     }
+    
+    func updateSubmodule(change: Change) {
+        defaultTask { [weak self] in
+            try await self?.repository.update(submodule: change.path)
+        }
+    }
 }
 
 extension StatusResult {
@@ -434,5 +447,20 @@ extension StatusResult {
 extension Change: Equatable {
     public static func == (lhs: Change, rhs: Change) -> Bool {
         lhs.path == rhs.path
+    }
+}
+
+private extension SubmoduleResult.Submodule.State {
+    var changeState: ChangeLine.SubmoduleInfo? {
+        switch self {
+        case .modified:
+            return .modified
+        case .conflicted:
+            return .conflicted
+        case .missing:
+            return .missing
+        default:
+            return nil
+        }
     }
 }

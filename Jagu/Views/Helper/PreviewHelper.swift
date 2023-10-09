@@ -393,5 +393,9 @@ class PreviewRepo: Repository {
      
      
     """
+    
+    func update(submodule path: String) async throws {
+        fatalError("Preview and Test Repo implementation used in productive code!")
+    }
 }
 

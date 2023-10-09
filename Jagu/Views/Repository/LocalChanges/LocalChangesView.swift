@@ -164,13 +164,15 @@ struct LocalChangeItem: View {
                     .padding(.leading, 8)
             }
             if showButton && change.rightItem == nil {
-                if let diffChange = viewModel.getChangeFor(item: change, staged: staged, offset: 0) {
-                    Spacer()
-                    Button("Details") {
-                        localChangesFilePath = diffChange
+                switch change.submoduleInfo {
+                case .notSubmodule:
+                    if let diffChange = viewModel.getChangeFor(item: change, staged: staged, offset: 0) {
+                        Spacer()
+                        Button("Details") {
+                            localChangesFilePath = diffChange
+                        }
                     }
-                }
-                if change.leftItem.change.state != .staged && change.leftItem.changeKind.revertable {
+                    if change.leftItem.change.state != .staged && change.leftItem.changeKind.revertable {
                         if !change.leftItem.change.kind.canShowDetails {
                             Spacer()
                         }
@@ -178,6 +180,20 @@ struct LocalChangeItem: View {
                             viewModel.revert(change: change.leftItem.change)
                         }
                     }
+                case .modified:
+                    Button("Update Submodule") {
+                        viewModel.updateSubmodule(change: change.leftItem.change)
+                    }
+                    if let diffChange = viewModel.getChangeFor(item: change, staged: staged, offset: 0) {
+                        Spacer()
+                        Button("Details") {
+                            localChangesFilePath = diffChange
+                        }
+                    }
+                case .missing: EmptyView()
+                case .conflicted: EmptyView()
+                }
+                
             }
         }
             .padding(.vertical, 2)
