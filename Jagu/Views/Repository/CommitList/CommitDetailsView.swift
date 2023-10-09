@@ -75,7 +75,7 @@ struct CommitDetailsView_Previews: PreviewProvider {
             viewModel: CommitDetailsViewModel(commitHash: "")
         )
         .onAppear {
-            DoseValues[RepositoryProvider.self] = PreviewRepo()
+            DoseBindings[\.repository] = SingletonProvider(PreviewRepo())
         }
     }
 }

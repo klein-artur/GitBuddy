@@ -210,7 +210,7 @@ struct BranchListView_Previews: PreviewProvider {
             )
         )
         .onAppear {
-            DoseValues[RepositoryProvider.self] = PreviewRepo()
+            DoseBindings[\.repository] = SingletonProvider(PreviewRepo())
         }
     }
 }

@@ -108,7 +108,7 @@ struct ContentView_Previews: PreviewProvider {
                 )
             )
             .onAppear {
-                DoseValues[RepositoryProvider.self] = PreviewRepo()
+                DoseBindings[\.repository] = SingletonProvider(PreviewRepo())
             }
             .previewDisplayName("No Repo")
             
@@ -120,7 +120,7 @@ struct ContentView_Previews: PreviewProvider {
                 )
             )
             .onAppear {
-                DoseValues[RepositoryProvider.self] = PreviewRepo()
+                DoseBindings[\.repository] = SingletonProvider(PreviewRepo())
             }
             .previewDisplayName("Default State")
         }

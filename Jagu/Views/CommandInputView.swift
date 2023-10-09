@@ -72,7 +72,7 @@ struct CommandInputView_Previews: PreviewProvider {
             viewModel: CommandInputViewModel()
         )
         .onAppear {
-            DoseValues[RepositoryProvider.self] = PreviewRepo()
+            DoseBindings[\.repository] = SingletonProvider(PreviewRepo())
         }
     }
 }

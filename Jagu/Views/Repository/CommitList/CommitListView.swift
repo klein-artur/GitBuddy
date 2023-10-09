@@ -155,7 +155,7 @@ struct CommitListView_Previews: PreviewProvider {
         )
         .frame(width: 1000, height: 800)
         .onAppear {
-            DoseValues[RepositoryProvider.self] = PreviewRepo()
+            DoseBindings[\.repository] = SingletonProvider(PreviewRepo())
         }
     }
 }

@@ -53,7 +53,9 @@ struct FavoritesView_Previews: PreviewProvider {
             )
         )
         .onAppear {
-            DoseValues[FavoriteRepoServiceProvider.self] = PreviewFavoriteRepoService()
+            DoseBindings[\.favoriteRepoService] = InstanceProvider {
+                PreviewFavoriteRepoService()
+            }
         }
     }
 }

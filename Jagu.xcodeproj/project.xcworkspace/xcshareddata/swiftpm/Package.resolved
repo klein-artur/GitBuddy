@@ -14,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/klein-artur/SwiftDose",
       "state" : {
-        "branch" : "main",
-        "revision" : "10388bb98625d8b99f15c71e21e6607d0dcaf13d"
+        "revision" : "06fd3837e38d0d014deaae4958a3ed5974dbc0f4",
+        "version" : "1.0.0"
       }
     }
   ],
